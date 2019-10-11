@@ -813,29 +813,354 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pfun/c_trampoline.pyx",
   "stringsource",
+  "pfun/c_trampoline.pyx",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_4pfun_12c_trampoline_CTrampoline;
+struct __pyx_obj_4pfun_12c_trampoline_List;
+struct __pyx_obj_4pfun_12c_trampoline_Empty;
+struct __pyx_obj_4pfun_12c_trampoline_Cons;
+struct __pyx_obj_4pfun_12c_trampoline_Trampoline;
+struct __pyx_obj_4pfun_12c_trampoline_Done;
+struct __pyx_obj_4pfun_12c_trampoline_Call;
+struct __pyx_obj_4pfun_12c_trampoline_AndThen;
+struct __pyx_obj_4pfun_12c_trampoline_Reader;
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then;
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda;
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then;
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2;
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4;
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine;
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7;
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap;
+
+/* "pfun/c_trampoline.pyx":135
+ * 
+ * 
+ * ctypedef Reader (*reducer)(Reader, Reader)             # <<<<<<<<<<<<<<
+ * 
+ * cdef Reader reduce(List l, reducer f, Reader init):
+ */
+typedef struct __pyx_obj_4pfun_12c_trampoline_Reader *(*__pyx_t_4pfun_12c_trampoline_reducer)(struct __pyx_obj_4pfun_12c_trampoline_Reader *, struct __pyx_obj_4pfun_12c_trampoline_Reader *);
 
 /* "pfun/c_trampoline.pyx":1
- * cdef class CTrampoline:             # <<<<<<<<<<<<<<
- *     cpdef double run(self) except *:
- *         print('hello')
+ * cdef class List:             # <<<<<<<<<<<<<<
+ *     cpdef List append(self, object other):
+ *         return Cons(other, self)
  */
-struct __pyx_obj_4pfun_12c_trampoline_CTrampoline {
+struct __pyx_obj_4pfun_12c_trampoline_List {
   PyObject_HEAD
-  struct __pyx_vtabstruct_4pfun_12c_trampoline_CTrampoline *__pyx_vtab;
+  struct __pyx_vtabstruct_4pfun_12c_trampoline_List *__pyx_vtab;
+};
+
+
+/* "pfun/c_trampoline.pyx":21
+ * 
+ * 
+ * cdef class Empty(List):             # <<<<<<<<<<<<<<
+ *     pass
+ * 
+ */
+struct __pyx_obj_4pfun_12c_trampoline_Empty {
+  struct __pyx_obj_4pfun_12c_trampoline_List __pyx_base;
+};
+
+
+/* "pfun/c_trampoline.pyx":37
+ * 
+ * 
+ * cdef class Cons(List):             # <<<<<<<<<<<<<<
+ *     cdef object head
+ *     cdef List tail
+ */
+struct __pyx_obj_4pfun_12c_trampoline_Cons {
+  struct __pyx_obj_4pfun_12c_trampoline_List __pyx_base;
+  PyObject *head;
+  struct __pyx_obj_4pfun_12c_trampoline_List *tail;
+};
+
+
+/* "pfun/c_trampoline.pyx":46
+ * 
+ * 
+ * cdef class Trampoline:             # <<<<<<<<<<<<<<
+ *     def and_then(self, f):
+ *         return self._and_then(f)
+ */
+struct __pyx_obj_4pfun_12c_trampoline_Trampoline {
+  PyObject_HEAD
+  struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline *__pyx_vtab;
+};
+
+
+/* "pfun/c_trampoline.pyx":77
+ * 
+ * 
+ * cdef class Done(Trampoline):             # <<<<<<<<<<<<<<
+ *     cdef object result
+ * 
+ */
+struct __pyx_obj_4pfun_12c_trampoline_Done {
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline __pyx_base;
+  PyObject *result;
+};
+
+
+/* "pfun/c_trampoline.pyx":83
+ *         self.result = result
+ * 
+ * cdef class Call(Trampoline):             # <<<<<<<<<<<<<<
+ *     cdef object thunk
+ * 
+ */
+struct __pyx_obj_4pfun_12c_trampoline_Call {
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline __pyx_base;
+  PyObject *thunk;
+};
+
+
+/* "pfun/c_trampoline.pyx":89
+ *         self.thunk = thunk
+ * 
+ * cdef class AndThen(Trampoline):             # <<<<<<<<<<<<<<
+ *     cdef Trampoline sub
+ *     cdef object cont
+ */
+struct __pyx_obj_4pfun_12c_trampoline_AndThen {
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline __pyx_base;
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline *sub;
+  PyObject *cont;
+};
+
+
+/* "pfun/c_trampoline.pyx":103
+ *         )
+ * 
+ * cdef class Reader:             # <<<<<<<<<<<<<<
+ *     cdef object run_r
+ * 
+ */
+struct __pyx_obj_4pfun_12c_trampoline_Reader {
+  PyObject_HEAD
+  struct __pyx_vtabstruct_4pfun_12c_trampoline_Reader *__pyx_vtab;
+  PyObject *run_r;
+};
+
+
+/* "pfun/c_trampoline.pyx":97
+ *         self.cont = cont
+ * 
+ *     cdef Trampoline _and_then(self, object f):             # <<<<<<<<<<<<<<
+ *         return AndThen(
+ *             self.sub,
+ */
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then {
+  PyObject_HEAD
+  PyObject *__pyx_v_f;
+  struct __pyx_obj_4pfun_12c_trampoline_AndThen *__pyx_v_self;
+};
+
+
+/* "pfun/c_trampoline.pyx":100
+ *         return AndThen(
+ *             self.sub,
+ *             lambda x: Call(lambda: self.cont(x).and_then(f))  # type: ignore             # <<<<<<<<<<<<<<
+ *         )
+ * 
+ */
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda {
+  PyObject_HEAD
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *__pyx_outer_scope;
+  PyObject *__pyx_v_x;
+};
+
+
+/* "pfun/c_trampoline.pyx":118
+ *         return self._and_then(f)
+ * 
+ *     cdef Reader _and_then(self, object f):             # <<<<<<<<<<<<<<
+ *         return Reader(lambda context: Call(lambda: self.run_r(context).and_then(lambda v: Call(lambda: (<Reader>f(v)).run_r(context)))))
+ * 
+ */
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then {
+  PyObject_HEAD
+  PyObject *__pyx_v_f;
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self;
+};
+
+
+/* "pfun/c_trampoline.pyx":119
+ * 
+ *     cdef Reader _and_then(self, object f):
+ *         return Reader(lambda context: Call(lambda: self.run_r(context).and_then(lambda v: Call(lambda: (<Reader>f(v)).run_r(context)))))             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 {
+  PyObject_HEAD
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *__pyx_outer_scope;
+  PyObject *__pyx_v_context;
+};
+
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 {
+  PyObject_HEAD
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *__pyx_outer_scope;
+  PyObject *__pyx_v_v;
+};
+
+
+/* "pfun/c_trampoline.pyx":147
+ *     return r
+ * 
+ * cdef Reader combine(Reader r1, Reader r2):             # <<<<<<<<<<<<<<
+ *     cdef List l
+ *     cdef object e
+ */
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine {
+  PyObject_HEAD
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_r2;
+};
+
+
+/* "pfun/c_trampoline.pyx":150
+ *     cdef List l
+ *     cdef object e
+ *     return r1.and_then(lambda l: r2.and_then(lambda e: _wrap((<List>l).append(e))))             # <<<<<<<<<<<<<<
+ * 
+ * cdef Reader _sequence(List readers):
+ */
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 {
+  PyObject_HEAD
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *__pyx_outer_scope;
+  PyObject *__pyx_v_l;
+};
+
+
+/* "pfun/c_trampoline.pyx":162
+ * 
+ * 
+ * cdef Reader _wrap(object value):             # <<<<<<<<<<<<<<
+ *     return Reader(lambda _: Done(value))
+ */
+struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap {
+  PyObject_HEAD
+  PyObject *__pyx_v_value;
 };
 
 
 
-struct __pyx_vtabstruct_4pfun_12c_trampoline_CTrampoline {
-  double (*run)(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *, int __pyx_skip_dispatch);
+/* "pfun/c_trampoline.pyx":1
+ * cdef class List:             # <<<<<<<<<<<<<<
+ *     cpdef List append(self, object other):
+ *         return Cons(other, self)
+ */
+
+struct __pyx_vtabstruct_4pfun_12c_trampoline_List {
+  struct __pyx_obj_4pfun_12c_trampoline_List *(*append)(struct __pyx_obj_4pfun_12c_trampoline_List *, PyObject *, int __pyx_skip_dispatch);
+  PyObject *(*_repr)(struct __pyx_obj_4pfun_12c_trampoline_List *);
 };
-static struct __pyx_vtabstruct_4pfun_12c_trampoline_CTrampoline *__pyx_vtabptr_4pfun_12c_trampoline_CTrampoline;
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_List *__pyx_vtabptr_4pfun_12c_trampoline_List;
+
+
+/* "pfun/c_trampoline.pyx":21
+ * 
+ * 
+ * cdef class Empty(List):             # <<<<<<<<<<<<<<
+ *     pass
+ * 
+ */
+
+struct __pyx_vtabstruct_4pfun_12c_trampoline_Empty {
+  struct __pyx_vtabstruct_4pfun_12c_trampoline_List __pyx_base;
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Empty *__pyx_vtabptr_4pfun_12c_trampoline_Empty;
+
+
+/* "pfun/c_trampoline.pyx":37
+ * 
+ * 
+ * cdef class Cons(List):             # <<<<<<<<<<<<<<
+ *     cdef object head
+ *     cdef List tail
+ */
+
+struct __pyx_vtabstruct_4pfun_12c_trampoline_Cons {
+  struct __pyx_vtabstruct_4pfun_12c_trampoline_List __pyx_base;
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Cons *__pyx_vtabptr_4pfun_12c_trampoline_Cons;
+
+
+/* "pfun/c_trampoline.pyx":46
+ * 
+ * 
+ * cdef class Trampoline:             # <<<<<<<<<<<<<<
+ *     def and_then(self, f):
+ *         return self._and_then(f)
+ */
+
+struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline {
+  PyObject *(*_run)(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *);
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline *(*_and_then)(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *, PyObject *);
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline *__pyx_vtabptr_4pfun_12c_trampoline_Trampoline;
+
+
+/* "pfun/c_trampoline.pyx":77
+ * 
+ * 
+ * cdef class Done(Trampoline):             # <<<<<<<<<<<<<<
+ *     cdef object result
+ * 
+ */
+
+struct __pyx_vtabstruct_4pfun_12c_trampoline_Done {
+  struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline __pyx_base;
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Done *__pyx_vtabptr_4pfun_12c_trampoline_Done;
+
+
+/* "pfun/c_trampoline.pyx":83
+ *         self.result = result
+ * 
+ * cdef class Call(Trampoline):             # <<<<<<<<<<<<<<
+ *     cdef object thunk
+ * 
+ */
+
+struct __pyx_vtabstruct_4pfun_12c_trampoline_Call {
+  struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline __pyx_base;
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Call *__pyx_vtabptr_4pfun_12c_trampoline_Call;
+
+
+/* "pfun/c_trampoline.pyx":89
+ *         self.thunk = thunk
+ * 
+ * cdef class AndThen(Trampoline):             # <<<<<<<<<<<<<<
+ *     cdef Trampoline sub
+ *     cdef object cont
+ */
+
+struct __pyx_vtabstruct_4pfun_12c_trampoline_AndThen {
+  struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline __pyx_base;
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_AndThen *__pyx_vtabptr_4pfun_12c_trampoline_AndThen;
+
+
+/* "pfun/c_trampoline.pyx":103
+ *         )
+ * 
+ * cdef class Reader:             # <<<<<<<<<<<<<<
+ *     cdef object run_r
+ * 
+ */
+
+struct __pyx_vtabstruct_4pfun_12c_trampoline_Reader {
+  PyObject *(*_run)(struct __pyx_obj_4pfun_12c_trampoline_Reader *, PyObject *);
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *(*_and_then)(struct __pyx_obj_4pfun_12c_trampoline_Reader *, PyObject *);
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Reader *__pyx_vtabptr_4pfun_12c_trampoline_Reader;
 
 /* --- Runtime support code (head) --- */
 /* Refnanny.proto */
@@ -901,6 +1226,16 @@ static struct __pyx_vtabstruct_4pfun_12c_trampoline_CTrampoline *__pyx_vtabptr_4
 #define __Pyx_CLEAR(r)    do { PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);} while(0)
 #define __Pyx_XCLEAR(r)   do { if((r) != NULL) {PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);}} while(0)
 
+/* PyObjectGetAttrStr.proto */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name);
+#else
+#define __Pyx_PyObject_GetAttrStr(o,n) PyObject_GetAttr(o,n)
+#endif
+
+/* GetBuiltinName.proto */
+static PyObject *__Pyx_GetBuiltinName(PyObject *name);
+
 /* PyDictVersioning.proto */
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
 #define __PYX_DICT_VERSION_INIT  ((PY_UINT64_T) -1)
@@ -927,11 +1262,11 @@ static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UIN
 #define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP)  (VAR) = (LOOKUP);
 #endif
 
-/* PyObjectGetAttrStr.proto */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name);
+/* PyCFunctionFastCall.proto */
+#if CYTHON_FAST_PYCCALL
+static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
 #else
-#define __Pyx_PyObject_GetAttrStr(o,n) PyObject_GetAttr(o,n)
+#define __Pyx_PyCFunction_FastCall(func, args, nargs)  (assert(0), NULL)
 #endif
 
 /* PyFunctionFastCall.proto */
@@ -964,27 +1299,19 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 #define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
+/* PyObjectCall2Args.proto */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
+
 /* PyObjectCallMethO.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
 #endif
 
-/* PyObjectCallNoArg.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
-#else
-#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
-#endif
-
-/* PyCFunctionFastCall.proto */
-#if CYTHON_FAST_PYCCALL
-static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
-#else
-#define __Pyx_PyCFunction_FastCall(func, args, nargs)  (assert(0), NULL)
-#endif
-
 /* PyObjectCallOneArg.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
+
+/* ExtTypeTest.proto */
+static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
 /* PyErrExceptionMatches.proto */
 #if CYTHON_FAST_THREAD_STATE
@@ -1036,9 +1363,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetAttr(PyObject *, PyObject *);
 /* GetAttr3.proto */
 static CYTHON_INLINE PyObject *__Pyx_GetAttr3(PyObject *, PyObject *, PyObject *);
 
-/* GetBuiltinName.proto */
-static PyObject *__Pyx_GetBuiltinName(PyObject *name);
-
 /* GetModuleGlobalName.proto */
 #if CYTHON_USE_DICT_VERSIONS
 #define __Pyx_GetModuleGlobalName(var, name)  {\
@@ -1060,6 +1384,13 @@ static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_ve
 static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name);
 #endif
 
+/* PyObjectCallNoArg.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
+#else
+#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
+#endif
+
 /* RaiseArgTupleInvalid.proto */
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
@@ -1072,17 +1403,74 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
 
+/* RaiseException.proto */
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
+
+/* None.proto */
+static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname);
+
+/* FetchCommonType.proto */
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
+
+/* CythonFunction.proto */
+#define __Pyx_CyFunction_USED 1
+#define __Pyx_CYFUNCTION_STATICMETHOD  0x01
+#define __Pyx_CYFUNCTION_CLASSMETHOD   0x02
+#define __Pyx_CYFUNCTION_CCLASS        0x04
+#define __Pyx_CyFunction_GetClosure(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_closure)
+#define __Pyx_CyFunction_GetClassObj(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_classobj)
+#define __Pyx_CyFunction_Defaults(type, f)\
+    ((type *)(((__pyx_CyFunctionObject *) (f))->defaults))
+#define __Pyx_CyFunction_SetDefaultsGetter(f, g)\
+    ((__pyx_CyFunctionObject *) (f))->defaults_getter = (g)
+typedef struct {
+    PyCFunctionObject func;
+#if PY_VERSION_HEX < 0x030500A0
+    PyObject *func_weakreflist;
+#endif
+    PyObject *func_dict;
+    PyObject *func_name;
+    PyObject *func_qualname;
+    PyObject *func_doc;
+    PyObject *func_globals;
+    PyObject *func_code;
+    PyObject *func_closure;
+    PyObject *func_classobj;
+    void *defaults;
+    int defaults_pyobjects;
+    int flags;
+    PyObject *defaults_tuple;
+    PyObject *defaults_kwdict;
+    PyObject *(*defaults_getter)(PyObject *);
+    PyObject *func_annotations;
+} __pyx_CyFunctionObject;
+static PyTypeObject *__pyx_CyFunctionType = 0;
+#define __Pyx_CyFunction_Check(obj)  (__Pyx_TypeCheck(obj, __pyx_CyFunctionType))
+#define __Pyx_CyFunction_NewEx(ml, flags, qualname, self, module, globals, code)\
+    __Pyx_CyFunction_New(__pyx_CyFunctionType, ml, flags, qualname, self, module, globals, code)
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *, PyMethodDef *ml,
+                                      int flags, PyObject* qualname,
+                                      PyObject *self,
+                                      PyObject *module, PyObject *globals,
+                                      PyObject* code);
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *m,
+                                                         size_t size,
+                                                         int pyobjects);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *m,
+                                                            PyObject *tuple);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *m,
+                                                             PyObject *dict);
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *m,
+                                                              PyObject *dict);
+static int __pyx_CyFunction_init(void);
+
 /* Import.proto */
 static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
 /* ImportFrom.proto */
 static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name);
-
-/* PyObjectCall2Args.proto */
-static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
-
-/* RaiseException.proto */
-static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
 
 /* HasAttr.proto */
 static CYTHON_INLINE int __Pyx_HasAttr(PyObject *, PyObject *);
@@ -1108,6 +1496,15 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize
 static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
 static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
                                                      int is_list, int wraparound, int boundscheck);
+
+/* CallNextTpTraverse.proto */
+static int __Pyx_call_next_tp_traverse(PyObject* obj, visitproc v, void *a, traverseproc current_tp_traverse);
+
+/* CallNextTpClear.proto */
+static void __Pyx_call_next_tp_clear(PyObject* obj, inquiry current_tp_dealloc);
+
+/* IncludeStringH.proto */
+#include <string.h>
 
 /* PyObject_GenericGetAttrNoDict.proto */
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
@@ -1155,21 +1552,11 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
-/* Print.proto */
-static int __Pyx_Print(PyObject*, PyObject *, int);
-#if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
-static PyObject* __pyx_print = 0;
-static PyObject* __pyx_print_kwargs = 0;
-#endif
-
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
-
-/* PrintOne.proto */
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
@@ -1193,107 +1580,286 @@ static int __Pyx_check_binary_version(void);
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
-static double __pyx_f_4pfun_12c_trampoline_11CTrampoline_run(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_f_4pfun_12c_trampoline_4List_append(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self, PyObject *__pyx_v_other, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_4pfun_12c_trampoline_4List__repr(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self); /* proto*/
+static PyObject *__pyx_f_4pfun_12c_trampoline_10Trampoline__run(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self); /* proto*/
+static struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_f_4pfun_12c_trampoline_10Trampoline__and_then(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self, PyObject *__pyx_v_f); /* proto*/
+static struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_f_4pfun_12c_trampoline_7AndThen__and_then(struct __pyx_obj_4pfun_12c_trampoline_AndThen *__pyx_v_self, PyObject *__pyx_v_f); /* proto*/
+static PyObject *__pyx_f_4pfun_12c_trampoline_6Reader__run(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, PyObject *__pyx_v_context); /* proto*/
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline_6Reader__and_then(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, PyObject *__pyx_v_f); /* proto*/
 
 /* Module declarations from 'pfun.c_trampoline' */
-static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline_CTrampoline = 0;
-static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_CTrampoline__set_state(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *, PyObject *); /*proto*/
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline_List = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline_Empty = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline_Cons = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline_Trampoline = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline_Done = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline_Call = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline_AndThen = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline_Reader = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_2__and_then = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 = 0;
+static PyTypeObject *__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap = 0;
+static struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_f_4pfun_12c_trampoline__list(PyObject *); /*proto*/
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline__ask(void); /*proto*/
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline_reduce(struct __pyx_obj_4pfun_12c_trampoline_List *, __pyx_t_4pfun_12c_trampoline_reducer, struct __pyx_obj_4pfun_12c_trampoline_Reader *); /*proto*/
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline_combine(struct __pyx_obj_4pfun_12c_trampoline_Reader *, struct __pyx_obj_4pfun_12c_trampoline_Reader *); /*proto*/
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline__sequence(struct __pyx_obj_4pfun_12c_trampoline_List *); /*proto*/
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline__wrap(PyObject *); /*proto*/
+static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_List__set_state(struct __pyx_obj_4pfun_12c_trampoline_List *, PyObject *); /*proto*/
+static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_Empty__set_state(struct __pyx_obj_4pfun_12c_trampoline_Empty *, PyObject *); /*proto*/
+static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_Trampoline__set_state(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *, PyObject *); /*proto*/
 #define __Pyx_MODULE_NAME "pfun.c_trampoline"
 extern int __pyx_module_is_main_pfun__c_trampoline;
 int __pyx_module_is_main_pfun__c_trampoline = 0;
 
 /* Implementation of 'pfun.c_trampoline' */
-static const char __pyx_k_end[] = "end";
+static PyObject *__pyx_builtin_TypeError;
+static const char __pyx_k_[] = ", ";
+static const char __pyx_k__2[] = ")";
+static const char __pyx_k_xs[] = "xs";
+static const char __pyx_k_ask[] = "ask";
 static const char __pyx_k_new[] = "__new__";
 static const char __pyx_k_run[] = "run";
+static const char __pyx_k_sub[] = "sub";
+static const char __pyx_k_Call[] = "Call";
+static const char __pyx_k_Cons[] = "Cons";
+static const char __pyx_k_Done[] = "Done";
+static const char __pyx_k_List[] = "List(";
+static const char __pyx_k_cont[] = "cont";
 static const char __pyx_k_dict[] = "__dict__";
-static const char __pyx_k_file[] = "file";
+static const char __pyx_k_head[] = "head";
+static const char __pyx_k_list[] = "list_";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
+static const char __pyx_k_tail[] = "tail";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_hello[] = "hello";
-static const char __pyx_k_print[] = "print";
+static const char __pyx_k_wrap[] = "wrap";
+static const char __pyx_k_Empty[] = "Empty";
+static const char __pyx_k_run_r[] = "run_r";
+static const char __pyx_k_thunk[] = "thunk";
+static const char __pyx_k_value[] = "value";
+static const char __pyx_k_List_2[] = "List";
+static const char __pyx_k_Reader[] = "Reader";
+static const char __pyx_k_append[] = "append";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_pickle[] = "pickle";
 static const char __pyx_k_reduce[] = "__reduce__";
+static const char __pyx_k_result[] = "result";
 static const char __pyx_k_update[] = "update";
+static const char __pyx_k_AndThen[] = "AndThen";
+static const char __pyx_k_readers[] = "readers";
+static const char __pyx_k_and_then[] = "and_then";
 static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_pyx_type[] = "__pyx_type";
+static const char __pyx_k_sequence[] = "sequence";
 static const char __pyx_k_setstate[] = "__setstate__";
+static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_pyx_state[] = "__pyx_state";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
+static const char __pyx_k_Trampoline[] = "Trampoline";
 static const char __pyx_k_pyx_result[] = "__pyx_result";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
-static const char __pyx_k_CTrampoline[] = "CTrampoline";
 static const char __pyx_k_PickleError[] = "PickleError";
 static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
 static const char __pyx_k_stringsource[] = "stringsource";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
+static const char __pyx_k_ask_locals_lambda[] = "_ask.<locals>.<lambda>";
 static const char __pyx_k_pfun_c_trampoline[] = "pfun.c_trampoline";
+static const char __pyx_k_pyx_unpickle_List[] = "__pyx_unpickle_List";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_pyx_unpickle_CTrampoline[] = "__pyx_unpickle_CTrampoline";
+static const char __pyx_k_pyx_unpickle_Empty[] = "__pyx_unpickle_Empty";
+static const char __pyx_k_wrap_locals_lambda[] = "_wrap.<locals>.<lambda>";
+static const char __pyx_k_combine_locals_lambda[] = "combine.<locals>.<lambda>";
+static const char __pyx_k_pfun_c_trampoline_pyx[] = "pfun/c_trampoline.pyx";
+static const char __pyx_k_pyx_unpickle_Trampoline[] = "__pyx_unpickle_Trampoline";
+static const char __pyx_k_Reader__and_then_locals_lambda[] = "Reader._and_then.<locals>.<lambda>";
+static const char __pyx_k_AndThen__and_then_locals_lambda[] = "AndThen._and_then.<locals>.<lambda>.<locals>.<lambda>";
 static const char __pyx_k_Incompatible_checksums_s_vs_0xd4[] = "Incompatible checksums (%s vs 0xd41d8cd = ())";
-static PyObject *__pyx_n_s_CTrampoline;
+static const char __pyx_k_Reader__and_then_locals_lambda_l[] = "Reader._and_then.<locals>.<lambda>.<locals>.<lambda>.<locals>.<lambda>.<locals>.<lambda>";
+static const char __pyx_k_combine_locals_lambda_locals_lam[] = "combine.<locals>.<lambda>.<locals>.<lambda>";
+static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
+static const char __pyx_k_AndThen__and_then_locals_lambda_2[] = "AndThen._and_then.<locals>.<lambda>";
+static const char __pyx_k_Reader__and_then_locals_lambda_l_2[] = "Reader._and_then.<locals>.<lambda>.<locals>.<lambda>.<locals>.<lambda>";
+static const char __pyx_k_Reader__and_then_locals_lambda_l_3[] = "Reader._and_then.<locals>.<lambda>.<locals>.<lambda>";
+static PyObject *__pyx_kp_s_;
+static PyObject *__pyx_n_s_AndThen;
+static PyObject *__pyx_n_s_AndThen__and_then_locals_lambda;
+static PyObject *__pyx_n_s_AndThen__and_then_locals_lambda_2;
+static PyObject *__pyx_n_s_Call;
+static PyObject *__pyx_n_s_Cons;
+static PyObject *__pyx_n_s_Done;
+static PyObject *__pyx_n_s_Empty;
 static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xd4;
+static PyObject *__pyx_kp_s_List;
+static PyObject *__pyx_n_s_List_2;
 static PyObject *__pyx_n_s_PickleError;
+static PyObject *__pyx_n_s_Reader;
+static PyObject *__pyx_n_s_Reader__and_then_locals_lambda;
+static PyObject *__pyx_n_s_Reader__and_then_locals_lambda_l;
+static PyObject *__pyx_n_s_Reader__and_then_locals_lambda_l_2;
+static PyObject *__pyx_n_s_Reader__and_then_locals_lambda_l_3;
+static PyObject *__pyx_n_s_Trampoline;
+static PyObject *__pyx_n_s_TypeError;
+static PyObject *__pyx_kp_s__2;
+static PyObject *__pyx_n_s_and_then;
+static PyObject *__pyx_n_s_append;
+static PyObject *__pyx_n_s_ask;
+static PyObject *__pyx_n_s_ask_locals_lambda;
 static PyObject *__pyx_n_s_cline_in_traceback;
+static PyObject *__pyx_n_s_combine_locals_lambda;
+static PyObject *__pyx_n_s_combine_locals_lambda_locals_lam;
+static PyObject *__pyx_n_s_cont;
 static PyObject *__pyx_n_s_dict;
-static PyObject *__pyx_n_s_end;
-static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_getstate;
-static PyObject *__pyx_n_s_hello;
+static PyObject *__pyx_n_s_head;
 static PyObject *__pyx_n_s_import;
+static PyObject *__pyx_n_s_list;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_new;
+static PyObject *__pyx_kp_s_no_default___reduce___due_to_non;
 static PyObject *__pyx_n_s_pfun_c_trampoline;
+static PyObject *__pyx_kp_s_pfun_c_trampoline_pyx;
 static PyObject *__pyx_n_s_pickle;
-static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_pyx_PickleError;
 static PyObject *__pyx_n_s_pyx_checksum;
 static PyObject *__pyx_n_s_pyx_result;
 static PyObject *__pyx_n_s_pyx_state;
 static PyObject *__pyx_n_s_pyx_type;
-static PyObject *__pyx_n_s_pyx_unpickle_CTrampoline;
+static PyObject *__pyx_n_s_pyx_unpickle_Empty;
+static PyObject *__pyx_n_s_pyx_unpickle_List;
+static PyObject *__pyx_n_s_pyx_unpickle_Trampoline;
 static PyObject *__pyx_n_s_pyx_vtable;
+static PyObject *__pyx_n_s_readers;
 static PyObject *__pyx_n_s_reduce;
 static PyObject *__pyx_n_s_reduce_cython;
 static PyObject *__pyx_n_s_reduce_ex;
+static PyObject *__pyx_n_s_result;
 static PyObject *__pyx_n_s_run;
+static PyObject *__pyx_n_s_run_r;
+static PyObject *__pyx_n_s_sequence;
 static PyObject *__pyx_n_s_setstate;
 static PyObject *__pyx_n_s_setstate_cython;
 static PyObject *__pyx_kp_s_stringsource;
+static PyObject *__pyx_n_s_sub;
+static PyObject *__pyx_n_s_tail;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_thunk;
 static PyObject *__pyx_n_s_update;
-static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_run(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_4__setstate_cython__(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_tp_new_4pfun_12c_trampoline_CTrampoline(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_n_s_value;
+static PyObject *__pyx_n_s_wrap;
+static PyObject *__pyx_n_s_wrap_locals_lambda;
+static PyObject *__pyx_n_s_xs;
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4List_append(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4List_2__repr__(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4List_4__reduce_cython__(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4List_6__setstate_cython__(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_5Empty___reduce_cython__(struct __pyx_obj_4pfun_12c_trampoline_Empty *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_5Empty_2__setstate_cython__(struct __pyx_obj_4pfun_12c_trampoline_Empty *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_list_(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_xs); /* proto */
+static int __pyx_pf_4pfun_12c_trampoline_4Cons___cinit__(struct __pyx_obj_4pfun_12c_trampoline_Cons *__pyx_v_self, PyObject *__pyx_v_head, PyObject *__pyx_v_tail); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Cons_2__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Cons *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Cons_4__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Cons *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_10Trampoline_and_then(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self, PyObject *__pyx_v_f); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_10Trampoline_2run(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_10Trampoline_4__reduce_cython__(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_10Trampoline_6__setstate_cython__(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static int __pyx_pf_4pfun_12c_trampoline_4Done___cinit__(struct __pyx_obj_4pfun_12c_trampoline_Done *__pyx_v_self, PyObject *__pyx_v_result); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Done_2__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Done *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Done_4__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Done *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static int __pyx_pf_4pfun_12c_trampoline_4Call___cinit__(struct __pyx_obj_4pfun_12c_trampoline_Call *__pyx_v_self, PyObject *__pyx_v_thunk); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Call_2__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Call *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Call_4__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Call *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static int __pyx_pf_4pfun_12c_trampoline_7AndThen___cinit__(struct __pyx_obj_4pfun_12c_trampoline_AndThen *__pyx_v_self, PyObject *__pyx_v_sub, PyObject *__pyx_v_cont); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda1(PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda(PyObject *__pyx_self, PyObject *__pyx_v_x); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_7AndThen_2__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_AndThen *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_7AndThen_4__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_AndThen *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_6Reader_run(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, PyObject *__pyx_v_context); /* proto */
+static int __pyx_pf_4pfun_12c_trampoline_6Reader_2__cinit__(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, PyObject *__pyx_v_run_r); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_6Reader_4and_then(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, PyObject *__pyx_v_f); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda5(PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda4(PyObject *__pyx_self, PyObject *__pyx_v_v); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda3(PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda2(PyObject *__pyx_self, PyObject *__pyx_v_context); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_6Reader_6__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_6Reader_8__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_2wrap(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4ask(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda6(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_context); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_6sequence(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_readers); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda8(PyObject *__pyx_self, PyObject *__pyx_v_e); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda7(PyObject *__pyx_self, PyObject *__pyx_v_l); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda9(PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v__); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_8__pyx_unpickle_List(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_10__pyx_unpickle_Empty(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_4pfun_12c_trampoline_12__pyx_unpickle_Trampoline(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_List(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Empty(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Cons(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Trampoline(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Done(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Call(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_AndThen(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Reader(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_2__and_then(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_222419149;
-static PyObject *__pyx_tuple_;
-static PyObject *__pyx_codeobj__2;
+static PyObject *__pyx_tuple__3;
+static PyObject *__pyx_tuple__4;
+static PyObject *__pyx_tuple__5;
+static PyObject *__pyx_tuple__6;
+static PyObject *__pyx_tuple__7;
+static PyObject *__pyx_tuple__8;
+static PyObject *__pyx_tuple__9;
+static PyObject *__pyx_tuple__10;
+static PyObject *__pyx_tuple__11;
+static PyObject *__pyx_tuple__12;
+static PyObject *__pyx_tuple__13;
+static PyObject *__pyx_tuple__15;
+static PyObject *__pyx_tuple__18;
+static PyObject *__pyx_tuple__20;
+static PyObject *__pyx_tuple__22;
+static PyObject *__pyx_tuple__24;
+static PyObject *__pyx_codeobj__14;
+static PyObject *__pyx_codeobj__16;
+static PyObject *__pyx_codeobj__17;
+static PyObject *__pyx_codeobj__19;
+static PyObject *__pyx_codeobj__21;
+static PyObject *__pyx_codeobj__23;
+static PyObject *__pyx_codeobj__25;
 /* Late includes */
 
 /* "pfun/c_trampoline.pyx":2
- * cdef class CTrampoline:
- *     cpdef double run(self) except *:             # <<<<<<<<<<<<<<
- *         print('hello')
- *         return 0.0
+ * cdef class List:
+ *     cpdef List append(self, object other):             # <<<<<<<<<<<<<<
+ *         return Cons(other, self)
+ * 
  */
 
-static PyObject *__pyx_pw_4pfun_12c_trampoline_11CTrampoline_1run(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static double __pyx_f_4pfun_12c_trampoline_11CTrampoline_run(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *__pyx_v_self, int __pyx_skip_dispatch) {
-  double __pyx_r;
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4List_1append(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_f_4pfun_12c_trampoline_4List_append(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self, PyObject *__pyx_v_other, int __pyx_skip_dispatch) {
+  struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
-  double __pyx_t_5;
-  __Pyx_RefNannySetupContext("run", 0);
+  __Pyx_RefNannySetupContext("append", 0);
   /* Check if called by wrapper */
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
@@ -1303,9 +1869,10 @@ static double __pyx_f_4pfun_12c_trampoline_11CTrampoline_run(CYTHON_UNUSED struc
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_run); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 2, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4pfun_12c_trampoline_11CTrampoline_1run)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4pfun_12c_trampoline_4List_1append)) {
+        __Pyx_XDECREF(((PyObject *)__pyx_r));
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -1317,14 +1884,14 @@ static double __pyx_f_4pfun_12c_trampoline_11CTrampoline_run(CYTHON_UNUSED struc
             __Pyx_DECREF_SET(__pyx_t_3, function);
           }
         }
-        __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+        __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_v_other) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_other);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 2, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 2, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 2, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_r = __pyx_t_5;
+        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_4pfun_12c_trampoline_List))))) __PYX_ERR(1, 2, __pyx_L1_error)
+        __pyx_r = ((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_t_2);
+        __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         goto __pyx_L0;
       }
@@ -1342,26 +1909,33 @@ static double __pyx_f_4pfun_12c_trampoline_11CTrampoline_run(CYTHON_UNUSED struc
   }
 
   /* "pfun/c_trampoline.pyx":3
- * cdef class CTrampoline:
- *     cpdef double run(self) except *:
- *         print('hello')             # <<<<<<<<<<<<<<
- *         return 0.0
+ * cdef class List:
+ *     cpdef List append(self, object other):
+ *         return Cons(other, self)             # <<<<<<<<<<<<<<
+ * 
+ *     def __repr__(self):
  */
-  if (__Pyx_PrintOne(0, __pyx_n_s_hello) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
-
-  /* "pfun/c_trampoline.pyx":4
- *     cpdef double run(self) except *:
- *         print('hello')
- *         return 0.0             # <<<<<<<<<<<<<<
- */
-  __pyx_r = 0.0;
+  __Pyx_XDECREF(((PyObject *)__pyx_r));
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_v_other);
+  __Pyx_GIVEREF(__pyx_v_other);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_other);
+  __Pyx_INCREF(((PyObject *)__pyx_v_self));
+  __Pyx_GIVEREF(((PyObject *)__pyx_v_self));
+  PyTuple_SET_ITEM(__pyx_t_1, 1, ((PyObject *)__pyx_v_self));
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Cons), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = ((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_t_2);
+  __pyx_t_2 = 0;
   goto __pyx_L0;
 
   /* "pfun/c_trampoline.pyx":2
- * cdef class CTrampoline:
- *     cpdef double run(self) except *:             # <<<<<<<<<<<<<<
- *         print('hello')
- *         return 0.0
+ * cdef class List:
+ *     cpdef List append(self, object other):             # <<<<<<<<<<<<<<
+ *         return Cons(other, self)
+ * 
  */
 
   /* function exit code */
@@ -1370,46 +1944,250 @@ static double __pyx_f_4pfun_12c_trampoline_11CTrampoline_run(CYTHON_UNUSED struc
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pfun.c_trampoline.CTrampoline.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pfun.c_trampoline.List.append", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4pfun_12c_trampoline_11CTrampoline_1run(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_4pfun_12c_trampoline_11CTrampoline_1run(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4List_1append(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4List_1append(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("run (wrapper)", 0);
-  __pyx_r = __pyx_pf_4pfun_12c_trampoline_11CTrampoline_run(((struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("append (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4List_append(((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_run(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *__pyx_v_self) {
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4List_append(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  double __pyx_t_1;
-  PyObject *__pyx_t_2 = NULL;
-  __Pyx_RefNannySetupContext("run", 0);
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("append", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_4pfun_12c_trampoline_11CTrampoline_run(__pyx_v_self, 1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 2, __pyx_L1_error)
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_r = __pyx_t_2;
-  __pyx_t_2 = 0;
+  __pyx_t_1 = ((PyObject *)__pyx_f_4pfun_12c_trampoline_4List_append(__pyx_v_self, __pyx_v_other, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
   goto __pyx_L0;
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pfun.c_trampoline.CTrampoline.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.List.append", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":5
+ *         return Cons(other, self)
+ * 
+ *     def __repr__(self):             # <<<<<<<<<<<<<<
+ *         return self._repr()
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4List_3__repr__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4List_3__repr__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__repr__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4List_2__repr__(((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4List_2__repr__(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__repr__", 0);
+
+  /* "pfun/c_trampoline.pyx":6
+ * 
+ *     def __repr__(self):
+ *         return self._repr()             # <<<<<<<<<<<<<<
+ * 
+ *     cdef str _repr(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((struct __pyx_vtabstruct_4pfun_12c_trampoline_List *)__pyx_v_self->__pyx_vtab)->_repr(__pyx_v_self); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":5
+ *         return Cons(other, self)
+ * 
+ *     def __repr__(self):             # <<<<<<<<<<<<<<
+ *         return self._repr()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.List.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":8
+ *         return self._repr()
+ * 
+ *     cdef str _repr(self):             # <<<<<<<<<<<<<<
+ *         cdef List l
+ *         cdef str s
+ */
+
+static PyObject *__pyx_f_4pfun_12c_trampoline_4List__repr(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self) {
+  struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_l = 0;
+  PyObject *__pyx_v_s = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("_repr", 0);
+
+  /* "pfun/c_trampoline.pyx":11
+ *         cdef List l
+ *         cdef str s
+ *         l = self             # <<<<<<<<<<<<<<
+ *         s = 'List('
+ *         while not isinstance(l, Empty):
+ */
+  __Pyx_INCREF(((PyObject *)__pyx_v_self));
+  __pyx_v_l = __pyx_v_self;
+
+  /* "pfun/c_trampoline.pyx":12
+ *         cdef str s
+ *         l = self
+ *         s = 'List('             # <<<<<<<<<<<<<<
+ *         while not isinstance(l, Empty):
+ *             s += str((<Cons>l).head) + ', '
+ */
+  __Pyx_INCREF(__pyx_kp_s_List);
+  __pyx_v_s = __pyx_kp_s_List;
+
+  /* "pfun/c_trampoline.pyx":13
+ *         l = self
+ *         s = 'List('
+ *         while not isinstance(l, Empty):             # <<<<<<<<<<<<<<
+ *             s += str((<Cons>l).head) + ', '
+ *             l = (<Cons>l).tail
+ */
+  while (1) {
+    __pyx_t_1 = __Pyx_TypeCheck(((PyObject *)__pyx_v_l), __pyx_ptype_4pfun_12c_trampoline_Empty); 
+    __pyx_t_2 = ((!(__pyx_t_1 != 0)) != 0);
+    if (!__pyx_t_2) break;
+
+    /* "pfun/c_trampoline.pyx":14
+ *         s = 'List('
+ *         while not isinstance(l, Empty):
+ *             s += str((<Cons>l).head) + ', '             # <<<<<<<<<<<<<<
+ *             l = (<Cons>l).tail
+ *         s = s[:-2]
+ */
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), ((struct __pyx_obj_4pfun_12c_trampoline_Cons *)__pyx_v_l)->head); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_4 = PyNumber_Add(__pyx_t_3, __pyx_kp_s_); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_v_s, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (!(likely(PyString_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(1, 14, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_s, ((PyObject*)__pyx_t_3));
+    __pyx_t_3 = 0;
+
+    /* "pfun/c_trampoline.pyx":15
+ *         while not isinstance(l, Empty):
+ *             s += str((<Cons>l).head) + ', '
+ *             l = (<Cons>l).tail             # <<<<<<<<<<<<<<
+ *         s = s[:-2]
+ *         s += ')'
+ */
+    __pyx_t_3 = ((PyObject *)((struct __pyx_obj_4pfun_12c_trampoline_Cons *)__pyx_v_l)->tail);
+    __Pyx_INCREF(__pyx_t_3);
+    __Pyx_DECREF_SET(__pyx_v_l, ((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_t_3));
+    __pyx_t_3 = 0;
+  }
+
+  /* "pfun/c_trampoline.pyx":16
+ *             s += str((<Cons>l).head) + ', '
+ *             l = (<Cons>l).tail
+ *         s = s[:-2]             # <<<<<<<<<<<<<<
+ *         s += ')'
+ *         return s
+ */
+  if (unlikely(__pyx_v_s == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(1, 16, __pyx_L1_error)
+  }
+  __pyx_t_3 = PySequence_GetSlice(__pyx_v_s, 0, -2L); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 16, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF_SET(__pyx_v_s, ((PyObject*)__pyx_t_3));
+  __pyx_t_3 = 0;
+
+  /* "pfun/c_trampoline.pyx":17
+ *             l = (<Cons>l).tail
+ *         s = s[:-2]
+ *         s += ')'             # <<<<<<<<<<<<<<
+ *         return s
+ * 
+ */
+  __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_v_s, __pyx_kp_s__2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF_SET(__pyx_v_s, ((PyObject*)__pyx_t_3));
+  __pyx_t_3 = 0;
+
+  /* "pfun/c_trampoline.pyx":18
+ *         s = s[:-2]
+ *         s += ')'
+ *         return s             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_s);
+  __pyx_r = __pyx_v_s;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":8
+ *         return self._repr()
+ * 
+ *     cdef str _repr(self):             # <<<<<<<<<<<<<<
+ *         cdef List l
+ *         cdef str s
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("pfun.c_trampoline.List._repr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_l);
+  __Pyx_XDECREF(__pyx_v_s);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -1422,19 +2200,19 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_run(struct __pyx_ob
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4pfun_12c_trampoline_11CTrampoline_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_4pfun_12c_trampoline_11CTrampoline_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4List_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4List_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(((struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *)__pyx_v_self));
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4List_4__reduce_cython__(((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *__pyx_v_self) {
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4List_4__reduce_cython__(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -1464,7 +2242,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(
  *     if _dict is not None:
  *         state += (_dict,)
  */
-  __pyx_t_1 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 6, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v__dict = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -1487,12 +2265,12 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(
  *         use_setstate = True
  *     else:
  */
-    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 8, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_v__dict);
     __Pyx_GIVEREF(__pyx_v__dict);
     PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v__dict);
-    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 8, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 8, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_state, ((PyObject*)__pyx_t_4));
@@ -1522,7 +2300,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(
  *     else:
  *         use_setstate = False             # <<<<<<<<<<<<<<
  *     if use_setstate:
- *         return __pyx_unpickle_CTrampoline, (type(self), 0xd41d8cd, None), state
+ *         return __pyx_unpickle_List, (type(self), 0xd41d8cd, None), state
  */
   /*else*/ {
     __pyx_v_use_setstate = 0;
@@ -1533,7 +2311,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(
  *     else:
  *         use_setstate = False
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_CTrampoline, (type(self), 0xd41d8cd, None), state
+ *         return __pyx_unpickle_List, (type(self), 0xd41d8cd, None), state
  *     else:
  */
   __pyx_t_3 = (__pyx_v_use_setstate != 0);
@@ -1542,14 +2320,14 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(
     /* "(tree fragment)":13
  *         use_setstate = False
  *     if use_setstate:
- *         return __pyx_unpickle_CTrampoline, (type(self), 0xd41d8cd, None), state             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_List, (type(self), 0xd41d8cd, None), state             # <<<<<<<<<<<<<<
  *     else:
- *         return __pyx_unpickle_CTrampoline, (type(self), 0xd41d8cd, state)
+ *         return __pyx_unpickle_List, (type(self), 0xd41d8cd, state)
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pyx_unpickle_CTrampoline); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pyx_unpickle_List); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
@@ -1560,7 +2338,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(
     __Pyx_INCREF(Py_None);
     __Pyx_GIVEREF(Py_None);
     PyTuple_SET_ITEM(__pyx_t_1, 2, Py_None);
-    __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
@@ -1579,23 +2357,23 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(
  *     else:
  *         use_setstate = False
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_CTrampoline, (type(self), 0xd41d8cd, None), state
+ *         return __pyx_unpickle_List, (type(self), 0xd41d8cd, None), state
  *     else:
  */
   }
 
   /* "(tree fragment)":15
- *         return __pyx_unpickle_CTrampoline, (type(self), 0xd41d8cd, None), state
+ *         return __pyx_unpickle_List, (type(self), 0xd41d8cd, None), state
  *     else:
- *         return __pyx_unpickle_CTrampoline, (type(self), 0xd41d8cd, state)             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_List, (type(self), 0xd41d8cd, state)             # <<<<<<<<<<<<<<
  * def __setstate_cython__(self, __pyx_state):
- *     __pyx_unpickle_CTrampoline__set_state(self, __pyx_state)
+ *     __pyx_unpickle_List__set_state(self, __pyx_state)
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_pyx_unpickle_CTrampoline); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_pyx_unpickle_List); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 15, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
@@ -1606,7 +2384,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(
     __Pyx_INCREF(__pyx_v_state);
     __Pyx_GIVEREF(__pyx_v_state);
     PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_v_state);
-    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5);
@@ -1630,7 +2408,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pfun.c_trampoline.CTrampoline.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pfun.c_trampoline.List.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_state);
@@ -1642,45 +2420,45 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_2__reduce_cython__(
 
 /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_CTrampoline, (type(self), 0xd41d8cd, state)
+ *         return __pyx_unpickle_List, (type(self), 0xd41d8cd, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_unpickle_CTrampoline__set_state(self, __pyx_state)
+ *     __pyx_unpickle_List__set_state(self, __pyx_state)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4pfun_12c_trampoline_11CTrampoline_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_4pfun_12c_trampoline_11CTrampoline_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4List_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4List_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_4pfun_12c_trampoline_11CTrampoline_4__setstate_cython__(((struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4List_6__setstate_cython__(((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_4__setstate_cython__(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4List_6__setstate_cython__(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__setstate_cython__", 0);
 
   /* "(tree fragment)":17
- *         return __pyx_unpickle_CTrampoline, (type(self), 0xd41d8cd, state)
+ *         return __pyx_unpickle_List, (type(self), 0xd41d8cd, state)
  * def __setstate_cython__(self, __pyx_state):
- *     __pyx_unpickle_CTrampoline__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_List__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
  */
-  if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(1, 17, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_4pfun_12c_trampoline___pyx_unpickle_CTrampoline__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
+  if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_4pfun_12c_trampoline___pyx_unpickle_List__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_CTrampoline, (type(self), 0xd41d8cd, state)
+ *         return __pyx_unpickle_List, (type(self), 0xd41d8cd, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_unpickle_CTrampoline__set_state(self, __pyx_state)
+ *     __pyx_unpickle_List__set_state(self, __pyx_state)
  */
 
   /* function exit code */
@@ -1688,7 +2466,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_4__setstate_cython_
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pfun.c_trampoline.CTrampoline.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pfun.c_trampoline.List.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1697,21 +2475,3942 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline_11CTrampoline_4__setstate_cython_
 }
 
 /* "(tree fragment)":1
- * def __pyx_unpickle_CTrampoline(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     cdef tuple state
+ *     cdef object _dict
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_5Empty_1__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_5Empty_1__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_5Empty___reduce_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Empty *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_5Empty___reduce_cython__(struct __pyx_obj_4pfun_12c_trampoline_Empty *__pyx_v_self) {
+  PyObject *__pyx_v_state = 0;
+  PyObject *__pyx_v__dict = 0;
+  int __pyx_v_use_setstate;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
+
+  /* "(tree fragment)":5
+ *     cdef object _dict
+ *     cdef bint use_setstate
+ *     state = ()             # <<<<<<<<<<<<<<
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:
+ */
+  __Pyx_INCREF(__pyx_empty_tuple);
+  __pyx_v_state = __pyx_empty_tuple;
+
+  /* "(tree fragment)":6
+ *     cdef bint use_setstate
+ *     state = ()
+ *     _dict = getattr(self, '__dict__', None)             # <<<<<<<<<<<<<<
+ *     if _dict is not None:
+ *         state += (_dict,)
+ */
+  __pyx_t_1 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v__dict = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "(tree fragment)":7
+ *     state = ()
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:             # <<<<<<<<<<<<<<
+ *         state += (_dict,)
+ *         use_setstate = True
+ */
+  __pyx_t_2 = (__pyx_v__dict != Py_None);
+  __pyx_t_3 = (__pyx_t_2 != 0);
+  if (__pyx_t_3) {
+
+    /* "(tree fragment)":8
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:
+ *         state += (_dict,)             # <<<<<<<<<<<<<<
+ *         use_setstate = True
+ *     else:
+ */
+    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_v__dict);
+    __Pyx_GIVEREF(__pyx_v__dict);
+    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v__dict);
+    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF_SET(__pyx_v_state, ((PyObject*)__pyx_t_4));
+    __pyx_t_4 = 0;
+
+    /* "(tree fragment)":9
+ *     if _dict is not None:
+ *         state += (_dict,)
+ *         use_setstate = True             # <<<<<<<<<<<<<<
+ *     else:
+ *         use_setstate = False
+ */
+    __pyx_v_use_setstate = 1;
+
+    /* "(tree fragment)":7
+ *     state = ()
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:             # <<<<<<<<<<<<<<
+ *         state += (_dict,)
+ *         use_setstate = True
+ */
+    goto __pyx_L3;
+  }
+
+  /* "(tree fragment)":11
+ *         use_setstate = True
+ *     else:
+ *         use_setstate = False             # <<<<<<<<<<<<<<
+ *     if use_setstate:
+ *         return __pyx_unpickle_Empty, (type(self), 0xd41d8cd, None), state
+ */
+  /*else*/ {
+    __pyx_v_use_setstate = 0;
+  }
+  __pyx_L3:;
+
+  /* "(tree fragment)":12
+ *     else:
+ *         use_setstate = False
+ *     if use_setstate:             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_Empty, (type(self), 0xd41d8cd, None), state
+ *     else:
+ */
+  __pyx_t_3 = (__pyx_v_use_setstate != 0);
+  if (__pyx_t_3) {
+
+    /* "(tree fragment)":13
+ *         use_setstate = False
+ *     if use_setstate:
+ *         return __pyx_unpickle_Empty, (type(self), 0xd41d8cd, None), state             # <<<<<<<<<<<<<<
+ *     else:
+ *         return __pyx_unpickle_Empty, (type(self), 0xd41d8cd, state)
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pyx_unpickle_Empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_222419149);
+    __Pyx_GIVEREF(__pyx_int_222419149);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_222419149);
+    __Pyx_INCREF(Py_None);
+    __Pyx_GIVEREF(Py_None);
+    PyTuple_SET_ITEM(__pyx_t_1, 2, Py_None);
+    __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_1);
+    __Pyx_INCREF(__pyx_v_state);
+    __Pyx_GIVEREF(__pyx_v_state);
+    PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_v_state);
+    __pyx_t_4 = 0;
+    __pyx_t_1 = 0;
+    __pyx_r = __pyx_t_5;
+    __pyx_t_5 = 0;
+    goto __pyx_L0;
+
+    /* "(tree fragment)":12
+ *     else:
+ *         use_setstate = False
+ *     if use_setstate:             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_Empty, (type(self), 0xd41d8cd, None), state
+ *     else:
+ */
+  }
+
+  /* "(tree fragment)":15
+ *         return __pyx_unpickle_Empty, (type(self), 0xd41d8cd, None), state
+ *     else:
+ *         return __pyx_unpickle_Empty, (type(self), 0xd41d8cd, state)             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     __pyx_unpickle_Empty__set_state(self, __pyx_state)
+ */
+  /*else*/ {
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_pyx_unpickle_Empty); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_222419149);
+    __Pyx_GIVEREF(__pyx_int_222419149);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_222419149);
+    __Pyx_INCREF(__pyx_v_state);
+    __Pyx_GIVEREF(__pyx_v_state);
+    PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_v_state);
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_1);
+    __pyx_t_5 = 0;
+    __pyx_t_1 = 0;
+    __pyx_r = __pyx_t_4;
+    __pyx_t_4 = 0;
+    goto __pyx_L0;
+  }
+
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     cdef tuple state
+ *     cdef object _dict
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("pfun.c_trampoline.Empty.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_state);
+  __Pyx_XDECREF(__pyx_v__dict);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":16
+ *     else:
+ *         return __pyx_unpickle_Empty, (type(self), 0xd41d8cd, state)
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_Empty__set_state(self, __pyx_state)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_5Empty_3__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_5Empty_3__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_5Empty_2__setstate_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Empty *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_5Empty_2__setstate_cython__(struct __pyx_obj_4pfun_12c_trampoline_Empty *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":17
+ *         return __pyx_unpickle_Empty, (type(self), 0xd41d8cd, state)
+ * def __setstate_cython__(self, __pyx_state):
+ *     __pyx_unpickle_Empty__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
+ */
+  if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_4pfun_12c_trampoline___pyx_unpickle_Empty__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "(tree fragment)":16
+ *     else:
+ *         return __pyx_unpickle_Empty, (type(self), 0xd41d8cd, state)
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_Empty__set_state(self, __pyx_state)
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Empty.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":25
+ * 
+ * 
+ * def list_(xs):             # <<<<<<<<<<<<<<
+ *     return _list(xs)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_1list_(PyObject *__pyx_self, PyObject *__pyx_v_xs); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_1list_ = {"list_", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_1list_, METH_O, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_1list_(PyObject *__pyx_self, PyObject *__pyx_v_xs) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("list_ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_list_(__pyx_self, ((PyObject *)__pyx_v_xs));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_list_(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_xs) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("list_", 0);
+
+  /* "pfun/c_trampoline.pyx":26
+ * 
+ * def list_(xs):
+ *     return _list(xs)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  if (!(likely(PyList_CheckExact(__pyx_v_xs))||((__pyx_v_xs) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_xs)->tp_name), 0))) __PYX_ERR(1, 26, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_4pfun_12c_trampoline__list(((PyObject*)__pyx_v_xs))); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 26, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":25
+ * 
+ * 
+ * def list_(xs):             # <<<<<<<<<<<<<<
+ *     return _list(xs)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.list_", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":29
+ * 
+ * 
+ * cdef List _list(list xs):             # <<<<<<<<<<<<<<
+ *     cdef List l
+ *     l = Empty()
+ */
+
+static struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_f_4pfun_12c_trampoline__list(PyObject *__pyx_v_xs) {
+  struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_l = 0;
+  PyObject *__pyx_v_x = NULL;
+  struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  Py_ssize_t __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
+  __Pyx_RefNannySetupContext("_list", 0);
+
+  /* "pfun/c_trampoline.pyx":31
+ * cdef List _list(list xs):
+ *     cdef List l
+ *     l = Empty()             # <<<<<<<<<<<<<<
+ *     for x in xs:
+ *         l = l.append(x)
+ */
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Empty)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 31, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_l = ((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pfun/c_trampoline.pyx":32
+ *     cdef List l
+ *     l = Empty()
+ *     for x in xs:             # <<<<<<<<<<<<<<
+ *         l = l.append(x)
+ *     return l
+ */
+  if (unlikely(__pyx_v_xs == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+    __PYX_ERR(1, 32, __pyx_L1_error)
+  }
+  __pyx_t_1 = __pyx_v_xs; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
+  for (;;) {
+    if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
+    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(1, 32, __pyx_L1_error)
+    #else
+    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 32, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    #endif
+    __Pyx_XDECREF_SET(__pyx_v_x, __pyx_t_3);
+    __pyx_t_3 = 0;
+
+    /* "pfun/c_trampoline.pyx":33
+ *     l = Empty()
+ *     for x in xs:
+ *         l = l.append(x)             # <<<<<<<<<<<<<<
+ *     return l
+ * 
+ */
+    __pyx_t_3 = ((PyObject *)((struct __pyx_vtabstruct_4pfun_12c_trampoline_List *)__pyx_v_l->__pyx_vtab)->append(__pyx_v_l, __pyx_v_x, 0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 33, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF_SET(__pyx_v_l, ((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_t_3));
+    __pyx_t_3 = 0;
+
+    /* "pfun/c_trampoline.pyx":32
+ *     cdef List l
+ *     l = Empty()
+ *     for x in xs:             # <<<<<<<<<<<<<<
+ *         l = l.append(x)
+ *     return l
+ */
+  }
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pfun/c_trampoline.pyx":34
+ *     for x in xs:
+ *         l = l.append(x)
+ *     return l             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(((PyObject *)__pyx_r));
+  __Pyx_INCREF(((PyObject *)__pyx_v_l));
+  __pyx_r = __pyx_v_l;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":29
+ * 
+ * 
+ * cdef List _list(list xs):             # <<<<<<<<<<<<<<
+ *     cdef List l
+ *     l = Empty()
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("pfun.c_trampoline._list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_l);
+  __Pyx_XDECREF(__pyx_v_x);
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":41
+ *     cdef List tail
+ * 
+ *     def __cinit__(self, head, tail):             # <<<<<<<<<<<<<<
+ *         self.head = head
+ *         self.tail = tail
+ */
+
+/* Python wrapper */
+static int __pyx_pw_4pfun_12c_trampoline_4Cons_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_4pfun_12c_trampoline_4Cons_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_head = 0;
+  PyObject *__pyx_v_tail = 0;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_head,&__pyx_n_s_tail,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_head)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_tail)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, 1); __PYX_ERR(1, 41, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 41, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_head = values[0];
+    __pyx_v_tail = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 41, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pfun.c_trampoline.Cons.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return -1;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4Cons___cinit__(((struct __pyx_obj_4pfun_12c_trampoline_Cons *)__pyx_v_self), __pyx_v_head, __pyx_v_tail);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_4pfun_12c_trampoline_4Cons___cinit__(struct __pyx_obj_4pfun_12c_trampoline_Cons *__pyx_v_self, PyObject *__pyx_v_head, PyObject *__pyx_v_tail) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__cinit__", 0);
+
+  /* "pfun/c_trampoline.pyx":42
+ * 
+ *     def __cinit__(self, head, tail):
+ *         self.head = head             # <<<<<<<<<<<<<<
+ *         self.tail = tail
+ * 
+ */
+  __Pyx_INCREF(__pyx_v_head);
+  __Pyx_GIVEREF(__pyx_v_head);
+  __Pyx_GOTREF(__pyx_v_self->head);
+  __Pyx_DECREF(__pyx_v_self->head);
+  __pyx_v_self->head = __pyx_v_head;
+
+  /* "pfun/c_trampoline.pyx":43
+ *     def __cinit__(self, head, tail):
+ *         self.head = head
+ *         self.tail = tail             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  if (!(likely(((__pyx_v_tail) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tail, __pyx_ptype_4pfun_12c_trampoline_List))))) __PYX_ERR(1, 43, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_tail;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->tail);
+  __Pyx_DECREF(((PyObject *)__pyx_v_self->tail));
+  __pyx_v_self->tail = ((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pfun/c_trampoline.pyx":41
+ *     cdef List tail
+ * 
+ *     def __cinit__(self, head, tail):             # <<<<<<<<<<<<<<
+ *         self.head = head
+ *         self.tail = tail
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Cons.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Cons_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Cons_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4Cons_2__reduce_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Cons *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Cons_2__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Cons *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 2, __pyx_L1_error)
+
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Cons.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Cons_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Cons_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4Cons_4__setstate_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Cons *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Cons_4__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Cons *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 4, __pyx_L1_error)
+
+  /* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Cons.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":47
+ * 
+ * cdef class Trampoline:
+ *     def and_then(self, f):             # <<<<<<<<<<<<<<
+ *         return self._and_then(f)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_10Trampoline_1and_then(PyObject *__pyx_v_self, PyObject *__pyx_v_f); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_10Trampoline_1and_then(PyObject *__pyx_v_self, PyObject *__pyx_v_f) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("and_then (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_10Trampoline_and_then(((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_v_self), ((PyObject *)__pyx_v_f));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_10Trampoline_and_then(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self, PyObject *__pyx_v_f) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("and_then", 0);
+
+  /* "pfun/c_trampoline.pyx":48
+ * cdef class Trampoline:
+ *     def and_then(self, f):
+ *         return self._and_then(f)             # <<<<<<<<<<<<<<
+ * 
+ *     def run(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline *)__pyx_v_self->__pyx_vtab)->_and_then(__pyx_v_self, __pyx_v_f)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 48, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":47
+ * 
+ * cdef class Trampoline:
+ *     def and_then(self, f):             # <<<<<<<<<<<<<<
+ *         return self._and_then(f)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Trampoline.and_then", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":50
+ *         return self._and_then(f)
+ * 
+ *     def run(self):             # <<<<<<<<<<<<<<
+ *         return self._run()
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_10Trampoline_3run(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_10Trampoline_3run(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("run (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_10Trampoline_2run(((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_10Trampoline_2run(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("run", 0);
+
+  /* "pfun/c_trampoline.pyx":51
+ * 
+ *     def run(self):
+ *         return self._run()             # <<<<<<<<<<<<<<
+ * 
+ *     cdef object _run(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline *)__pyx_v_self->__pyx_vtab)->_run(__pyx_v_self); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 51, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":50
+ *         return self._and_then(f)
+ * 
+ *     def run(self):             # <<<<<<<<<<<<<<
+ *         return self._run()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Trampoline.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":53
+ *         return self._run()
+ * 
+ *     cdef object _run(self):             # <<<<<<<<<<<<<<
+ *         cdef Trampoline trampoline
+ *         trampoline = self
+ */
+
+static PyObject *__pyx_f_4pfun_12c_trampoline_10Trampoline__run(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self) {
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_trampoline = 0;
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_sub1 = NULL;
+  PyObject *__pyx_v_cont1 = NULL;
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_sub2 = NULL;
+  PyObject *__pyx_v_cont2 = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  __Pyx_RefNannySetupContext("_run", 0);
+
+  /* "pfun/c_trampoline.pyx":55
+ *     cdef object _run(self):
+ *         cdef Trampoline trampoline
+ *         trampoline = self             # <<<<<<<<<<<<<<
+ *         while not isinstance(trampoline, Done):
+ *             if isinstance(trampoline, Call):
+ */
+  __Pyx_INCREF(((PyObject *)__pyx_v_self));
+  __pyx_v_trampoline = __pyx_v_self;
+
+  /* "pfun/c_trampoline.pyx":56
+ *         cdef Trampoline trampoline
+ *         trampoline = self
+ *         while not isinstance(trampoline, Done):             # <<<<<<<<<<<<<<
+ *             if isinstance(trampoline, Call):
+ *                 trampoline = (<Call>trampoline).thunk()
+ */
+  while (1) {
+    __pyx_t_1 = __Pyx_TypeCheck(((PyObject *)__pyx_v_trampoline), __pyx_ptype_4pfun_12c_trampoline_Done); 
+    __pyx_t_2 = ((!(__pyx_t_1 != 0)) != 0);
+    if (!__pyx_t_2) break;
+
+    /* "pfun/c_trampoline.pyx":57
+ *         trampoline = self
+ *         while not isinstance(trampoline, Done):
+ *             if isinstance(trampoline, Call):             # <<<<<<<<<<<<<<
+ *                 trampoline = (<Call>trampoline).thunk()
+ *             else:
+ */
+    __pyx_t_2 = __Pyx_TypeCheck(((PyObject *)__pyx_v_trampoline), __pyx_ptype_4pfun_12c_trampoline_Call); 
+    __pyx_t_1 = (__pyx_t_2 != 0);
+    if (__pyx_t_1) {
+
+      /* "pfun/c_trampoline.pyx":58
+ *         while not isinstance(trampoline, Done):
+ *             if isinstance(trampoline, Call):
+ *                 trampoline = (<Call>trampoline).thunk()             # <<<<<<<<<<<<<<
+ *             else:
+ *                 sub1 = (<AndThen>trampoline).sub
+ */
+      __Pyx_INCREF(((struct __pyx_obj_4pfun_12c_trampoline_Call *)__pyx_v_trampoline)->thunk);
+      __pyx_t_4 = ((struct __pyx_obj_4pfun_12c_trampoline_Call *)__pyx_v_trampoline)->thunk; __pyx_t_5 = NULL;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+        if (likely(__pyx_t_5)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+          __Pyx_INCREF(__pyx_t_5);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_4, function);
+        }
+      }
+      __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
+      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 58, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_4pfun_12c_trampoline_Trampoline))))) __PYX_ERR(1, 58, __pyx_L1_error)
+      __Pyx_DECREF_SET(__pyx_v_trampoline, ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_t_3));
+      __pyx_t_3 = 0;
+
+      /* "pfun/c_trampoline.pyx":57
+ *         trampoline = self
+ *         while not isinstance(trampoline, Done):
+ *             if isinstance(trampoline, Call):             # <<<<<<<<<<<<<<
+ *                 trampoline = (<Call>trampoline).thunk()
+ *             else:
+ */
+      goto __pyx_L5;
+    }
+
+    /* "pfun/c_trampoline.pyx":60
+ *                 trampoline = (<Call>trampoline).thunk()
+ *             else:
+ *                 sub1 = (<AndThen>trampoline).sub             # <<<<<<<<<<<<<<
+ *                 cont1 = (<AndThen>trampoline).cont
+ *                 if isinstance(sub1, Done):
+ */
+    /*else*/ {
+      __pyx_t_3 = ((PyObject *)((struct __pyx_obj_4pfun_12c_trampoline_AndThen *)__pyx_v_trampoline)->sub);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_XDECREF_SET(__pyx_v_sub1, ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_t_3));
+      __pyx_t_3 = 0;
+
+      /* "pfun/c_trampoline.pyx":61
+ *             else:
+ *                 sub1 = (<AndThen>trampoline).sub
+ *                 cont1 = (<AndThen>trampoline).cont             # <<<<<<<<<<<<<<
+ *                 if isinstance(sub1, Done):
+ *                     trampoline = cont1((<Done>sub1).result)
+ */
+      __pyx_t_3 = ((struct __pyx_obj_4pfun_12c_trampoline_AndThen *)__pyx_v_trampoline)->cont;
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_XDECREF_SET(__pyx_v_cont1, __pyx_t_3);
+      __pyx_t_3 = 0;
+
+      /* "pfun/c_trampoline.pyx":62
+ *                 sub1 = (<AndThen>trampoline).sub
+ *                 cont1 = (<AndThen>trampoline).cont
+ *                 if isinstance(sub1, Done):             # <<<<<<<<<<<<<<
+ *                     trampoline = cont1((<Done>sub1).result)
+ *                 elif isinstance(sub1, Call):
+ */
+      __pyx_t_1 = __Pyx_TypeCheck(((PyObject *)__pyx_v_sub1), __pyx_ptype_4pfun_12c_trampoline_Done); 
+      __pyx_t_2 = (__pyx_t_1 != 0);
+      if (__pyx_t_2) {
+
+        /* "pfun/c_trampoline.pyx":63
+ *                 cont1 = (<AndThen>trampoline).cont
+ *                 if isinstance(sub1, Done):
+ *                     trampoline = cont1((<Done>sub1).result)             # <<<<<<<<<<<<<<
+ *                 elif isinstance(sub1, Call):
+ *                     trampoline = (<Call>sub1).thunk().and_then(cont1)
+ */
+        __Pyx_INCREF(__pyx_v_cont1);
+        __pyx_t_4 = __pyx_v_cont1; __pyx_t_5 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+          if (likely(__pyx_t_5)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+            __Pyx_INCREF(__pyx_t_5);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_4, function);
+          }
+        }
+        __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, ((struct __pyx_obj_4pfun_12c_trampoline_Done *)__pyx_v_sub1)->result) : __Pyx_PyObject_CallOneArg(__pyx_t_4, ((struct __pyx_obj_4pfun_12c_trampoline_Done *)__pyx_v_sub1)->result);
+        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 63, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_4pfun_12c_trampoline_Trampoline))))) __PYX_ERR(1, 63, __pyx_L1_error)
+        __Pyx_DECREF_SET(__pyx_v_trampoline, ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_t_3));
+        __pyx_t_3 = 0;
+
+        /* "pfun/c_trampoline.pyx":62
+ *                 sub1 = (<AndThen>trampoline).sub
+ *                 cont1 = (<AndThen>trampoline).cont
+ *                 if isinstance(sub1, Done):             # <<<<<<<<<<<<<<
+ *                     trampoline = cont1((<Done>sub1).result)
+ *                 elif isinstance(sub1, Call):
+ */
+        goto __pyx_L6;
+      }
+
+      /* "pfun/c_trampoline.pyx":64
+ *                 if isinstance(sub1, Done):
+ *                     trampoline = cont1((<Done>sub1).result)
+ *                 elif isinstance(sub1, Call):             # <<<<<<<<<<<<<<
+ *                     trampoline = (<Call>sub1).thunk().and_then(cont1)
+ *                 else:
+ */
+      __pyx_t_2 = __Pyx_TypeCheck(((PyObject *)__pyx_v_sub1), __pyx_ptype_4pfun_12c_trampoline_Call); 
+      __pyx_t_1 = (__pyx_t_2 != 0);
+      if (__pyx_t_1) {
+
+        /* "pfun/c_trampoline.pyx":65
+ *                     trampoline = cont1((<Done>sub1).result)
+ *                 elif isinstance(sub1, Call):
+ *                     trampoline = (<Call>sub1).thunk().and_then(cont1)             # <<<<<<<<<<<<<<
+ *                 else:
+ *                     sub2 = (<AndThen>sub1).sub
+ */
+        __Pyx_INCREF(((struct __pyx_obj_4pfun_12c_trampoline_Call *)__pyx_v_sub1)->thunk);
+        __pyx_t_5 = ((struct __pyx_obj_4pfun_12c_trampoline_Call *)__pyx_v_sub1)->thunk; __pyx_t_6 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
+          if (likely(__pyx_t_6)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+            __Pyx_INCREF(__pyx_t_6);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_5, function);
+          }
+        }
+        __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
+        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 65, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_and_then); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 65, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_4 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
+          if (likely(__pyx_t_4)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+            __Pyx_INCREF(__pyx_t_4);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_5, function);
+          }
+        }
+        __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_v_cont1) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_cont1);
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 65, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_4pfun_12c_trampoline_Trampoline))))) __PYX_ERR(1, 65, __pyx_L1_error)
+        __Pyx_DECREF_SET(__pyx_v_trampoline, ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_t_3));
+        __pyx_t_3 = 0;
+
+        /* "pfun/c_trampoline.pyx":64
+ *                 if isinstance(sub1, Done):
+ *                     trampoline = cont1((<Done>sub1).result)
+ *                 elif isinstance(sub1, Call):             # <<<<<<<<<<<<<<
+ *                     trampoline = (<Call>sub1).thunk().and_then(cont1)
+ *                 else:
+ */
+        goto __pyx_L6;
+      }
+
+      /* "pfun/c_trampoline.pyx":67
+ *                     trampoline = (<Call>sub1).thunk().and_then(cont1)
+ *                 else:
+ *                     sub2 = (<AndThen>sub1).sub             # <<<<<<<<<<<<<<
+ *                     cont2 = (<AndThen>sub1).cont
+ *                     trampoline = sub2.and_then(cont2).and_then(cont1)
+ */
+      /*else*/ {
+        __pyx_t_3 = ((PyObject *)((struct __pyx_obj_4pfun_12c_trampoline_AndThen *)__pyx_v_sub1)->sub);
+        __Pyx_INCREF(__pyx_t_3);
+        __Pyx_XDECREF_SET(__pyx_v_sub2, ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_t_3));
+        __pyx_t_3 = 0;
+
+        /* "pfun/c_trampoline.pyx":68
+ *                 else:
+ *                     sub2 = (<AndThen>sub1).sub
+ *                     cont2 = (<AndThen>sub1).cont             # <<<<<<<<<<<<<<
+ *                     trampoline = sub2.and_then(cont2).and_then(cont1)
+ *         return (<Done>trampoline).result
+ */
+        __pyx_t_3 = ((struct __pyx_obj_4pfun_12c_trampoline_AndThen *)__pyx_v_sub1)->cont;
+        __Pyx_INCREF(__pyx_t_3);
+        __Pyx_XDECREF_SET(__pyx_v_cont2, __pyx_t_3);
+        __pyx_t_3 = 0;
+
+        /* "pfun/c_trampoline.pyx":69
+ *                     sub2 = (<AndThen>sub1).sub
+ *                     cont2 = (<AndThen>sub1).cont
+ *                     trampoline = sub2.and_then(cont2).and_then(cont1)             # <<<<<<<<<<<<<<
+ *         return (<Done>trampoline).result
+ * 
+ */
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_sub2), __pyx_n_s_and_then); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 69, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_6 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
+          if (likely(__pyx_t_6)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+            __Pyx_INCREF(__pyx_t_6);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_4, function);
+          }
+        }
+        __pyx_t_5 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_6, __pyx_v_cont2) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_cont2);
+        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 69, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_and_then); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 69, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __pyx_t_5 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+          if (likely(__pyx_t_5)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+            __Pyx_INCREF(__pyx_t_5);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_4, function);
+          }
+        }
+        __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_v_cont1) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_cont1);
+        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 69, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_4pfun_12c_trampoline_Trampoline))))) __PYX_ERR(1, 69, __pyx_L1_error)
+        __Pyx_DECREF_SET(__pyx_v_trampoline, ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_t_3));
+        __pyx_t_3 = 0;
+      }
+      __pyx_L6:;
+    }
+    __pyx_L5:;
+  }
+
+  /* "pfun/c_trampoline.pyx":70
+ *                     cont2 = (<AndThen>sub1).cont
+ *                     trampoline = sub2.and_then(cont2).and_then(cont1)
+ *         return (<Done>trampoline).result             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(((struct __pyx_obj_4pfun_12c_trampoline_Done *)__pyx_v_trampoline)->result);
+  __pyx_r = ((struct __pyx_obj_4pfun_12c_trampoline_Done *)__pyx_v_trampoline)->result;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":53
+ *         return self._run()
+ * 
+ *     cdef object _run(self):             # <<<<<<<<<<<<<<
+ *         cdef Trampoline trampoline
+ *         trampoline = self
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_AddTraceback("pfun.c_trampoline.Trampoline._run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_trampoline);
+  __Pyx_XDECREF((PyObject *)__pyx_v_sub1);
+  __Pyx_XDECREF(__pyx_v_cont1);
+  __Pyx_XDECREF((PyObject *)__pyx_v_sub2);
+  __Pyx_XDECREF(__pyx_v_cont2);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":73
+ * 
+ * 
+ *     cdef Trampoline _and_then(self, object f):             # <<<<<<<<<<<<<<
+ *         return AndThen(self, f)
+ * 
+ */
+
+static struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_f_4pfun_12c_trampoline_10Trampoline__and_then(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self, PyObject *__pyx_v_f) {
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("_and_then", 0);
+
+  /* "pfun/c_trampoline.pyx":74
+ * 
+ *     cdef Trampoline _and_then(self, object f):
+ *         return AndThen(self, f)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(((PyObject *)__pyx_r));
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 74, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(((PyObject *)__pyx_v_self));
+  __Pyx_GIVEREF(((PyObject *)__pyx_v_self));
+  PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
+  __Pyx_INCREF(__pyx_v_f);
+  __Pyx_GIVEREF(__pyx_v_f);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_f);
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_AndThen), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 74, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_t_2);
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":73
+ * 
+ * 
+ *     cdef Trampoline _and_then(self, object f):             # <<<<<<<<<<<<<<
+ *         return AndThen(self, f)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pfun.c_trampoline.Trampoline._and_then", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     cdef tuple state
+ *     cdef object _dict
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_10Trampoline_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_10Trampoline_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_10Trampoline_4__reduce_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_10Trampoline_4__reduce_cython__(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self) {
+  PyObject *__pyx_v_state = 0;
+  PyObject *__pyx_v__dict = 0;
+  int __pyx_v_use_setstate;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
+
+  /* "(tree fragment)":5
+ *     cdef object _dict
+ *     cdef bint use_setstate
+ *     state = ()             # <<<<<<<<<<<<<<
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:
+ */
+  __Pyx_INCREF(__pyx_empty_tuple);
+  __pyx_v_state = __pyx_empty_tuple;
+
+  /* "(tree fragment)":6
+ *     cdef bint use_setstate
+ *     state = ()
+ *     _dict = getattr(self, '__dict__', None)             # <<<<<<<<<<<<<<
+ *     if _dict is not None:
+ *         state += (_dict,)
+ */
+  __pyx_t_1 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v__dict = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "(tree fragment)":7
+ *     state = ()
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:             # <<<<<<<<<<<<<<
+ *         state += (_dict,)
+ *         use_setstate = True
+ */
+  __pyx_t_2 = (__pyx_v__dict != Py_None);
+  __pyx_t_3 = (__pyx_t_2 != 0);
+  if (__pyx_t_3) {
+
+    /* "(tree fragment)":8
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:
+ *         state += (_dict,)             # <<<<<<<<<<<<<<
+ *         use_setstate = True
+ *     else:
+ */
+    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_v__dict);
+    __Pyx_GIVEREF(__pyx_v__dict);
+    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v__dict);
+    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF_SET(__pyx_v_state, ((PyObject*)__pyx_t_4));
+    __pyx_t_4 = 0;
+
+    /* "(tree fragment)":9
+ *     if _dict is not None:
+ *         state += (_dict,)
+ *         use_setstate = True             # <<<<<<<<<<<<<<
+ *     else:
+ *         use_setstate = False
+ */
+    __pyx_v_use_setstate = 1;
+
+    /* "(tree fragment)":7
+ *     state = ()
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:             # <<<<<<<<<<<<<<
+ *         state += (_dict,)
+ *         use_setstate = True
+ */
+    goto __pyx_L3;
+  }
+
+  /* "(tree fragment)":11
+ *         use_setstate = True
+ *     else:
+ *         use_setstate = False             # <<<<<<<<<<<<<<
+ *     if use_setstate:
+ *         return __pyx_unpickle_Trampoline, (type(self), 0xd41d8cd, None), state
+ */
+  /*else*/ {
+    __pyx_v_use_setstate = 0;
+  }
+  __pyx_L3:;
+
+  /* "(tree fragment)":12
+ *     else:
+ *         use_setstate = False
+ *     if use_setstate:             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_Trampoline, (type(self), 0xd41d8cd, None), state
+ *     else:
+ */
+  __pyx_t_3 = (__pyx_v_use_setstate != 0);
+  if (__pyx_t_3) {
+
+    /* "(tree fragment)":13
+ *         use_setstate = False
+ *     if use_setstate:
+ *         return __pyx_unpickle_Trampoline, (type(self), 0xd41d8cd, None), state             # <<<<<<<<<<<<<<
+ *     else:
+ *         return __pyx_unpickle_Trampoline, (type(self), 0xd41d8cd, state)
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pyx_unpickle_Trampoline); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_222419149);
+    __Pyx_GIVEREF(__pyx_int_222419149);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_222419149);
+    __Pyx_INCREF(Py_None);
+    __Pyx_GIVEREF(Py_None);
+    PyTuple_SET_ITEM(__pyx_t_1, 2, Py_None);
+    __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_1);
+    __Pyx_INCREF(__pyx_v_state);
+    __Pyx_GIVEREF(__pyx_v_state);
+    PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_v_state);
+    __pyx_t_4 = 0;
+    __pyx_t_1 = 0;
+    __pyx_r = __pyx_t_5;
+    __pyx_t_5 = 0;
+    goto __pyx_L0;
+
+    /* "(tree fragment)":12
+ *     else:
+ *         use_setstate = False
+ *     if use_setstate:             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_Trampoline, (type(self), 0xd41d8cd, None), state
+ *     else:
+ */
+  }
+
+  /* "(tree fragment)":15
+ *         return __pyx_unpickle_Trampoline, (type(self), 0xd41d8cd, None), state
+ *     else:
+ *         return __pyx_unpickle_Trampoline, (type(self), 0xd41d8cd, state)             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     __pyx_unpickle_Trampoline__set_state(self, __pyx_state)
+ */
+  /*else*/ {
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_pyx_unpickle_Trampoline); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_222419149);
+    __Pyx_GIVEREF(__pyx_int_222419149);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_222419149);
+    __Pyx_INCREF(__pyx_v_state);
+    __Pyx_GIVEREF(__pyx_v_state);
+    PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_v_state);
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_1);
+    __pyx_t_5 = 0;
+    __pyx_t_1 = 0;
+    __pyx_r = __pyx_t_4;
+    __pyx_t_4 = 0;
+    goto __pyx_L0;
+  }
+
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     cdef tuple state
+ *     cdef object _dict
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("pfun.c_trampoline.Trampoline.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_state);
+  __Pyx_XDECREF(__pyx_v__dict);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":16
+ *     else:
+ *         return __pyx_unpickle_Trampoline, (type(self), 0xd41d8cd, state)
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_Trampoline__set_state(self, __pyx_state)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_10Trampoline_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_10Trampoline_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_10Trampoline_6__setstate_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_10Trampoline_6__setstate_cython__(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":17
+ *         return __pyx_unpickle_Trampoline, (type(self), 0xd41d8cd, state)
+ * def __setstate_cython__(self, __pyx_state):
+ *     __pyx_unpickle_Trampoline__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
+ */
+  if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_4pfun_12c_trampoline___pyx_unpickle_Trampoline__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "(tree fragment)":16
+ *     else:
+ *         return __pyx_unpickle_Trampoline, (type(self), 0xd41d8cd, state)
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_Trampoline__set_state(self, __pyx_state)
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Trampoline.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":80
+ *     cdef object result
+ * 
+ *     def __cinit__(self, result):             # <<<<<<<<<<<<<<
+ *         self.result = result
+ * 
+ */
+
+/* Python wrapper */
+static int __pyx_pw_4pfun_12c_trampoline_4Done_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_4pfun_12c_trampoline_4Done_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_result = 0;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_result,0};
+    PyObject* values[1] = {0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 80, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+    }
+    __pyx_v_result = values[0];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 80, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pfun.c_trampoline.Done.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return -1;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4Done___cinit__(((struct __pyx_obj_4pfun_12c_trampoline_Done *)__pyx_v_self), __pyx_v_result);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_4pfun_12c_trampoline_4Done___cinit__(struct __pyx_obj_4pfun_12c_trampoline_Done *__pyx_v_self, PyObject *__pyx_v_result) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__", 0);
+
+  /* "pfun/c_trampoline.pyx":81
+ * 
+ *     def __cinit__(self, result):
+ *         self.result = result             # <<<<<<<<<<<<<<
+ * 
+ * cdef class Call(Trampoline):
+ */
+  __Pyx_INCREF(__pyx_v_result);
+  __Pyx_GIVEREF(__pyx_v_result);
+  __Pyx_GOTREF(__pyx_v_self->result);
+  __Pyx_DECREF(__pyx_v_self->result);
+  __pyx_v_self->result = __pyx_v_result;
+
+  /* "pfun/c_trampoline.pyx":80
+ *     cdef object result
+ * 
+ *     def __cinit__(self, result):             # <<<<<<<<<<<<<<
+ *         self.result = result
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Done_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Done_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4Done_2__reduce_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Done *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Done_2__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Done *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 2, __pyx_L1_error)
+
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Done.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Done_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Done_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4Done_4__setstate_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Done *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Done_4__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Done *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 4, __pyx_L1_error)
+
+  /* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Done.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":86
+ *     cdef object thunk
+ * 
+ *     def __cinit__(self, thunk):             # <<<<<<<<<<<<<<
+ *         self.thunk = thunk
+ * 
+ */
+
+/* Python wrapper */
+static int __pyx_pw_4pfun_12c_trampoline_4Call_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_4pfun_12c_trampoline_4Call_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_thunk = 0;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_thunk,0};
+    PyObject* values[1] = {0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_thunk)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 86, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+    }
+    __pyx_v_thunk = values[0];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 86, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pfun.c_trampoline.Call.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return -1;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4Call___cinit__(((struct __pyx_obj_4pfun_12c_trampoline_Call *)__pyx_v_self), __pyx_v_thunk);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_4pfun_12c_trampoline_4Call___cinit__(struct __pyx_obj_4pfun_12c_trampoline_Call *__pyx_v_self, PyObject *__pyx_v_thunk) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__", 0);
+
+  /* "pfun/c_trampoline.pyx":87
+ * 
+ *     def __cinit__(self, thunk):
+ *         self.thunk = thunk             # <<<<<<<<<<<<<<
+ * 
+ * cdef class AndThen(Trampoline):
+ */
+  __Pyx_INCREF(__pyx_v_thunk);
+  __Pyx_GIVEREF(__pyx_v_thunk);
+  __Pyx_GOTREF(__pyx_v_self->thunk);
+  __Pyx_DECREF(__pyx_v_self->thunk);
+  __pyx_v_self->thunk = __pyx_v_thunk;
+
+  /* "pfun/c_trampoline.pyx":86
+ *     cdef object thunk
+ * 
+ *     def __cinit__(self, thunk):             # <<<<<<<<<<<<<<
+ *         self.thunk = thunk
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Call_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Call_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4Call_2__reduce_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Call *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Call_2__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Call *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 2, __pyx_L1_error)
+
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Call.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Call_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4Call_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4Call_4__setstate_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Call *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4Call_4__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Call *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 4, __pyx_L1_error)
+
+  /* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Call.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":93
+ *     cdef object cont
+ * 
+ *     def __cinit__(self, sub, cont):             # <<<<<<<<<<<<<<
+ *         self.sub = sub
+ *         self.cont = cont
+ */
+
+/* Python wrapper */
+static int __pyx_pw_4pfun_12c_trampoline_7AndThen_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_4pfun_12c_trampoline_7AndThen_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_sub = 0;
+  PyObject *__pyx_v_cont = 0;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_sub,&__pyx_n_s_cont,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_sub)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_cont)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, 1); __PYX_ERR(1, 93, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 93, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_sub = values[0];
+    __pyx_v_cont = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 93, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pfun.c_trampoline.AndThen.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return -1;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_7AndThen___cinit__(((struct __pyx_obj_4pfun_12c_trampoline_AndThen *)__pyx_v_self), __pyx_v_sub, __pyx_v_cont);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_4pfun_12c_trampoline_7AndThen___cinit__(struct __pyx_obj_4pfun_12c_trampoline_AndThen *__pyx_v_self, PyObject *__pyx_v_sub, PyObject *__pyx_v_cont) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__cinit__", 0);
+
+  /* "pfun/c_trampoline.pyx":94
+ * 
+ *     def __cinit__(self, sub, cont):
+ *         self.sub = sub             # <<<<<<<<<<<<<<
+ *         self.cont = cont
+ * 
+ */
+  if (!(likely(((__pyx_v_sub) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_sub, __pyx_ptype_4pfun_12c_trampoline_Trampoline))))) __PYX_ERR(1, 94, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_sub;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->sub);
+  __Pyx_DECREF(((PyObject *)__pyx_v_self->sub));
+  __pyx_v_self->sub = ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pfun/c_trampoline.pyx":95
+ *     def __cinit__(self, sub, cont):
+ *         self.sub = sub
+ *         self.cont = cont             # <<<<<<<<<<<<<<
+ * 
+ *     cdef Trampoline _and_then(self, object f):
+ */
+  __Pyx_INCREF(__pyx_v_cont);
+  __Pyx_GIVEREF(__pyx_v_cont);
+  __Pyx_GOTREF(__pyx_v_self->cont);
+  __Pyx_DECREF(__pyx_v_self->cont);
+  __pyx_v_self->cont = __pyx_v_cont;
+
+  /* "pfun/c_trampoline.pyx":93
+ *     cdef object cont
+ * 
+ *     def __cinit__(self, sub, cont):             # <<<<<<<<<<<<<<
+ *         self.sub = sub
+ *         self.cont = cont
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.AndThen.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":100
+ *         return AndThen(
+ *             self.sub,
+ *             lambda x: Call(lambda: self.cont(x).and_then(f))  # type: ignore             # <<<<<<<<<<<<<<
+ *         )
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7AndThen_9_and_then_lambda(PyObject *__pyx_self, PyObject *__pyx_v_x); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_7AndThen_9_and_then_lambda = {"lambda", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_7AndThen_9_and_then_lambda, METH_O, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7AndThen_9_and_then_lambda(PyObject *__pyx_self, PyObject *__pyx_v_x) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lambda (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda(__pyx_self, ((PyObject *)__pyx_v_x));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7AndThen_9_and_then_6lambda_lambda1(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_7AndThen_9_and_then_6lambda_lambda1 = {"lambda1", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_7AndThen_9_and_then_6lambda_lambda1, METH_NOARGS, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7AndThen_9_and_then_6lambda_lambda1(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lambda1 (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda1(__pyx_self);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_lambda_funcdef_lambda1(PyObject *__pyx_self) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *__pyx_cur_scope;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *__pyx_outer_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("lambda1", 0);
+  __pyx_outer_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_cur_scope = __pyx_outer_scope;
+  __Pyx_XDECREF(__pyx_r);
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(1, 100, __pyx_L1_error) }
+  if (unlikely(!__pyx_cur_scope->__pyx_v_x)) { __Pyx_RaiseClosureNameError("x"); __PYX_ERR(1, 100, __pyx_L1_error) }
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->cont);
+  __pyx_t_3 = __pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->cont; __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_cur_scope->__pyx_v_x) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_cur_scope->__pyx_v_x);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_and_then); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_f)) { __Pyx_RaiseClosureNameError("f"); __PYX_ERR(1, 100, __pyx_L1_error) }
+  __pyx_t_2 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_f) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_f);
+  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("pfun.c_trampoline.AndThen._and_then.lambda.lambda1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_lambda_funcdef_lambda(PyObject *__pyx_self, PyObject *__pyx_v_x) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("lambda", 0);
+  __pyx_cur_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *)__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda(__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __pyx_cur_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *)Py_None);
+    __Pyx_INCREF(Py_None);
+    __PYX_ERR(1, 100, __pyx_L1_error)
+  } else {
+    __Pyx_GOTREF(__pyx_cur_scope);
+  }
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
+  __pyx_cur_scope->__pyx_v_x = __pyx_v_x;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_x);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_x);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_7AndThen_9_and_then_6lambda_lambda1, 0, __pyx_n_s_AndThen__and_then_locals_lambda, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pfun_c_trampoline, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Call), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pfun.c_trampoline.AndThen._and_then.lambda", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":97
+ *         self.cont = cont
+ * 
+ *     cdef Trampoline _and_then(self, object f):             # <<<<<<<<<<<<<<
+ *         return AndThen(
+ *             self.sub,
+ */
+
+static struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_f_4pfun_12c_trampoline_7AndThen__and_then(struct __pyx_obj_4pfun_12c_trampoline_AndThen *__pyx_v_self, PyObject *__pyx_v_f) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *__pyx_cur_scope;
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("_and_then", 0);
+  __pyx_cur_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *)__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then(__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __pyx_cur_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *)Py_None);
+    __Pyx_INCREF(Py_None);
+    __PYX_ERR(1, 97, __pyx_L1_error)
+  } else {
+    __Pyx_GOTREF(__pyx_cur_scope);
+  }
+  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
+  __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __pyx_cur_scope->__pyx_v_f = __pyx_v_f;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_f);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_f);
+
+  /* "pfun/c_trampoline.pyx":98
+ * 
+ *     cdef Trampoline _and_then(self, object f):
+ *         return AndThen(             # <<<<<<<<<<<<<<
+ *             self.sub,
+ *             lambda x: Call(lambda: self.cont(x).and_then(f))  # type: ignore
+ */
+  __Pyx_XDECREF(((PyObject *)__pyx_r));
+
+  /* "pfun/c_trampoline.pyx":100
+ *         return AndThen(
+ *             self.sub,
+ *             lambda x: Call(lambda: self.cont(x).and_then(f))  # type: ignore             # <<<<<<<<<<<<<<
+ *         )
+ * 
+ */
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_7AndThen_9_and_then_lambda, 0, __pyx_n_s_AndThen__and_then_locals_lambda_2, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pfun_c_trampoline, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+
+  /* "pfun/c_trampoline.pyx":98
+ * 
+ *     cdef Trampoline _and_then(self, object f):
+ *         return AndThen(             # <<<<<<<<<<<<<<
+ *             self.sub,
+ *             lambda x: Call(lambda: self.cont(x).and_then(f))  # type: ignore
+ */
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 98, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_v_self->sub));
+  __Pyx_GIVEREF(((PyObject *)__pyx_cur_scope->__pyx_v_self->sub));
+  PyTuple_SET_ITEM(__pyx_t_2, 0, ((PyObject *)__pyx_cur_scope->__pyx_v_self->sub));
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_AndThen), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 98, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_t_1);
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":97
+ *         self.cont = cont
+ * 
+ *     cdef Trampoline _and_then(self, object f):             # <<<<<<<<<<<<<<
+ *         return AndThen(
+ *             self.sub,
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pfun.c_trampoline.AndThen._and_then", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7AndThen_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7AndThen_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_7AndThen_2__reduce_cython__(((struct __pyx_obj_4pfun_12c_trampoline_AndThen *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_7AndThen_2__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_AndThen *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 2, __pyx_L1_error)
+
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.AndThen.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7AndThen_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7AndThen_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_7AndThen_4__setstate_cython__(((struct __pyx_obj_4pfun_12c_trampoline_AndThen *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_7AndThen_4__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_AndThen *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 4, __pyx_L1_error)
+
+  /* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.AndThen.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":106
+ *     cdef object run_r
+ * 
+ *     def run(self, context):             # <<<<<<<<<<<<<<
+ *         return self._run(context)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_1run(PyObject *__pyx_v_self, PyObject *__pyx_v_context); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_1run(PyObject *__pyx_v_self, PyObject *__pyx_v_context) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("run (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_6Reader_run(((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_v_self), ((PyObject *)__pyx_v_context));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_6Reader_run(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, PyObject *__pyx_v_context) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("run", 0);
+
+  /* "pfun/c_trampoline.pyx":107
+ * 
+ *     def run(self, context):
+ *         return self._run(context)             # <<<<<<<<<<<<<<
+ * 
+ *     cdef object _run(self, object context):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((struct __pyx_vtabstruct_4pfun_12c_trampoline_Reader *)__pyx_v_self->__pyx_vtab)->_run(__pyx_v_self, __pyx_v_context); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 107, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":106
+ *     cdef object run_r
+ * 
+ *     def run(self, context):             # <<<<<<<<<<<<<<
+ *         return self._run(context)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":109
+ *         return self._run(context)
+ * 
+ *     cdef object _run(self, object context):             # <<<<<<<<<<<<<<
+ *         return self.run_r(context).run()
+ * 
+ */
+
+static PyObject *__pyx_f_4pfun_12c_trampoline_6Reader__run(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, PyObject *__pyx_v_context) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("_run", 0);
+
+  /* "pfun/c_trampoline.pyx":110
+ * 
+ *     cdef object _run(self, object context):
+ *         return self.run_r(context).run()             # <<<<<<<<<<<<<<
+ * 
+ *     def __cinit__(self, run_r):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->run_r);
+  __pyx_t_3 = __pyx_v_self->run_r; __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_v_context) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_context);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 110, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_run); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 110, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 110, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":109
+ *         return self._run(context)
+ * 
+ *     cdef object _run(self, object context):             # <<<<<<<<<<<<<<
+ *         return self.run_r(context).run()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader._run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":112
+ *         return self.run_r(context).run()
+ * 
+ *     def __cinit__(self, run_r):             # <<<<<<<<<<<<<<
+ *         self.run_r = run_r
+ * 
+ */
+
+/* Python wrapper */
+static int __pyx_pw_4pfun_12c_trampoline_6Reader_3__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_4pfun_12c_trampoline_6Reader_3__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_run_r = 0;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_run_r,0};
+    PyObject* values[1] = {0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_run_r)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 112, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+    }
+    __pyx_v_run_r = values[0];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 112, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return -1;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_6Reader_2__cinit__(((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_v_self), __pyx_v_run_r);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_4pfun_12c_trampoline_6Reader_2__cinit__(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, PyObject *__pyx_v_run_r) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__", 0);
+
+  /* "pfun/c_trampoline.pyx":113
+ * 
+ *     def __cinit__(self, run_r):
+ *         self.run_r = run_r             # <<<<<<<<<<<<<<
+ * 
+ *     def and_then(self, f):
+ */
+  __Pyx_INCREF(__pyx_v_run_r);
+  __Pyx_GIVEREF(__pyx_v_run_r);
+  __Pyx_GOTREF(__pyx_v_self->run_r);
+  __Pyx_DECREF(__pyx_v_self->run_r);
+  __pyx_v_self->run_r = __pyx_v_run_r;
+
+  /* "pfun/c_trampoline.pyx":112
+ *         return self.run_r(context).run()
+ * 
+ *     def __cinit__(self, run_r):             # <<<<<<<<<<<<<<
+ *         self.run_r = run_r
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":115
+ *         self.run_r = run_r
+ * 
+ *     def and_then(self, f):             # <<<<<<<<<<<<<<
+ *         return self._and_then(f)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_5and_then(PyObject *__pyx_v_self, PyObject *__pyx_v_f); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_5and_then(PyObject *__pyx_v_self, PyObject *__pyx_v_f) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("and_then (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_6Reader_4and_then(((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_v_self), ((PyObject *)__pyx_v_f));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_6Reader_4and_then(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, PyObject *__pyx_v_f) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("and_then", 0);
+
+  /* "pfun/c_trampoline.pyx":116
+ * 
+ *     def and_then(self, f):
+ *         return self._and_then(f)             # <<<<<<<<<<<<<<
+ * 
+ *     cdef Reader _and_then(self, object f):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_4pfun_12c_trampoline_Reader *)__pyx_v_self->__pyx_vtab)->_and_then(__pyx_v_self, __pyx_v_f)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":115
+ *         self.run_r = run_r
+ * 
+ *     def and_then(self, f):             # <<<<<<<<<<<<<<
+ *         return self._and_then(f)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader.and_then", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":119
+ * 
+ *     cdef Reader _and_then(self, object f):
+ *         return Reader(lambda context: Call(lambda: self.run_r(context).and_then(lambda v: Call(lambda: (<Reader>f(v)).run_r(context)))))             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_lambda2(PyObject *__pyx_self, PyObject *__pyx_v_context); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_6Reader_9_and_then_lambda2 = {"lambda2", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_lambda2, METH_O, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_lambda2(PyObject *__pyx_self, PyObject *__pyx_v_context) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lambda2 (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda2(__pyx_self, ((PyObject *)__pyx_v_context));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_lambda3(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_lambda3 = {"lambda3", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_lambda3, METH_NOARGS, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_lambda3(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lambda3 (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda3(__pyx_self);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_7lambda3_lambda4(PyObject *__pyx_self, PyObject *__pyx_v_v); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_7lambda3_lambda4 = {"lambda4", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_7lambda3_lambda4, METH_O, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_7lambda3_lambda4(PyObject *__pyx_self, PyObject *__pyx_v_v) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lambda4 (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda4(__pyx_self, ((PyObject *)__pyx_v_v));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_7lambda3_7lambda4_lambda5(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_7lambda3_7lambda4_lambda5 = {"lambda5", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_7lambda3_7lambda4_lambda5, METH_NOARGS, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_7lambda3_7lambda4_lambda5(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lambda5 (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda5(__pyx_self);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_lambda_funcdef_lambda5(PyObject *__pyx_self) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *__pyx_cur_scope;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *__pyx_outer_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("lambda5", 0);
+  __pyx_outer_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_cur_scope = __pyx_outer_scope;
+  __Pyx_XDECREF(__pyx_r);
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_f)) { __Pyx_RaiseClosureNameError("f"); __PYX_ERR(1, 119, __pyx_L1_error) }
+  if (unlikely(!__pyx_cur_scope->__pyx_v_v)) { __Pyx_RaiseClosureNameError("v"); __PYX_ERR(1, 119, __pyx_L1_error) }
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_f);
+  __pyx_t_3 = __pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_f; __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_cur_scope->__pyx_v_v) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_cur_scope->__pyx_v_v);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_context)) { __Pyx_RaiseClosureNameError("context"); __PYX_ERR(1, 119, __pyx_L1_error) }
+  __Pyx_INCREF(((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_t_2)->run_r);
+  __pyx_t_3 = ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_t_2)->run_r; __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_context) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_context);
+  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader._and_then.lambda2.lambda3.lambda4.lambda5", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_lambda_funcdef_lambda4(PyObject *__pyx_self, PyObject *__pyx_v_v) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("lambda4", 0);
+  __pyx_cur_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *)__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4(__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __pyx_cur_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *)Py_None);
+    __Pyx_INCREF(Py_None);
+    __PYX_ERR(1, 119, __pyx_L1_error)
+  } else {
+    __Pyx_GOTREF(__pyx_cur_scope);
+  }
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
+  __pyx_cur_scope->__pyx_v_v = __pyx_v_v;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_v);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_v);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_7lambda3_7lambda4_lambda5, 0, __pyx_n_s_Reader__and_then_locals_lambda_l, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pfun_c_trampoline, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Call), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader._and_then.lambda2.lambda3.lambda4", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_lambda_funcdef_lambda3(PyObject *__pyx_self) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *__pyx_cur_scope;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *__pyx_outer_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("lambda3", 0);
+  __pyx_outer_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_cur_scope = __pyx_outer_scope;
+  __Pyx_XDECREF(__pyx_r);
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(1, 119, __pyx_L1_error) }
+  if (unlikely(!__pyx_cur_scope->__pyx_v_context)) { __Pyx_RaiseClosureNameError("context"); __PYX_ERR(1, 119, __pyx_L1_error) }
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->run_r);
+  __pyx_t_3 = __pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->run_r; __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_cur_scope->__pyx_v_context) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_cur_scope->__pyx_v_context);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_and_then); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_7lambda3_lambda4, 0, __pyx_n_s_Reader__and_then_locals_lambda_l_2, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pfun_c_trampoline, __pyx_d, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader._and_then.lambda2.lambda3", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_lambda_funcdef_lambda2(PyObject *__pyx_self, PyObject *__pyx_v_context) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("lambda2", 0);
+  __pyx_cur_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *)__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2(__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __pyx_cur_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *)Py_None);
+    __Pyx_INCREF(Py_None);
+    __PYX_ERR(1, 119, __pyx_L1_error)
+  } else {
+    __Pyx_GOTREF(__pyx_cur_scope);
+  }
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
+  __pyx_cur_scope->__pyx_v_context = __pyx_v_context;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_context);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_context);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_6Reader_9_and_then_7lambda2_lambda3, 0, __pyx_n_s_Reader__and_then_locals_lambda_l_3, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pfun_c_trampoline, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Call), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader._and_then.lambda2", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":118
+ *         return self._and_then(f)
+ * 
+ *     cdef Reader _and_then(self, object f):             # <<<<<<<<<<<<<<
+ *         return Reader(lambda context: Call(lambda: self.run_r(context).and_then(lambda v: Call(lambda: (<Reader>f(v)).run_r(context)))))
+ * 
+ */
+
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline_6Reader__and_then(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, PyObject *__pyx_v_f) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *__pyx_cur_scope;
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("_and_then", 0);
+  __pyx_cur_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *)__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_2__and_then(__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_2__and_then, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __pyx_cur_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *)Py_None);
+    __Pyx_INCREF(Py_None);
+    __PYX_ERR(1, 118, __pyx_L1_error)
+  } else {
+    __Pyx_GOTREF(__pyx_cur_scope);
+  }
+  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
+  __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __pyx_cur_scope->__pyx_v_f = __pyx_v_f;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_f);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_f);
+
+  /* "pfun/c_trampoline.pyx":119
+ * 
+ *     cdef Reader _and_then(self, object f):
+ *         return Reader(lambda context: Call(lambda: self.run_r(context).and_then(lambda v: Call(lambda: (<Reader>f(v)).run_r(context)))))             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(((PyObject *)__pyx_r));
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_6Reader_9_and_then_lambda2, 0, __pyx_n_s_Reader__and_then_locals_lambda, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pfun_c_trampoline, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Reader), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_t_2);
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":118
+ *         return self._and_then(f)
+ * 
+ *     cdef Reader _and_then(self, object f):             # <<<<<<<<<<<<<<
+ *         return Reader(lambda context: Call(lambda: self.run_r(context).and_then(lambda v: Call(lambda: (<Reader>f(v)).run_r(context)))))
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader._and_then", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_7__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_7__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_6Reader_6__reduce_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_6Reader_6__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 2, __pyx_L1_error)
+
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_9__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_4pfun_12c_trampoline_6Reader_9__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_6Reader_8__setstate_cython__(((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_6Reader_8__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 4, __pyx_L1_error)
+
+  /* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.Reader.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":122
+ * 
+ * 
+ * def wrap(value):             # <<<<<<<<<<<<<<
+ *     return _wrap(value)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_3wrap(PyObject *__pyx_self, PyObject *__pyx_v_value); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_3wrap = {"wrap", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_3wrap, METH_O, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_3wrap(PyObject *__pyx_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("wrap (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_2wrap(__pyx_self, ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_2wrap(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("wrap", 0);
+
+  /* "pfun/c_trampoline.pyx":123
+ * 
+ * def wrap(value):
+ *     return _wrap(value)             # <<<<<<<<<<<<<<
+ * 
+ * def ask():
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((PyObject *)__pyx_f_4pfun_12c_trampoline__wrap(__pyx_v_value)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 123, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":122
+ * 
+ * 
+ * def wrap(value):             # <<<<<<<<<<<<<<
+ *     return _wrap(value)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.wrap", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":125
+ *     return _wrap(value)
+ * 
+ * def ask():             # <<<<<<<<<<<<<<
+ *     return _ask()
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_5ask(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_5ask = {"ask", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_5ask, METH_NOARGS, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_5ask(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("ask (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_4ask(__pyx_self);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_4ask(CYTHON_UNUSED PyObject *__pyx_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("ask", 0);
+
+  /* "pfun/c_trampoline.pyx":126
+ * 
+ * def ask():
+ *     return _ask()             # <<<<<<<<<<<<<<
+ * 
+ * cdef Reader _ask():
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((PyObject *)__pyx_f_4pfun_12c_trampoline__ask()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 126, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":125
+ *     return _wrap(value)
+ * 
+ * def ask():             # <<<<<<<<<<<<<<
+ *     return _ask()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.ask", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":129
+ * 
+ * cdef Reader _ask():
+ *     return Reader(lambda context: Done(context))             # <<<<<<<<<<<<<<
+ * 
+ * def sequence(readers):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4_ask_lambda6(PyObject *__pyx_self, PyObject *__pyx_v_context); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_4_ask_lambda6 = {"lambda6", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_4_ask_lambda6, METH_O, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_4_ask_lambda6(PyObject *__pyx_self, PyObject *__pyx_v_context) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lambda6 (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda6(__pyx_self, ((PyObject *)__pyx_v_context));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_lambda_funcdef_lambda6(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_context) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("lambda6", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Done), __pyx_v_context); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 129, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline._ask.lambda6", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":128
+ *     return _ask()
+ * 
+ * cdef Reader _ask():             # <<<<<<<<<<<<<<
+ *     return Reader(lambda context: Done(context))
+ * 
+ */
+
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline__ask(void) {
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("_ask", 0);
+
+  /* "pfun/c_trampoline.pyx":129
+ * 
+ * cdef Reader _ask():
+ *     return Reader(lambda context: Done(context))             # <<<<<<<<<<<<<<
+ * 
+ * def sequence(readers):
+ */
+  __Pyx_XDECREF(((PyObject *)__pyx_r));
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_4_ask_lambda6, 0, __pyx_n_s_ask_locals_lambda, NULL, __pyx_n_s_pfun_c_trampoline, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 129, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Reader), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 129, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_t_2);
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":128
+ *     return _ask()
+ * 
+ * cdef Reader _ask():             # <<<<<<<<<<<<<<
+ *     return Reader(lambda context: Done(context))
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pfun.c_trampoline._ask", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":131
+ *     return Reader(lambda context: Done(context))
+ * 
+ * def sequence(readers):             # <<<<<<<<<<<<<<
+ *     return _sequence(readers)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7sequence(PyObject *__pyx_self, PyObject *__pyx_v_readers); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_7sequence = {"sequence", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_7sequence, METH_O, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7sequence(PyObject *__pyx_self, PyObject *__pyx_v_readers) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("sequence (wrapper)", 0);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_6sequence(__pyx_self, ((PyObject *)__pyx_v_readers));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_6sequence(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_readers) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("sequence", 0);
+
+  /* "pfun/c_trampoline.pyx":132
+ * 
+ * def sequence(readers):
+ *     return _sequence(readers)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  if (!(likely(((__pyx_v_readers) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_readers, __pyx_ptype_4pfun_12c_trampoline_List))))) __PYX_ERR(1, 132, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_4pfun_12c_trampoline__sequence(((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_v_readers))); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 132, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":131
+ *     return Reader(lambda context: Done(context))
+ * 
+ * def sequence(readers):             # <<<<<<<<<<<<<<
+ *     return _sequence(readers)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline.sequence", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":137
+ * ctypedef Reader (*reducer)(Reader, Reader)
+ * 
+ * cdef Reader reduce(List l, reducer f, Reader init):             # <<<<<<<<<<<<<<
+ *     cdef Reader r
+ *     r = init
+ */
+
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline_reduce(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_l, __pyx_t_4pfun_12c_trampoline_reducer __pyx_v_f, struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_init) {
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_r = 0;
+  PyObject *__pyx_v_head = NULL;
+  struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_tail = NULL;
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
+  __Pyx_RefNannySetupContext("reduce", 0);
+  __Pyx_INCREF((PyObject *)__pyx_v_l);
+
+  /* "pfun/c_trampoline.pyx":139
+ * cdef Reader reduce(List l, reducer f, Reader init):
+ *     cdef Reader r
+ *     r = init             # <<<<<<<<<<<<<<
+ *     while not isinstance(l, Empty):
+ *         head = (<Cons>l).head
+ */
+  __Pyx_INCREF(((PyObject *)__pyx_v_init));
+  __pyx_v_r = __pyx_v_init;
+
+  /* "pfun/c_trampoline.pyx":140
+ *     cdef Reader r
+ *     r = init
+ *     while not isinstance(l, Empty):             # <<<<<<<<<<<<<<
+ *         head = (<Cons>l).head
+ *         tail = (<Cons>l).tail
+ */
+  while (1) {
+    __pyx_t_1 = __Pyx_TypeCheck(((PyObject *)__pyx_v_l), __pyx_ptype_4pfun_12c_trampoline_Empty); 
+    __pyx_t_2 = ((!(__pyx_t_1 != 0)) != 0);
+    if (!__pyx_t_2) break;
+
+    /* "pfun/c_trampoline.pyx":141
+ *     r = init
+ *     while not isinstance(l, Empty):
+ *         head = (<Cons>l).head             # <<<<<<<<<<<<<<
+ *         tail = (<Cons>l).tail
+ *         r = f(r, head)
+ */
+    __pyx_t_3 = ((struct __pyx_obj_4pfun_12c_trampoline_Cons *)__pyx_v_l)->head;
+    __Pyx_INCREF(__pyx_t_3);
+    __Pyx_XDECREF_SET(__pyx_v_head, __pyx_t_3);
+    __pyx_t_3 = 0;
+
+    /* "pfun/c_trampoline.pyx":142
+ *     while not isinstance(l, Empty):
+ *         head = (<Cons>l).head
+ *         tail = (<Cons>l).tail             # <<<<<<<<<<<<<<
+ *         r = f(r, head)
+ *         l = tail
+ */
+    __pyx_t_3 = ((PyObject *)((struct __pyx_obj_4pfun_12c_trampoline_Cons *)__pyx_v_l)->tail);
+    __Pyx_INCREF(__pyx_t_3);
+    __Pyx_XDECREF_SET(__pyx_v_tail, ((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_t_3));
+    __pyx_t_3 = 0;
+
+    /* "pfun/c_trampoline.pyx":143
+ *         head = (<Cons>l).head
+ *         tail = (<Cons>l).tail
+ *         r = f(r, head)             # <<<<<<<<<<<<<<
+ *         l = tail
+ *     return r
+ */
+    if (!(likely(((__pyx_v_head) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_head, __pyx_ptype_4pfun_12c_trampoline_Reader))))) __PYX_ERR(1, 143, __pyx_L1_error)
+    __pyx_t_3 = ((PyObject *)__pyx_v_f(__pyx_v_r, ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_v_head))); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF_SET(__pyx_v_r, ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_t_3));
+    __pyx_t_3 = 0;
+
+    /* "pfun/c_trampoline.pyx":144
+ *         tail = (<Cons>l).tail
+ *         r = f(r, head)
+ *         l = tail             # <<<<<<<<<<<<<<
+ *     return r
+ * 
+ */
+    __Pyx_INCREF(((PyObject *)__pyx_v_tail));
+    __Pyx_DECREF_SET(__pyx_v_l, __pyx_v_tail);
+  }
+
+  /* "pfun/c_trampoline.pyx":145
+ *         r = f(r, head)
+ *         l = tail
+ *     return r             # <<<<<<<<<<<<<<
+ * 
+ * cdef Reader combine(Reader r1, Reader r2):
+ */
+  __Pyx_XDECREF(((PyObject *)__pyx_r));
+  __Pyx_INCREF(((PyObject *)__pyx_v_r));
+  __pyx_r = __pyx_v_r;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":137
+ * ctypedef Reader (*reducer)(Reader, Reader)
+ * 
+ * cdef Reader reduce(List l, reducer f, Reader init):             # <<<<<<<<<<<<<<
+ *     cdef Reader r
+ *     r = init
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("pfun.c_trampoline.reduce", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_r);
+  __Pyx_XDECREF(__pyx_v_head);
+  __Pyx_XDECREF((PyObject *)__pyx_v_tail);
+  __Pyx_XDECREF((PyObject *)__pyx_v_l);
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":150
+ *     cdef List l
+ *     cdef object e
+ *     return r1.and_then(lambda l: r2.and_then(lambda e: _wrap((<List>l).append(e))))             # <<<<<<<<<<<<<<
+ * 
+ * cdef Reader _sequence(List readers):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7combine_lambda7(PyObject *__pyx_self, PyObject *__pyx_v_l); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_7combine_lambda7 = {"lambda7", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_7combine_lambda7, METH_O, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7combine_lambda7(PyObject *__pyx_self, PyObject *__pyx_v_l) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lambda7 (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda7(__pyx_self, ((PyObject *)__pyx_v_l));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7combine_7lambda7_lambda8(PyObject *__pyx_self, PyObject *__pyx_v_e); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_7combine_7lambda7_lambda8 = {"lambda8", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_7combine_7lambda7_lambda8, METH_O, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_7combine_7lambda7_lambda8(PyObject *__pyx_self, PyObject *__pyx_v_e) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lambda8 (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda8(__pyx_self, ((PyObject *)__pyx_v_e));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_lambda_funcdef_lambda8(PyObject *__pyx_self, PyObject *__pyx_v_e) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *__pyx_cur_scope;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *__pyx_outer_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("lambda8", 0);
+  __pyx_outer_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_cur_scope = __pyx_outer_scope;
+  __Pyx_XDECREF(__pyx_r);
+  if (unlikely(!__pyx_cur_scope->__pyx_v_l)) { __Pyx_RaiseClosureNameError("l"); __PYX_ERR(1, 150, __pyx_L1_error) }
+  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_4pfun_12c_trampoline_List *)((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_cur_scope->__pyx_v_l)->__pyx_vtab)->append(((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_cur_scope->__pyx_v_l), __pyx_v_e, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 150, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = ((PyObject *)__pyx_f_4pfun_12c_trampoline__wrap(__pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 150, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pfun.c_trampoline.combine.lambda7.lambda8", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_lambda_funcdef_lambda7(PyObject *__pyx_self, PyObject *__pyx_v_l) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("lambda7", 0);
+  __pyx_cur_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *)__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7(__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __pyx_cur_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *)Py_None);
+    __Pyx_INCREF(Py_None);
+    __PYX_ERR(1, 150, __pyx_L1_error)
+  } else {
+    __Pyx_GOTREF(__pyx_cur_scope);
+  }
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
+  __pyx_cur_scope->__pyx_v_l = __pyx_v_l;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_l);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_l);
+  __Pyx_XDECREF(__pyx_r);
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_r2)) { __Pyx_RaiseClosureNameError("r2"); __PYX_ERR(1, 150, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_outer_scope->__pyx_v_r2), __pyx_n_s_and_then); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 150, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_7combine_7lambda7_lambda8, 0, __pyx_n_s_combine_locals_lambda_locals_lam, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pfun_c_trampoline, __pyx_d, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 150, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 150, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("pfun.c_trampoline.combine.lambda7", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":147
+ *     return r
+ * 
+ * cdef Reader combine(Reader r1, Reader r2):             # <<<<<<<<<<<<<<
+ *     cdef List l
+ *     cdef object e
+ */
+
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline_combine(struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_r1, struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_r2) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *__pyx_cur_scope;
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("combine", 0);
+  __pyx_cur_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *)__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine(__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __pyx_cur_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *)Py_None);
+    __Pyx_INCREF(Py_None);
+    __PYX_ERR(1, 147, __pyx_L1_error)
+  } else {
+    __Pyx_GOTREF(__pyx_cur_scope);
+  }
+  __pyx_cur_scope->__pyx_v_r2 = __pyx_v_r2;
+  __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_r2);
+  __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_r2);
+
+  /* "pfun/c_trampoline.pyx":150
+ *     cdef List l
+ *     cdef object e
+ *     return r1.and_then(lambda l: r2.and_then(lambda e: _wrap((<List>l).append(e))))             # <<<<<<<<<<<<<<
+ * 
+ * cdef Reader _sequence(List readers):
+ */
+  __Pyx_XDECREF(((PyObject *)__pyx_r));
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_r1), __pyx_n_s_and_then); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 150, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_7combine_lambda7, 0, __pyx_n_s_combine_locals_lambda, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pfun_c_trampoline, __pyx_d, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 150, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 150, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_4pfun_12c_trampoline_Reader))))) __PYX_ERR(1, 150, __pyx_L1_error)
+  __pyx_r = ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_t_1);
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":147
+ *     return r
+ * 
+ * cdef Reader combine(Reader r1, Reader r2):             # <<<<<<<<<<<<<<
+ *     cdef List l
+ *     cdef object e
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("pfun.c_trampoline.combine", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":152
+ *     return r1.and_then(lambda l: r2.and_then(lambda e: _wrap((<List>l).append(e))))
+ * 
+ * cdef Reader _sequence(List readers):             # <<<<<<<<<<<<<<
+ *     reader = _wrap(Empty())
+ * 
+ */
+
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline__sequence(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v_readers) {
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_v_reader = NULL;
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("_sequence", 0);
+
+  /* "pfun/c_trampoline.pyx":153
+ * 
+ * cdef Reader _sequence(List readers):
+ *     reader = _wrap(Empty())             # <<<<<<<<<<<<<<
+ * 
+ *     return reduce(
+ */
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Empty)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 153, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = ((PyObject *)__pyx_f_4pfun_12c_trampoline__wrap(__pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 153, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_reader = ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_t_2);
+  __pyx_t_2 = 0;
+
+  /* "pfun/c_trampoline.pyx":155
+ *     reader = _wrap(Empty())
+ * 
+ *     return reduce(             # <<<<<<<<<<<<<<
+ *         readers,
+ *         combine,
+ */
+  __Pyx_XDECREF(((PyObject *)__pyx_r));
+
+  /* "pfun/c_trampoline.pyx":158
+ *         readers,
+ *         combine,
+ *         reader             # <<<<<<<<<<<<<<
+ *     )
+ * 
+ */
+  __pyx_t_2 = ((PyObject *)__pyx_f_4pfun_12c_trampoline_reduce(__pyx_v_readers, __pyx_f_4pfun_12c_trampoline_combine, __pyx_v_reader)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 155, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_r = ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_t_2);
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":152
+ *     return r1.and_then(lambda l: r2.and_then(lambda e: _wrap((<List>l).append(e))))
+ * 
+ * cdef Reader _sequence(List readers):             # <<<<<<<<<<<<<<
+ *     reader = _wrap(Empty())
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pfun.c_trampoline._sequence", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_reader);
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":163
+ * 
+ * cdef Reader _wrap(object value):
+ *     return Reader(lambda _: Done(value))             # <<<<<<<<<<<<<<
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_5_wrap_lambda9(PyObject *__pyx_self, PyObject *__pyx_v__); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_5_wrap_lambda9 = {"lambda9", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_5_wrap_lambda9, METH_O, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_5_wrap_lambda9(PyObject *__pyx_self, PyObject *__pyx_v__) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lambda9 (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda9(__pyx_self, ((PyObject *)__pyx_v__));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_lambda_funcdef_lambda9(PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v__) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *__pyx_cur_scope;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *__pyx_outer_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("lambda9", 0);
+  __pyx_outer_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_cur_scope = __pyx_outer_scope;
+  __Pyx_XDECREF(__pyx_r);
+  if (unlikely(!__pyx_cur_scope->__pyx_v_value)) { __Pyx_RaiseClosureNameError("value"); __PYX_ERR(1, 163, __pyx_L1_error) }
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Done), __pyx_cur_scope->__pyx_v_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 163, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pfun.c_trampoline._wrap.lambda9", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pfun/c_trampoline.pyx":162
+ * 
+ * 
+ * cdef Reader _wrap(object value):             # <<<<<<<<<<<<<<
+ *     return Reader(lambda _: Done(value))
+ */
+
+static struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_f_4pfun_12c_trampoline__wrap(PyObject *__pyx_v_value) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *__pyx_cur_scope;
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("_wrap", 0);
+  __pyx_cur_scope = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *)__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap(__pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __pyx_cur_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *)Py_None);
+    __Pyx_INCREF(Py_None);
+    __PYX_ERR(1, 162, __pyx_L1_error)
+  } else {
+    __Pyx_GOTREF(__pyx_cur_scope);
+  }
+  __pyx_cur_scope->__pyx_v_value = __pyx_v_value;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_value);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_value);
+
+  /* "pfun/c_trampoline.pyx":163
+ * 
+ * cdef Reader _wrap(object value):
+ *     return Reader(lambda _: Done(value))             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(((PyObject *)__pyx_r));
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_5_wrap_lambda9, 0, __pyx_n_s_wrap_locals_lambda, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pfun_c_trampoline, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 163, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Reader), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 163, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)__pyx_t_2);
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "pfun/c_trampoline.pyx":162
+ * 
+ * 
+ * cdef Reader _wrap(object value):             # <<<<<<<<<<<<<<
+ *     return Reader(lambda _: Done(value))
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pfun.c_trampoline._wrap", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __pyx_unpickle_List(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4pfun_12c_trampoline_1__pyx_unpickle_CTrampoline(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_1__pyx_unpickle_CTrampoline = {"__pyx_unpickle_CTrampoline", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4pfun_12c_trampoline_1__pyx_unpickle_CTrampoline, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_4pfun_12c_trampoline_1__pyx_unpickle_CTrampoline(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_4pfun_12c_trampoline_9__pyx_unpickle_List(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_9__pyx_unpickle_List = {"__pyx_unpickle_List", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4pfun_12c_trampoline_9__pyx_unpickle_List, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_9__pyx_unpickle_List(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v___pyx_type = 0;
   long __pyx_v___pyx_checksum;
   PyObject *__pyx_v___pyx_state = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__pyx_unpickle_CTrampoline (wrapper)", 0);
+  __Pyx_RefNannySetupContext("__pyx_unpickle_List (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_pyx_type,&__pyx_n_s_pyx_checksum,&__pyx_n_s_pyx_state,0};
     PyObject* values[3] = {0,0,0};
@@ -1737,17 +6436,17 @@ static PyObject *__pyx_pw_4pfun_12c_trampoline_1__pyx_unpickle_CTrampoline(PyObj
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_checksum)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_CTrampoline", 1, 3, 3, 1); __PYX_ERR(1, 1, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_List", 1, 3, 3, 1); __PYX_ERR(0, 1, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_state)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_CTrampoline", 1, 3, 3, 2); __PYX_ERR(1, 1, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_List", 1, 3, 3, 2); __PYX_ERR(0, 1, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__pyx_unpickle_CTrampoline") < 0)) __PYX_ERR(1, 1, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__pyx_unpickle_List") < 0)) __PYX_ERR(0, 1, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -1757,25 +6456,25 @@ static PyObject *__pyx_pw_4pfun_12c_trampoline_1__pyx_unpickle_CTrampoline(PyObj
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v___pyx_type = values[0];
-    __pyx_v___pyx_checksum = __Pyx_PyInt_As_long(values[1]); if (unlikely((__pyx_v___pyx_checksum == (long)-1) && PyErr_Occurred())) __PYX_ERR(1, 1, __pyx_L3_error)
+    __pyx_v___pyx_checksum = __Pyx_PyInt_As_long(values[1]); if (unlikely((__pyx_v___pyx_checksum == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L3_error)
     __pyx_v___pyx_state = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_CTrampoline", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 1, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_List", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_CTrampoline", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_List", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_8__pyx_unpickle_List(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_4pfun_12c_trampoline_8__pyx_unpickle_List(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_v___pyx_PickleError = 0;
   PyObject *__pyx_v___pyx_result = 0;
   PyObject *__pyx_r = NULL;
@@ -1786,7 +6485,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   int __pyx_t_6;
-  __Pyx_RefNannySetupContext("__pyx_unpickle_CTrampoline", 0);
+  __Pyx_RefNannySetupContext("__pyx_unpickle_List", 0);
 
   /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
@@ -1803,17 +6502,17 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
  *     if __pyx_checksum != 0xd41d8cd:
  *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
  *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
- *     __pyx_result = CTrampoline.__new__(__pyx_type)
+ *     __pyx_result = List.__new__(__pyx_type)
  */
-    __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_n_s_PickleError);
     __Pyx_GIVEREF(__pyx_n_s_PickleError);
     PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_PickleError);
-    __pyx_t_3 = __Pyx_Import(__pyx_n_s_pickle, __pyx_t_2, -1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 5, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_Import(__pyx_n_s_pickle, __pyx_t_2, -1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_PickleError); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_PickleError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_t_2);
     __pyx_v___pyx_PickleError = __pyx_t_2;
@@ -1824,12 +6523,12 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
  *     if __pyx_checksum != 0xd41d8cd:
  *         from pickle import PickleError as __pyx_PickleError
  *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)             # <<<<<<<<<<<<<<
- *     __pyx_result = CTrampoline.__new__(__pyx_type)
+ *     __pyx_result = List.__new__(__pyx_type)
  *     if __pyx_state is not None:
  */
-    __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 6, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0xd4, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 6, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0xd4, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_INCREF(__pyx_v___pyx_PickleError);
@@ -1846,12 +6545,12 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 6, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(1, 6, __pyx_L1_error)
+    __PYX_ERR(0, 6, __pyx_L1_error)
 
     /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
@@ -1865,11 +6564,11 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
   /* "(tree fragment)":7
  *         from pickle import PickleError as __pyx_PickleError
  *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
- *     __pyx_result = CTrampoline.__new__(__pyx_type)             # <<<<<<<<<<<<<<
+ *     __pyx_result = List.__new__(__pyx_type)             # <<<<<<<<<<<<<<
  *     if __pyx_state is not None:
- *         __pyx_unpickle_CTrampoline__set_state(<CTrampoline> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_List__set_state(<List> __pyx_result, __pyx_state)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_CTrampoline), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 7, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_List), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -1883,7 +6582,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
   }
   __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_v___pyx_type) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v___pyx_type);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 7, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v___pyx_result = __pyx_t_3;
@@ -1891,9 +6590,9 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
 
   /* "(tree fragment)":8
  *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
- *     __pyx_result = CTrampoline.__new__(__pyx_type)
+ *     __pyx_result = List.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
- *         __pyx_unpickle_CTrampoline__set_state(<CTrampoline> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_List__set_state(<List> __pyx_result, __pyx_state)
  *     return __pyx_result
  */
   __pyx_t_1 = (__pyx_v___pyx_state != Py_None);
@@ -1901,31 +6600,31 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
   if (__pyx_t_6) {
 
     /* "(tree fragment)":9
- *     __pyx_result = CTrampoline.__new__(__pyx_type)
+ *     __pyx_result = List.__new__(__pyx_type)
  *     if __pyx_state is not None:
- *         __pyx_unpickle_CTrampoline__set_state(<CTrampoline> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_List__set_state(<List> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
  *     return __pyx_result
- * cdef __pyx_unpickle_CTrampoline__set_state(CTrampoline __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_List__set_state(List __pyx_result, tuple __pyx_state):
  */
-    if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(1, 9, __pyx_L1_error)
-    __pyx_t_3 = __pyx_f_4pfun_12c_trampoline___pyx_unpickle_CTrampoline__set_state(((struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 9, __pyx_L1_error)
+    if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(0, 9, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_4pfun_12c_trampoline___pyx_unpickle_List__set_state(((struct __pyx_obj_4pfun_12c_trampoline_List *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
     /* "(tree fragment)":8
  *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
- *     __pyx_result = CTrampoline.__new__(__pyx_type)
+ *     __pyx_result = List.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
- *         __pyx_unpickle_CTrampoline__set_state(<CTrampoline> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_List__set_state(<List> __pyx_result, __pyx_state)
  *     return __pyx_result
  */
   }
 
   /* "(tree fragment)":10
  *     if __pyx_state is not None:
- *         __pyx_unpickle_CTrampoline__set_state(<CTrampoline> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_List__set_state(<List> __pyx_result, __pyx_state)
  *     return __pyx_result             # <<<<<<<<<<<<<<
- * cdef __pyx_unpickle_CTrampoline__set_state(CTrampoline __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_List__set_state(List __pyx_result, tuple __pyx_state):
  *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
  */
   __Pyx_XDECREF(__pyx_r);
@@ -1934,7 +6633,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
   goto __pyx_L0;
 
   /* "(tree fragment)":1
- * def __pyx_unpickle_CTrampoline(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_List(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
@@ -1945,7 +6644,7 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_CTrampoline", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_List", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v___pyx_PickleError);
@@ -1956,14 +6655,14 @@ static PyObject *__pyx_pf_4pfun_12c_trampoline___pyx_unpickle_CTrampoline(CYTHON
 }
 
 /* "(tree fragment)":11
- *         __pyx_unpickle_CTrampoline__set_state(<CTrampoline> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_List__set_state(<List> __pyx_result, __pyx_state)
  *     return __pyx_result
- * cdef __pyx_unpickle_CTrampoline__set_state(CTrampoline __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ * cdef __pyx_unpickle_List__set_state(List __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
  *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
  *         __pyx_result.__dict__.update(__pyx_state[0])
  */
 
-static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_CTrampoline__set_state(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_List__set_state(struct __pyx_obj_4pfun_12c_trampoline_List *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -1974,46 +6673,46 @@ static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_CTrampoline__set_st
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
-  __Pyx_RefNannySetupContext("__pyx_unpickle_CTrampoline__set_state", 0);
+  __Pyx_RefNannySetupContext("__pyx_unpickle_List__set_state", 0);
 
   /* "(tree fragment)":12
  *     return __pyx_result
- * cdef __pyx_unpickle_CTrampoline__set_state(CTrampoline __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_List__set_state(List __pyx_result, tuple __pyx_state):
  *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
  *         __pyx_result.__dict__.update(__pyx_state[0])
  */
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(1, 12, __pyx_L1_error)
+    __PYX_ERR(0, 12, __pyx_L1_error)
   }
-  __pyx_t_2 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 12, __pyx_L1_error)
   __pyx_t_3 = ((__pyx_t_2 > 0) != 0);
   if (__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_3 = __Pyx_HasAttr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_HasAttr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 12, __pyx_L1_error)
   __pyx_t_4 = (__pyx_t_3 != 0);
   __pyx_t_1 = __pyx_t_4;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
     /* "(tree fragment)":13
- * cdef __pyx_unpickle_CTrampoline__set_state(CTrampoline __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_List__set_state(List __pyx_result, tuple __pyx_state):
  *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
  *         __pyx_result.__dict__.update(__pyx_state[0])             # <<<<<<<<<<<<<<
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_update); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_update); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (unlikely(__pyx_v___pyx_state == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(1, 13, __pyx_L1_error)
+      __PYX_ERR(0, 13, __pyx_L1_error)
     }
-    __pyx_t_6 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
@@ -2028,23 +6727,23 @@ static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_CTrampoline__set_st
     __pyx_t_5 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_8, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 13, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
     /* "(tree fragment)":12
  *     return __pyx_result
- * cdef __pyx_unpickle_CTrampoline__set_state(CTrampoline __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_List__set_state(List __pyx_result, tuple __pyx_state):
  *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
  *         __pyx_result.__dict__.update(__pyx_state[0])
  */
   }
 
   /* "(tree fragment)":11
- *         __pyx_unpickle_CTrampoline__set_state(<CTrampoline> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_List__set_state(<List> __pyx_result, __pyx_state)
  *     return __pyx_result
- * cdef __pyx_unpickle_CTrampoline__set_state(CTrampoline __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ * cdef __pyx_unpickle_List__set_state(List __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
  *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
  *         __pyx_result.__dict__.update(__pyx_state[0])
  */
@@ -2057,17 +6756,755 @@ static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_CTrampoline__set_st
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_CTrampoline__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_List__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static struct __pyx_vtabstruct_4pfun_12c_trampoline_CTrampoline __pyx_vtable_4pfun_12c_trampoline_CTrampoline;
 
-static PyObject *__pyx_tp_new_4pfun_12c_trampoline_CTrampoline(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *p;
+/* "(tree fragment)":1
+ * def __pyx_unpickle_Empty(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_11__pyx_unpickle_Empty(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_11__pyx_unpickle_Empty = {"__pyx_unpickle_Empty", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4pfun_12c_trampoline_11__pyx_unpickle_Empty, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_11__pyx_unpickle_Empty(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v___pyx_type = 0;
+  long __pyx_v___pyx_checksum;
+  PyObject *__pyx_v___pyx_state = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__pyx_unpickle_Empty (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_pyx_type,&__pyx_n_s_pyx_checksum,&__pyx_n_s_pyx_state,0};
+    PyObject* values[3] = {0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_type)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_checksum)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_Empty", 1, 3, 3, 1); __PYX_ERR(0, 1, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_state)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_Empty", 1, 3, 3, 2); __PYX_ERR(0, 1, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__pyx_unpickle_Empty") < 0)) __PYX_ERR(0, 1, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+    }
+    __pyx_v___pyx_type = values[0];
+    __pyx_v___pyx_checksum = __Pyx_PyInt_As_long(values[1]); if (unlikely((__pyx_v___pyx_checksum == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L3_error)
+    __pyx_v___pyx_state = values[2];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_Empty", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_Empty", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_10__pyx_unpickle_Empty(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_10__pyx_unpickle_Empty(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_v___pyx_PickleError = 0;
+  PyObject *__pyx_v___pyx_result = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_6;
+  __Pyx_RefNannySetupContext("__pyx_unpickle_Empty", 0);
+
+  /* "(tree fragment)":4
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0xd41d8cd:             # <<<<<<<<<<<<<<
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ */
+  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0xd41d8cd) != 0);
+  if (__pyx_t_1) {
+
+    /* "(tree fragment)":5
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0xd41d8cd:
+ *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ *     __pyx_result = Empty.__new__(__pyx_type)
+ */
+    __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_n_s_PickleError);
+    __Pyx_GIVEREF(__pyx_n_s_PickleError);
+    PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_PickleError);
+    __pyx_t_3 = __Pyx_Import(__pyx_n_s_pickle, __pyx_t_2, -1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_PickleError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_t_2);
+    __pyx_v___pyx_PickleError = __pyx_t_2;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "(tree fragment)":6
+ *     if __pyx_checksum != 0xd41d8cd:
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)             # <<<<<<<<<<<<<<
+ *     __pyx_result = Empty.__new__(__pyx_type)
+ *     if __pyx_state is not None:
+ */
+    __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0xd4, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_INCREF(__pyx_v___pyx_PickleError);
+    __pyx_t_2 = __pyx_v___pyx_PickleError; __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_2, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(0, 6, __pyx_L1_error)
+
+    /* "(tree fragment)":4
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0xd41d8cd:             # <<<<<<<<<<<<<<
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ */
+  }
+
+  /* "(tree fragment)":7
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ *     __pyx_result = Empty.__new__(__pyx_type)             # <<<<<<<<<<<<<<
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_Empty__set_state(<Empty> __pyx_result, __pyx_state)
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Empty), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_v___pyx_type) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v___pyx_type);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v___pyx_result = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "(tree fragment)":8
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ *     __pyx_result = Empty.__new__(__pyx_type)
+ *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_Empty__set_state(<Empty> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ */
+  __pyx_t_1 = (__pyx_v___pyx_state != Py_None);
+  __pyx_t_6 = (__pyx_t_1 != 0);
+  if (__pyx_t_6) {
+
+    /* "(tree fragment)":9
+ *     __pyx_result = Empty.__new__(__pyx_type)
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_Empty__set_state(<Empty> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
+ *     return __pyx_result
+ * cdef __pyx_unpickle_Empty__set_state(Empty __pyx_result, tuple __pyx_state):
+ */
+    if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(0, 9, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_4pfun_12c_trampoline___pyx_unpickle_Empty__set_state(((struct __pyx_obj_4pfun_12c_trampoline_Empty *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "(tree fragment)":8
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ *     __pyx_result = Empty.__new__(__pyx_type)
+ *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_Empty__set_state(<Empty> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ */
+  }
+
+  /* "(tree fragment)":10
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_Empty__set_state(<Empty> __pyx_result, __pyx_state)
+ *     return __pyx_result             # <<<<<<<<<<<<<<
+ * cdef __pyx_unpickle_Empty__set_state(Empty __pyx_result, tuple __pyx_state):
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v___pyx_result);
+  __pyx_r = __pyx_v___pyx_result;
+  goto __pyx_L0;
+
+  /* "(tree fragment)":1
+ * def __pyx_unpickle_Empty(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_Empty", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v___pyx_PickleError);
+  __Pyx_XDECREF(__pyx_v___pyx_result);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":11
+ *         __pyx_unpickle_Empty__set_state(<Empty> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_Empty__set_state(Empty __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[0])
+ */
+
+static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_Empty__set_state(struct __pyx_obj_4pfun_12c_trampoline_Empty *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  Py_ssize_t __pyx_t_2;
+  int __pyx_t_3;
+  int __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_unpickle_Empty__set_state", 0);
+
+  /* "(tree fragment)":12
+ *     return __pyx_result
+ * cdef __pyx_unpickle_Empty__set_state(Empty __pyx_result, tuple __pyx_state):
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[0])
+ */
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(0, 12, __pyx_L1_error)
+  }
+  __pyx_t_2 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_3 = ((__pyx_t_2 > 0) != 0);
+  if (__pyx_t_3) {
+  } else {
+    __pyx_t_1 = __pyx_t_3;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_3 = __Pyx_HasAttr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_4 = (__pyx_t_3 != 0);
+  __pyx_t_1 = __pyx_t_4;
+  __pyx_L4_bool_binop_done:;
+  if (__pyx_t_1) {
+
+    /* "(tree fragment)":13
+ * cdef __pyx_unpickle_Empty__set_state(Empty __pyx_result, tuple __pyx_state):
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[0])             # <<<<<<<<<<<<<<
+ */
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_update); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(__pyx_v___pyx_state == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 13, __pyx_L1_error)
+    }
+    __pyx_t_6 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_8 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
+      __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_7);
+      if (likely(__pyx_t_8)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+        __Pyx_INCREF(__pyx_t_8);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_7, function);
+      }
+    }
+    __pyx_t_5 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_8, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_6);
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+    /* "(tree fragment)":12
+ *     return __pyx_result
+ * cdef __pyx_unpickle_Empty__set_state(Empty __pyx_result, tuple __pyx_state):
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[0])
+ */
+  }
+
+  /* "(tree fragment)":11
+ *         __pyx_unpickle_Empty__set_state(<Empty> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_Empty__set_state(Empty __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[0])
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_Empty__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __pyx_unpickle_Trampoline(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4pfun_12c_trampoline_13__pyx_unpickle_Trampoline(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_4pfun_12c_trampoline_13__pyx_unpickle_Trampoline = {"__pyx_unpickle_Trampoline", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4pfun_12c_trampoline_13__pyx_unpickle_Trampoline, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_4pfun_12c_trampoline_13__pyx_unpickle_Trampoline(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v___pyx_type = 0;
+  long __pyx_v___pyx_checksum;
+  PyObject *__pyx_v___pyx_state = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__pyx_unpickle_Trampoline (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_pyx_type,&__pyx_n_s_pyx_checksum,&__pyx_n_s_pyx_state,0};
+    PyObject* values[3] = {0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_type)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_checksum)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_Trampoline", 1, 3, 3, 1); __PYX_ERR(0, 1, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_state)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_Trampoline", 1, 3, 3, 2); __PYX_ERR(0, 1, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__pyx_unpickle_Trampoline") < 0)) __PYX_ERR(0, 1, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+    }
+    __pyx_v___pyx_type = values[0];
+    __pyx_v___pyx_checksum = __Pyx_PyInt_As_long(values[1]); if (unlikely((__pyx_v___pyx_checksum == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L3_error)
+    __pyx_v___pyx_state = values[2];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_Trampoline", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_Trampoline", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_4pfun_12c_trampoline_12__pyx_unpickle_Trampoline(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4pfun_12c_trampoline_12__pyx_unpickle_Trampoline(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_v___pyx_PickleError = 0;
+  PyObject *__pyx_v___pyx_result = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_6;
+  __Pyx_RefNannySetupContext("__pyx_unpickle_Trampoline", 0);
+
+  /* "(tree fragment)":4
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0xd41d8cd:             # <<<<<<<<<<<<<<
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ */
+  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0xd41d8cd) != 0);
+  if (__pyx_t_1) {
+
+    /* "(tree fragment)":5
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0xd41d8cd:
+ *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ *     __pyx_result = Trampoline.__new__(__pyx_type)
+ */
+    __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_n_s_PickleError);
+    __Pyx_GIVEREF(__pyx_n_s_PickleError);
+    PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_PickleError);
+    __pyx_t_3 = __Pyx_Import(__pyx_n_s_pickle, __pyx_t_2, -1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_PickleError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_t_2);
+    __pyx_v___pyx_PickleError = __pyx_t_2;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "(tree fragment)":6
+ *     if __pyx_checksum != 0xd41d8cd:
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)             # <<<<<<<<<<<<<<
+ *     __pyx_result = Trampoline.__new__(__pyx_type)
+ *     if __pyx_state is not None:
+ */
+    __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0xd4, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_INCREF(__pyx_v___pyx_PickleError);
+    __pyx_t_2 = __pyx_v___pyx_PickleError; __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_2, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(0, 6, __pyx_L1_error)
+
+    /* "(tree fragment)":4
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0xd41d8cd:             # <<<<<<<<<<<<<<
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ */
+  }
+
+  /* "(tree fragment)":7
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ *     __pyx_result = Trampoline.__new__(__pyx_type)             # <<<<<<<<<<<<<<
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_Trampoline__set_state(<Trampoline> __pyx_result, __pyx_state)
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4pfun_12c_trampoline_Trampoline), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_v___pyx_type) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v___pyx_type);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v___pyx_result = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "(tree fragment)":8
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ *     __pyx_result = Trampoline.__new__(__pyx_type)
+ *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_Trampoline__set_state(<Trampoline> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ */
+  __pyx_t_1 = (__pyx_v___pyx_state != Py_None);
+  __pyx_t_6 = (__pyx_t_1 != 0);
+  if (__pyx_t_6) {
+
+    /* "(tree fragment)":9
+ *     __pyx_result = Trampoline.__new__(__pyx_type)
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_Trampoline__set_state(<Trampoline> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
+ *     return __pyx_result
+ * cdef __pyx_unpickle_Trampoline__set_state(Trampoline __pyx_result, tuple __pyx_state):
+ */
+    if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(0, 9, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_4pfun_12c_trampoline___pyx_unpickle_Trampoline__set_state(((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "(tree fragment)":8
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd41d8cd = ())" % __pyx_checksum)
+ *     __pyx_result = Trampoline.__new__(__pyx_type)
+ *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_Trampoline__set_state(<Trampoline> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ */
+  }
+
+  /* "(tree fragment)":10
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_Trampoline__set_state(<Trampoline> __pyx_result, __pyx_state)
+ *     return __pyx_result             # <<<<<<<<<<<<<<
+ * cdef __pyx_unpickle_Trampoline__set_state(Trampoline __pyx_result, tuple __pyx_state):
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v___pyx_result);
+  __pyx_r = __pyx_v___pyx_result;
+  goto __pyx_L0;
+
+  /* "(tree fragment)":1
+ * def __pyx_unpickle_Trampoline(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_Trampoline", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v___pyx_PickleError);
+  __Pyx_XDECREF(__pyx_v___pyx_result);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":11
+ *         __pyx_unpickle_Trampoline__set_state(<Trampoline> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_Trampoline__set_state(Trampoline __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[0])
+ */
+
+static PyObject *__pyx_f_4pfun_12c_trampoline___pyx_unpickle_Trampoline__set_state(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  Py_ssize_t __pyx_t_2;
+  int __pyx_t_3;
+  int __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_unpickle_Trampoline__set_state", 0);
+
+  /* "(tree fragment)":12
+ *     return __pyx_result
+ * cdef __pyx_unpickle_Trampoline__set_state(Trampoline __pyx_result, tuple __pyx_state):
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[0])
+ */
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(0, 12, __pyx_L1_error)
+  }
+  __pyx_t_2 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_3 = ((__pyx_t_2 > 0) != 0);
+  if (__pyx_t_3) {
+  } else {
+    __pyx_t_1 = __pyx_t_3;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_3 = __Pyx_HasAttr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_4 = (__pyx_t_3 != 0);
+  __pyx_t_1 = __pyx_t_4;
+  __pyx_L4_bool_binop_done:;
+  if (__pyx_t_1) {
+
+    /* "(tree fragment)":13
+ * cdef __pyx_unpickle_Trampoline__set_state(Trampoline __pyx_result, tuple __pyx_state):
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[0])             # <<<<<<<<<<<<<<
+ */
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_update); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(__pyx_v___pyx_state == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 13, __pyx_L1_error)
+    }
+    __pyx_t_6 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_8 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
+      __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_7);
+      if (likely(__pyx_t_8)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+        __Pyx_INCREF(__pyx_t_8);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_7, function);
+      }
+    }
+    __pyx_t_5 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_8, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_6);
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+    /* "(tree fragment)":12
+ *     return __pyx_result
+ * cdef __pyx_unpickle_Trampoline__set_state(Trampoline __pyx_result, tuple __pyx_state):
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[0])
+ */
+  }
+
+  /* "(tree fragment)":11
+ *         __pyx_unpickle_Trampoline__set_state(<Trampoline> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_Trampoline__set_state(Trampoline __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[0])
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_AddTraceback("pfun.c_trampoline.__pyx_unpickle_Trampoline__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_List __pyx_vtable_4pfun_12c_trampoline_List;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_List(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_4pfun_12c_trampoline_List *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -2075,12 +7512,12 @@ static PyObject *__pyx_tp_new_4pfun_12c_trampoline_CTrampoline(PyTypeObject *t, 
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *)o);
-  p->__pyx_vtab = __pyx_vtabptr_4pfun_12c_trampoline_CTrampoline;
+  p = ((struct __pyx_obj_4pfun_12c_trampoline_List *)o);
+  p->__pyx_vtab = __pyx_vtabptr_4pfun_12c_trampoline_List;
   return o;
 }
 
-static void __pyx_tp_dealloc_4pfun_12c_trampoline_CTrampoline(PyObject *o) {
+static void __pyx_tp_dealloc_4pfun_12c_trampoline_List(PyObject *o) {
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -2089,19 +7526,323 @@ static void __pyx_tp_dealloc_4pfun_12c_trampoline_CTrampoline(PyObject *o) {
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_4pfun_12c_trampoline_CTrampoline[] = {
-  {"run", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_11CTrampoline_1run, METH_NOARGS, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_11CTrampoline_3__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_11CTrampoline_5__setstate_cython__, METH_O, 0},
+static PyMethodDef __pyx_methods_4pfun_12c_trampoline_List[] = {
+  {"append", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_4List_1append, METH_O, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_4List_5__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_4List_7__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_4pfun_12c_trampoline_CTrampoline = {
+static PyTypeObject __pyx_type_4pfun_12c_trampoline_List = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pfun.c_trampoline.CTrampoline", /*tp_name*/
-  sizeof(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline), /*tp_basicsize*/
+  "pfun.c_trampoline.List", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline_List), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_4pfun_12c_trampoline_CTrampoline, /*tp_dealloc*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline_List, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  __pyx_pw_4pfun_12c_trampoline_4List_3__repr__, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
+  0, /*tp_doc*/
+  0, /*tp_traverse*/
+  0, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_4pfun_12c_trampoline_List, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline_List, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Empty __pyx_vtable_4pfun_12c_trampoline_Empty;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Empty(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_4pfun_12c_trampoline_Empty *p;
+  PyObject *o = __pyx_tp_new_4pfun_12c_trampoline_List(t, a, k);
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_4pfun_12c_trampoline_Empty *)o);
+  p->__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_4pfun_12c_trampoline_List*)__pyx_vtabptr_4pfun_12c_trampoline_Empty;
+  return o;
+}
+
+static PyMethodDef __pyx_methods_4pfun_12c_trampoline_Empty[] = {
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_5Empty_1__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_5Empty_3__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline_Empty = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.Empty", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline_Empty), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline_List, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  #if CYTHON_COMPILING_IN_PYPY
+  __pyx_pw_4pfun_12c_trampoline_4List_3__repr__, /*tp_repr*/
+  #else
+  0, /*tp_repr*/
+  #endif
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
+  0, /*tp_doc*/
+  0, /*tp_traverse*/
+  0, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_4pfun_12c_trampoline_Empty, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline_Empty, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Cons __pyx_vtable_4pfun_12c_trampoline_Cons;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Cons(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_4pfun_12c_trampoline_Cons *p;
+  PyObject *o = __pyx_tp_new_4pfun_12c_trampoline_List(t, a, k);
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_4pfun_12c_trampoline_Cons *)o);
+  p->__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_4pfun_12c_trampoline_List*)__pyx_vtabptr_4pfun_12c_trampoline_Cons;
+  p->head = Py_None; Py_INCREF(Py_None);
+  p->tail = ((struct __pyx_obj_4pfun_12c_trampoline_List *)Py_None); Py_INCREF(Py_None);
+  if (unlikely(__pyx_pw_4pfun_12c_trampoline_4Cons_1__cinit__(o, a, k) < 0)) goto bad;
+  return o;
+  bad:
+  Py_DECREF(o); o = 0;
+  return NULL;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline_Cons(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline_Cons *p = (struct __pyx_obj_4pfun_12c_trampoline_Cons *)o;
+  #if CYTHON_USE_TP_FINALIZE
+  if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->head);
+  Py_CLEAR(p->tail);
+  #if CYTHON_USE_TYPE_SLOTS
+  if (PyType_IS_GC(Py_TYPE(o)->tp_base))
+  #endif
+  PyObject_GC_Track(o);
+  __pyx_tp_dealloc_4pfun_12c_trampoline_List(o);
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline_Cons(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline_Cons *p = (struct __pyx_obj_4pfun_12c_trampoline_Cons *)o;
+  e = ((likely(__pyx_ptype_4pfun_12c_trampoline_List)) ? ((__pyx_ptype_4pfun_12c_trampoline_List->tp_traverse) ? __pyx_ptype_4pfun_12c_trampoline_List->tp_traverse(o, v, a) : 0) : __Pyx_call_next_tp_traverse(o, v, a, __pyx_tp_traverse_4pfun_12c_trampoline_Cons)); if (e) return e;
+  if (p->head) {
+    e = (*v)(p->head, a); if (e) return e;
+  }
+  if (p->tail) {
+    e = (*v)(((PyObject *)p->tail), a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline_Cons(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline_Cons *p = (struct __pyx_obj_4pfun_12c_trampoline_Cons *)o;
+  if (likely(__pyx_ptype_4pfun_12c_trampoline_List)) { if (__pyx_ptype_4pfun_12c_trampoline_List->tp_clear) __pyx_ptype_4pfun_12c_trampoline_List->tp_clear(o); } else __Pyx_call_next_tp_clear(o, __pyx_tp_clear_4pfun_12c_trampoline_Cons);
+  tmp = ((PyObject*)p->head);
+  p->head = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->tail);
+  p->tail = ((struct __pyx_obj_4pfun_12c_trampoline_List *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyMethodDef __pyx_methods_4pfun_12c_trampoline_Cons[] = {
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_4Cons_3__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_4Cons_5__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline_Cons = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.Cons", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline_Cons), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline_Cons, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  #if CYTHON_COMPILING_IN_PYPY
+  __pyx_pw_4pfun_12c_trampoline_4List_3__repr__, /*tp_repr*/
+  #else
+  0, /*tp_repr*/
+  #endif
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline_Cons, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline_Cons, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_4pfun_12c_trampoline_Cons, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline_Cons, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline __pyx_vtable_4pfun_12c_trampoline_Trampoline;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Trampoline(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_4pfun_12c_trampoline_Trampoline *p;
+  PyObject *o;
+  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
+    o = (*t->tp_alloc)(t, 0);
+  } else {
+    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
+  }
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)o);
+  p->__pyx_vtab = __pyx_vtabptr_4pfun_12c_trampoline_Trampoline;
+  return o;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline_Trampoline(PyObject *o) {
+  #if CYTHON_USE_TP_FINALIZE
+  if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  (*Py_TYPE(o)->tp_free)(o);
+}
+
+static PyMethodDef __pyx_methods_4pfun_12c_trampoline_Trampoline[] = {
+  {"and_then", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_10Trampoline_1and_then, METH_O, 0},
+  {"run", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_10Trampoline_3run, METH_NOARGS, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_10Trampoline_5__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_10Trampoline_7__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline_Trampoline = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.Trampoline", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline_Trampoline), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline_Trampoline, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -2129,7 +7870,7 @@ static PyTypeObject __pyx_type_4pfun_12c_trampoline_CTrampoline = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_4pfun_12c_trampoline_CTrampoline, /*tp_methods*/
+  __pyx_methods_4pfun_12c_trampoline_Trampoline, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -2139,7 +7880,1386 @@ static PyTypeObject __pyx_type_4pfun_12c_trampoline_CTrampoline = {
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_4pfun_12c_trampoline_CTrampoline, /*tp_new*/
+  __pyx_tp_new_4pfun_12c_trampoline_Trampoline, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Done __pyx_vtable_4pfun_12c_trampoline_Done;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Done(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_4pfun_12c_trampoline_Done *p;
+  PyObject *o = __pyx_tp_new_4pfun_12c_trampoline_Trampoline(t, a, k);
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_4pfun_12c_trampoline_Done *)o);
+  p->__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline*)__pyx_vtabptr_4pfun_12c_trampoline_Done;
+  p->result = Py_None; Py_INCREF(Py_None);
+  if (unlikely(__pyx_pw_4pfun_12c_trampoline_4Done_1__cinit__(o, a, k) < 0)) goto bad;
+  return o;
+  bad:
+  Py_DECREF(o); o = 0;
+  return NULL;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline_Done(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline_Done *p = (struct __pyx_obj_4pfun_12c_trampoline_Done *)o;
+  #if CYTHON_USE_TP_FINALIZE
+  if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->result);
+  #if CYTHON_USE_TYPE_SLOTS
+  if (PyType_IS_GC(Py_TYPE(o)->tp_base))
+  #endif
+  PyObject_GC_Track(o);
+  __pyx_tp_dealloc_4pfun_12c_trampoline_Trampoline(o);
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline_Done(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline_Done *p = (struct __pyx_obj_4pfun_12c_trampoline_Done *)o;
+  e = ((likely(__pyx_ptype_4pfun_12c_trampoline_Trampoline)) ? ((__pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_traverse) ? __pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_traverse(o, v, a) : 0) : __Pyx_call_next_tp_traverse(o, v, a, __pyx_tp_traverse_4pfun_12c_trampoline_Done)); if (e) return e;
+  if (p->result) {
+    e = (*v)(p->result, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline_Done(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline_Done *p = (struct __pyx_obj_4pfun_12c_trampoline_Done *)o;
+  if (likely(__pyx_ptype_4pfun_12c_trampoline_Trampoline)) { if (__pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_clear) __pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_clear(o); } else __Pyx_call_next_tp_clear(o, __pyx_tp_clear_4pfun_12c_trampoline_Done);
+  tmp = ((PyObject*)p->result);
+  p->result = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyMethodDef __pyx_methods_4pfun_12c_trampoline_Done[] = {
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_4Done_3__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_4Done_5__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline_Done = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.Done", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline_Done), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline_Done, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline_Done, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline_Done, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_4pfun_12c_trampoline_Done, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline_Done, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Call __pyx_vtable_4pfun_12c_trampoline_Call;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Call(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_4pfun_12c_trampoline_Call *p;
+  PyObject *o = __pyx_tp_new_4pfun_12c_trampoline_Trampoline(t, a, k);
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_4pfun_12c_trampoline_Call *)o);
+  p->__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline*)__pyx_vtabptr_4pfun_12c_trampoline_Call;
+  p->thunk = Py_None; Py_INCREF(Py_None);
+  if (unlikely(__pyx_pw_4pfun_12c_trampoline_4Call_1__cinit__(o, a, k) < 0)) goto bad;
+  return o;
+  bad:
+  Py_DECREF(o); o = 0;
+  return NULL;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline_Call(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline_Call *p = (struct __pyx_obj_4pfun_12c_trampoline_Call *)o;
+  #if CYTHON_USE_TP_FINALIZE
+  if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->thunk);
+  #if CYTHON_USE_TYPE_SLOTS
+  if (PyType_IS_GC(Py_TYPE(o)->tp_base))
+  #endif
+  PyObject_GC_Track(o);
+  __pyx_tp_dealloc_4pfun_12c_trampoline_Trampoline(o);
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline_Call(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline_Call *p = (struct __pyx_obj_4pfun_12c_trampoline_Call *)o;
+  e = ((likely(__pyx_ptype_4pfun_12c_trampoline_Trampoline)) ? ((__pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_traverse) ? __pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_traverse(o, v, a) : 0) : __Pyx_call_next_tp_traverse(o, v, a, __pyx_tp_traverse_4pfun_12c_trampoline_Call)); if (e) return e;
+  if (p->thunk) {
+    e = (*v)(p->thunk, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline_Call(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline_Call *p = (struct __pyx_obj_4pfun_12c_trampoline_Call *)o;
+  if (likely(__pyx_ptype_4pfun_12c_trampoline_Trampoline)) { if (__pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_clear) __pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_clear(o); } else __Pyx_call_next_tp_clear(o, __pyx_tp_clear_4pfun_12c_trampoline_Call);
+  tmp = ((PyObject*)p->thunk);
+  p->thunk = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyMethodDef __pyx_methods_4pfun_12c_trampoline_Call[] = {
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_4Call_3__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_4Call_5__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline_Call = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.Call", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline_Call), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline_Call, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline_Call, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline_Call, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_4pfun_12c_trampoline_Call, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline_Call, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_AndThen __pyx_vtable_4pfun_12c_trampoline_AndThen;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_AndThen(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_4pfun_12c_trampoline_AndThen *p;
+  PyObject *o = __pyx_tp_new_4pfun_12c_trampoline_Trampoline(t, a, k);
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_4pfun_12c_trampoline_AndThen *)o);
+  p->__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_4pfun_12c_trampoline_Trampoline*)__pyx_vtabptr_4pfun_12c_trampoline_AndThen;
+  p->sub = ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)Py_None); Py_INCREF(Py_None);
+  p->cont = Py_None; Py_INCREF(Py_None);
+  if (unlikely(__pyx_pw_4pfun_12c_trampoline_7AndThen_1__cinit__(o, a, k) < 0)) goto bad;
+  return o;
+  bad:
+  Py_DECREF(o); o = 0;
+  return NULL;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline_AndThen(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline_AndThen *p = (struct __pyx_obj_4pfun_12c_trampoline_AndThen *)o;
+  #if CYTHON_USE_TP_FINALIZE
+  if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->sub);
+  Py_CLEAR(p->cont);
+  #if CYTHON_USE_TYPE_SLOTS
+  if (PyType_IS_GC(Py_TYPE(o)->tp_base))
+  #endif
+  PyObject_GC_Track(o);
+  __pyx_tp_dealloc_4pfun_12c_trampoline_Trampoline(o);
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline_AndThen(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline_AndThen *p = (struct __pyx_obj_4pfun_12c_trampoline_AndThen *)o;
+  e = ((likely(__pyx_ptype_4pfun_12c_trampoline_Trampoline)) ? ((__pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_traverse) ? __pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_traverse(o, v, a) : 0) : __Pyx_call_next_tp_traverse(o, v, a, __pyx_tp_traverse_4pfun_12c_trampoline_AndThen)); if (e) return e;
+  if (p->sub) {
+    e = (*v)(((PyObject *)p->sub), a); if (e) return e;
+  }
+  if (p->cont) {
+    e = (*v)(p->cont, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline_AndThen(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline_AndThen *p = (struct __pyx_obj_4pfun_12c_trampoline_AndThen *)o;
+  if (likely(__pyx_ptype_4pfun_12c_trampoline_Trampoline)) { if (__pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_clear) __pyx_ptype_4pfun_12c_trampoline_Trampoline->tp_clear(o); } else __Pyx_call_next_tp_clear(o, __pyx_tp_clear_4pfun_12c_trampoline_AndThen);
+  tmp = ((PyObject*)p->sub);
+  p->sub = ((struct __pyx_obj_4pfun_12c_trampoline_Trampoline *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->cont);
+  p->cont = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyMethodDef __pyx_methods_4pfun_12c_trampoline_AndThen[] = {
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_7AndThen_3__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_7AndThen_5__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline_AndThen = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.AndThen", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline_AndThen), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline_AndThen, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline_AndThen, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline_AndThen, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_4pfun_12c_trampoline_AndThen, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline_AndThen, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+static struct __pyx_vtabstruct_4pfun_12c_trampoline_Reader __pyx_vtable_4pfun_12c_trampoline_Reader;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline_Reader(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *p;
+  PyObject *o;
+  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
+    o = (*t->tp_alloc)(t, 0);
+  } else {
+    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
+  }
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)o);
+  p->__pyx_vtab = __pyx_vtabptr_4pfun_12c_trampoline_Reader;
+  p->run_r = Py_None; Py_INCREF(Py_None);
+  if (unlikely(__pyx_pw_4pfun_12c_trampoline_6Reader_3__cinit__(o, a, k) < 0)) goto bad;
+  return o;
+  bad:
+  Py_DECREF(o); o = 0;
+  return NULL;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline_Reader(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *p = (struct __pyx_obj_4pfun_12c_trampoline_Reader *)o;
+  #if CYTHON_USE_TP_FINALIZE
+  if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->run_r);
+  (*Py_TYPE(o)->tp_free)(o);
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline_Reader(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *p = (struct __pyx_obj_4pfun_12c_trampoline_Reader *)o;
+  if (p->run_r) {
+    e = (*v)(p->run_r, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline_Reader(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline_Reader *p = (struct __pyx_obj_4pfun_12c_trampoline_Reader *)o;
+  tmp = ((PyObject*)p->run_r);
+  p->run_r = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyMethodDef __pyx_methods_4pfun_12c_trampoline_Reader[] = {
+  {"run", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_6Reader_1run, METH_O, 0},
+  {"and_then", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_6Reader_5and_then, METH_O, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_6Reader_7__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_4pfun_12c_trampoline_6Reader_9__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline_Reader = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.Reader", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline_Reader), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline_Reader, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline_Reader, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline_Reader, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_4pfun_12c_trampoline_Reader, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline_Reader, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+
+static struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then[8];
+static int __pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then = 0;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then)))) {
+    o = (PyObject*)__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then[--__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then];
+    memset(o, 0, sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_v_f);
+  Py_CLEAR(p->__pyx_v_self);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then)))) {
+    __pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then[__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then++] = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *)o;
+  if (p->__pyx_v_f) {
+    e = (*v)(p->__pyx_v_f, a); if (e) return e;
+  }
+  if (p->__pyx_v_self) {
+    e = (*v)(((PyObject *)p->__pyx_v_self), a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *)o;
+  tmp = ((PyObject*)p->__pyx_v_f);
+  p->__pyx_v_f = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_self);
+  p->__pyx_v_self = ((struct __pyx_obj_4pfun_12c_trampoline_AndThen *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.__pyx_scope_struct____pyx_base___and_then", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+
+static struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda[8];
+static int __pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda = 0;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda)))) {
+    o = (PyObject*)__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda[--__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda];
+    memset(o, 0, sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_outer_scope);
+  Py_CLEAR(p->__pyx_v_x);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda)))) {
+    __pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda[__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda++] = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *)o;
+  if (p->__pyx_outer_scope) {
+    e = (*v)(((PyObject *)p->__pyx_outer_scope), a); if (e) return e;
+  }
+  if (p->__pyx_v_x) {
+    e = (*v)(p->__pyx_v_x, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda *)o;
+  tmp = ((PyObject*)p->__pyx_outer_scope);
+  p->__pyx_outer_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_x);
+  p->__pyx_v_x = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.__pyx_scope_struct_1___pyx_lambda_funcdef_lambda", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+
+static struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_2__and_then[8];
+static int __pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_2__and_then = 0;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_2__and_then(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_2__and_then > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then)))) {
+    o = (PyObject*)__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_2__and_then[--__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_2__and_then];
+    memset(o, 0, sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_2__and_then(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_v_f);
+  Py_CLEAR(p->__pyx_v_self);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_2__and_then < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then)))) {
+    __pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_2__and_then[__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_2__and_then++] = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_2__and_then(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *)o;
+  if (p->__pyx_v_f) {
+    e = (*v)(p->__pyx_v_f, a); if (e) return e;
+  }
+  if (p->__pyx_v_self) {
+    e = (*v)(((PyObject *)p->__pyx_v_self), a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_2__and_then(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *)o;
+  tmp = ((PyObject*)p->__pyx_v_f);
+  p->__pyx_v_f = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_self);
+  p->__pyx_v_self = ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_2__and_then = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.__pyx_scope_struct_2__and_then", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_2__and_then, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_2__and_then, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_2__and_then, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_2__and_then, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+
+static struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2[8];
+static int __pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 = 0;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2)))) {
+    o = (PyObject*)__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2[--__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2];
+    memset(o, 0, sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_outer_scope);
+  Py_CLEAR(p->__pyx_v_context);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2)))) {
+    __pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2[__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2++] = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *)o;
+  if (p->__pyx_outer_scope) {
+    e = (*v)(((PyObject *)p->__pyx_outer_scope), a); if (e) return e;
+  }
+  if (p->__pyx_v_context) {
+    e = (*v)(p->__pyx_v_context, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *)o;
+  tmp = ((PyObject*)p->__pyx_outer_scope);
+  p->__pyx_outer_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_2__and_then *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_context);
+  p->__pyx_v_context = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.__pyx_scope_struct_3___pyx_lambda_funcdef_lambda2", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+
+static struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4[8];
+static int __pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 = 0;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4)))) {
+    o = (PyObject*)__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4[--__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4];
+    memset(o, 0, sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_outer_scope);
+  Py_CLEAR(p->__pyx_v_v);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4)))) {
+    __pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4[__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4++] = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *)o;
+  if (p->__pyx_outer_scope) {
+    e = (*v)(((PyObject *)p->__pyx_outer_scope), a); if (e) return e;
+  }
+  if (p->__pyx_v_v) {
+    e = (*v)(p->__pyx_v_v, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 *)o;
+  tmp = ((PyObject*)p->__pyx_outer_scope);
+  p->__pyx_outer_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_v);
+  p->__pyx_v_v = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.__pyx_scope_struct_4___pyx_lambda_funcdef_lambda4", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+
+static struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine[8];
+static int __pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine = 0;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine)))) {
+    o = (PyObject*)__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine[--__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine];
+    memset(o, 0, sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_v_r2);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine)))) {
+    __pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine[__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine++] = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *)o;
+  if (p->__pyx_v_r2) {
+    e = (*v)(((PyObject *)p->__pyx_v_r2), a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *)o;
+  tmp = ((PyObject*)p->__pyx_v_r2);
+  p->__pyx_v_r2 = ((struct __pyx_obj_4pfun_12c_trampoline_Reader *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.__pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+
+static struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7[8];
+static int __pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 = 0;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7)))) {
+    o = (PyObject*)__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7[--__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7];
+    memset(o, 0, sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_outer_scope);
+  Py_CLEAR(p->__pyx_v_l);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7)))) {
+    __pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7[__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7++] = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *)o;
+  if (p->__pyx_outer_scope) {
+    e = (*v)(((PyObject *)p->__pyx_outer_scope), a); if (e) return e;
+  }
+  if (p->__pyx_v_l) {
+    e = (*v)(p->__pyx_v_l, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 *)o;
+  tmp = ((PyObject*)p->__pyx_outer_scope);
+  p->__pyx_outer_scope = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_l);
+  p->__pyx_v_l = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.__pyx_scope_struct_6___pyx_lambda_funcdef_lambda7", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+
+static struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap[8];
+static int __pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap = 0;
+
+static PyObject *__pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap)))) {
+    o = (PyObject*)__pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap[--__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap];
+    memset(o, 0, sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap(PyObject *o) {
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_v_value);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap)))) {
+    __pyx_freelist_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap[__pyx_freecount_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap++] = ((struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *)o;
+  if (p->__pyx_v_value) {
+    e = (*v)(p->__pyx_v_value, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *p = (struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap *)o;
+  tmp = ((PyObject*)p->__pyx_v_value);
+  p->__pyx_v_value = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pfun.c_trampoline.__pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap", /*tp_name*/
+  sizeof(struct __pyx_obj_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap, /*tp_traverse*/
+  __pyx_tp_clear_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -2203,57 +9323,245 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_n_s_CTrampoline, __pyx_k_CTrampoline, sizeof(__pyx_k_CTrampoline), 0, 0, 1, 1},
+  {&__pyx_kp_s_, __pyx_k_, sizeof(__pyx_k_), 0, 0, 1, 0},
+  {&__pyx_n_s_AndThen, __pyx_k_AndThen, sizeof(__pyx_k_AndThen), 0, 0, 1, 1},
+  {&__pyx_n_s_AndThen__and_then_locals_lambda, __pyx_k_AndThen__and_then_locals_lambda, sizeof(__pyx_k_AndThen__and_then_locals_lambda), 0, 0, 1, 1},
+  {&__pyx_n_s_AndThen__and_then_locals_lambda_2, __pyx_k_AndThen__and_then_locals_lambda_2, sizeof(__pyx_k_AndThen__and_then_locals_lambda_2), 0, 0, 1, 1},
+  {&__pyx_n_s_Call, __pyx_k_Call, sizeof(__pyx_k_Call), 0, 0, 1, 1},
+  {&__pyx_n_s_Cons, __pyx_k_Cons, sizeof(__pyx_k_Cons), 0, 0, 1, 1},
+  {&__pyx_n_s_Done, __pyx_k_Done, sizeof(__pyx_k_Done), 0, 0, 1, 1},
+  {&__pyx_n_s_Empty, __pyx_k_Empty, sizeof(__pyx_k_Empty), 0, 0, 1, 1},
   {&__pyx_kp_s_Incompatible_checksums_s_vs_0xd4, __pyx_k_Incompatible_checksums_s_vs_0xd4, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xd4), 0, 0, 1, 0},
+  {&__pyx_kp_s_List, __pyx_k_List, sizeof(__pyx_k_List), 0, 0, 1, 0},
+  {&__pyx_n_s_List_2, __pyx_k_List_2, sizeof(__pyx_k_List_2), 0, 0, 1, 1},
   {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
+  {&__pyx_n_s_Reader, __pyx_k_Reader, sizeof(__pyx_k_Reader), 0, 0, 1, 1},
+  {&__pyx_n_s_Reader__and_then_locals_lambda, __pyx_k_Reader__and_then_locals_lambda, sizeof(__pyx_k_Reader__and_then_locals_lambda), 0, 0, 1, 1},
+  {&__pyx_n_s_Reader__and_then_locals_lambda_l, __pyx_k_Reader__and_then_locals_lambda_l, sizeof(__pyx_k_Reader__and_then_locals_lambda_l), 0, 0, 1, 1},
+  {&__pyx_n_s_Reader__and_then_locals_lambda_l_2, __pyx_k_Reader__and_then_locals_lambda_l_2, sizeof(__pyx_k_Reader__and_then_locals_lambda_l_2), 0, 0, 1, 1},
+  {&__pyx_n_s_Reader__and_then_locals_lambda_l_3, __pyx_k_Reader__and_then_locals_lambda_l_3, sizeof(__pyx_k_Reader__and_then_locals_lambda_l_3), 0, 0, 1, 1},
+  {&__pyx_n_s_Trampoline, __pyx_k_Trampoline, sizeof(__pyx_k_Trampoline), 0, 0, 1, 1},
+  {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
+  {&__pyx_kp_s__2, __pyx_k__2, sizeof(__pyx_k__2), 0, 0, 1, 0},
+  {&__pyx_n_s_and_then, __pyx_k_and_then, sizeof(__pyx_k_and_then), 0, 0, 1, 1},
+  {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
+  {&__pyx_n_s_ask, __pyx_k_ask, sizeof(__pyx_k_ask), 0, 0, 1, 1},
+  {&__pyx_n_s_ask_locals_lambda, __pyx_k_ask_locals_lambda, sizeof(__pyx_k_ask_locals_lambda), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+  {&__pyx_n_s_combine_locals_lambda, __pyx_k_combine_locals_lambda, sizeof(__pyx_k_combine_locals_lambda), 0, 0, 1, 1},
+  {&__pyx_n_s_combine_locals_lambda_locals_lam, __pyx_k_combine_locals_lambda_locals_lam, sizeof(__pyx_k_combine_locals_lambda_locals_lam), 0, 0, 1, 1},
+  {&__pyx_n_s_cont, __pyx_k_cont, sizeof(__pyx_k_cont), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
-  {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
-  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
-  {&__pyx_n_s_hello, __pyx_k_hello, sizeof(__pyx_k_hello), 0, 0, 1, 1},
+  {&__pyx_n_s_head, __pyx_k_head, sizeof(__pyx_k_head), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
+  {&__pyx_n_s_list, __pyx_k_list, sizeof(__pyx_k_list), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_new, __pyx_k_new, sizeof(__pyx_k_new), 0, 0, 1, 1},
+  {&__pyx_kp_s_no_default___reduce___due_to_non, __pyx_k_no_default___reduce___due_to_non, sizeof(__pyx_k_no_default___reduce___due_to_non), 0, 0, 1, 0},
   {&__pyx_n_s_pfun_c_trampoline, __pyx_k_pfun_c_trampoline, sizeof(__pyx_k_pfun_c_trampoline), 0, 0, 1, 1},
+  {&__pyx_kp_s_pfun_c_trampoline_pyx, __pyx_k_pfun_c_trampoline_pyx, sizeof(__pyx_k_pfun_c_trampoline_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_pickle, __pyx_k_pickle, sizeof(__pyx_k_pickle), 0, 0, 1, 1},
-  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_PickleError, __pyx_k_pyx_PickleError, sizeof(__pyx_k_pyx_PickleError), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_checksum, __pyx_k_pyx_checksum, sizeof(__pyx_k_pyx_checksum), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_result, __pyx_k_pyx_result, sizeof(__pyx_k_pyx_result), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_state, __pyx_k_pyx_state, sizeof(__pyx_k_pyx_state), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_type, __pyx_k_pyx_type, sizeof(__pyx_k_pyx_type), 0, 0, 1, 1},
-  {&__pyx_n_s_pyx_unpickle_CTrampoline, __pyx_k_pyx_unpickle_CTrampoline, sizeof(__pyx_k_pyx_unpickle_CTrampoline), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_unpickle_Empty, __pyx_k_pyx_unpickle_Empty, sizeof(__pyx_k_pyx_unpickle_Empty), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_unpickle_List, __pyx_k_pyx_unpickle_List, sizeof(__pyx_k_pyx_unpickle_List), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_unpickle_Trampoline, __pyx_k_pyx_unpickle_Trampoline, sizeof(__pyx_k_pyx_unpickle_Trampoline), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
+  {&__pyx_n_s_readers, __pyx_k_readers, sizeof(__pyx_k_readers), 0, 0, 1, 1},
   {&__pyx_n_s_reduce, __pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_cython, __pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
+  {&__pyx_n_s_result, __pyx_k_result, sizeof(__pyx_k_result), 0, 0, 1, 1},
   {&__pyx_n_s_run, __pyx_k_run, sizeof(__pyx_k_run), 0, 0, 1, 1},
+  {&__pyx_n_s_run_r, __pyx_k_run_r, sizeof(__pyx_k_run_r), 0, 0, 1, 1},
+  {&__pyx_n_s_sequence, __pyx_k_sequence, sizeof(__pyx_k_sequence), 0, 0, 1, 1},
   {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
   {&__pyx_n_s_setstate_cython, __pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 0, 1, 1},
   {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
+  {&__pyx_n_s_sub, __pyx_k_sub, sizeof(__pyx_k_sub), 0, 0, 1, 1},
+  {&__pyx_n_s_tail, __pyx_k_tail, sizeof(__pyx_k_tail), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_thunk, __pyx_k_thunk, sizeof(__pyx_k_thunk), 0, 0, 1, 1},
   {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
+  {&__pyx_n_s_value, __pyx_k_value, sizeof(__pyx_k_value), 0, 0, 1, 1},
+  {&__pyx_n_s_wrap, __pyx_k_wrap, sizeof(__pyx_k_wrap), 0, 0, 1, 1},
+  {&__pyx_n_s_wrap_locals_lambda, __pyx_k_wrap_locals_lambda, sizeof(__pyx_k_wrap_locals_lambda), 0, 0, 1, 1},
+  {&__pyx_n_s_xs, __pyx_k_xs, sizeof(__pyx_k_xs), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 2, __pyx_L1_error)
   return 0;
+  __pyx_L1_error:;
+  return -1;
 }
 
 static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__9);
+  __Pyx_GIVEREF(__pyx_tuple__9);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
+
+  /* "pfun/c_trampoline.pyx":25
+ * 
+ * 
+ * def list_(xs):             # <<<<<<<<<<<<<<
+ *     return _list(xs)
+ * 
+ */
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_n_s_xs); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(1, 25, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pfun_c_trampoline_pyx, __pyx_n_s_list, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(1, 25, __pyx_L1_error)
+
+  /* "pfun/c_trampoline.pyx":122
+ * 
+ * 
+ * def wrap(value):             # <<<<<<<<<<<<<<
+ *     return _wrap(value)
+ * 
+ */
+  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_n_s_value); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(1, 122, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pfun_c_trampoline_pyx, __pyx_n_s_wrap, 122, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(1, 122, __pyx_L1_error)
+
+  /* "pfun/c_trampoline.pyx":125
+ *     return _wrap(value)
+ * 
+ * def ask():             # <<<<<<<<<<<<<<
+ *     return _ask()
+ * 
+ */
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pfun_c_trampoline_pyx, __pyx_n_s_ask, 125, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(1, 125, __pyx_L1_error)
+
+  /* "pfun/c_trampoline.pyx":131
+ *     return Reader(lambda context: Done(context))
+ * 
+ * def sequence(readers):             # <<<<<<<<<<<<<<
+ *     return _sequence(readers)
+ * 
+ */
+  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_n_s_readers); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(1, 131, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pfun_c_trampoline_pyx, __pyx_n_s_sequence, 131, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 131, __pyx_L1_error)
+
   /* "(tree fragment)":1
- * def __pyx_unpickle_CTrampoline(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_List(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_tuple_ = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple_)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple_);
-  __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_CTrampoline, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__20);
+  __Pyx_GIVEREF(__pyx_tuple__20);
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_List, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_Empty, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_Trampoline, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2262,8 +9570,8 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 }
 
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
-  if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
-  __pyx_int_222419149 = PyInt_FromLong(222419149L); if (unlikely(!__pyx_int_222419149)) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  __pyx_int_222419149 = PyInt_FromLong(222419149L); if (unlikely(!__pyx_int_222419149)) __PYX_ERR(1, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -2305,19 +9613,183 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  __pyx_vtabptr_4pfun_12c_trampoline_CTrampoline = &__pyx_vtable_4pfun_12c_trampoline_CTrampoline;
-  __pyx_vtable_4pfun_12c_trampoline_CTrampoline.run = (double (*)(struct __pyx_obj_4pfun_12c_trampoline_CTrampoline *, int __pyx_skip_dispatch))__pyx_f_4pfun_12c_trampoline_11CTrampoline_run;
-  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline_CTrampoline) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_vtabptr_4pfun_12c_trampoline_List = &__pyx_vtable_4pfun_12c_trampoline_List;
+  __pyx_vtable_4pfun_12c_trampoline_List.append = (struct __pyx_obj_4pfun_12c_trampoline_List *(*)(struct __pyx_obj_4pfun_12c_trampoline_List *, PyObject *, int __pyx_skip_dispatch))__pyx_f_4pfun_12c_trampoline_4List_append;
+  __pyx_vtable_4pfun_12c_trampoline_List._repr = (PyObject *(*)(struct __pyx_obj_4pfun_12c_trampoline_List *))__pyx_f_4pfun_12c_trampoline_4List__repr;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline_List) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
-  __pyx_type_4pfun_12c_trampoline_CTrampoline.tp_print = 0;
+  __pyx_type_4pfun_12c_trampoline_List.tp_print = 0;
   #endif
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline_CTrampoline.tp_dictoffset && __pyx_type_4pfun_12c_trampoline_CTrampoline.tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_type_4pfun_12c_trampoline_CTrampoline.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline_List.tp_dictoffset && __pyx_type_4pfun_12c_trampoline_List.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline_List.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (__Pyx_SetVtable(__pyx_type_4pfun_12c_trampoline_CTrampoline.tp_dict, __pyx_vtabptr_4pfun_12c_trampoline_CTrampoline) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CTrampoline, (PyObject *)&__pyx_type_4pfun_12c_trampoline_CTrampoline) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4pfun_12c_trampoline_CTrampoline) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_ptype_4pfun_12c_trampoline_CTrampoline = &__pyx_type_4pfun_12c_trampoline_CTrampoline;
+  if (__Pyx_SetVtable(__pyx_type_4pfun_12c_trampoline_List.tp_dict, __pyx_vtabptr_4pfun_12c_trampoline_List) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_List_2, (PyObject *)&__pyx_type_4pfun_12c_trampoline_List) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4pfun_12c_trampoline_List) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_ptype_4pfun_12c_trampoline_List = &__pyx_type_4pfun_12c_trampoline_List;
+  __pyx_vtabptr_4pfun_12c_trampoline_Empty = &__pyx_vtable_4pfun_12c_trampoline_Empty;
+  __pyx_vtable_4pfun_12c_trampoline_Empty.__pyx_base = *__pyx_vtabptr_4pfun_12c_trampoline_List;
+  __pyx_type_4pfun_12c_trampoline_Empty.tp_base = __pyx_ptype_4pfun_12c_trampoline_List;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline_Empty) < 0) __PYX_ERR(1, 21, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline_Empty.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline_Empty.tp_dictoffset && __pyx_type_4pfun_12c_trampoline_Empty.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline_Empty.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (__Pyx_SetVtable(__pyx_type_4pfun_12c_trampoline_Empty.tp_dict, __pyx_vtabptr_4pfun_12c_trampoline_Empty) < 0) __PYX_ERR(1, 21, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Empty, (PyObject *)&__pyx_type_4pfun_12c_trampoline_Empty) < 0) __PYX_ERR(1, 21, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4pfun_12c_trampoline_Empty) < 0) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_ptype_4pfun_12c_trampoline_Empty = &__pyx_type_4pfun_12c_trampoline_Empty;
+  __pyx_vtabptr_4pfun_12c_trampoline_Cons = &__pyx_vtable_4pfun_12c_trampoline_Cons;
+  __pyx_vtable_4pfun_12c_trampoline_Cons.__pyx_base = *__pyx_vtabptr_4pfun_12c_trampoline_List;
+  __pyx_type_4pfun_12c_trampoline_Cons.tp_base = __pyx_ptype_4pfun_12c_trampoline_List;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline_Cons) < 0) __PYX_ERR(1, 37, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline_Cons.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline_Cons.tp_dictoffset && __pyx_type_4pfun_12c_trampoline_Cons.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline_Cons.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (__Pyx_SetVtable(__pyx_type_4pfun_12c_trampoline_Cons.tp_dict, __pyx_vtabptr_4pfun_12c_trampoline_Cons) < 0) __PYX_ERR(1, 37, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Cons, (PyObject *)&__pyx_type_4pfun_12c_trampoline_Cons) < 0) __PYX_ERR(1, 37, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4pfun_12c_trampoline_Cons) < 0) __PYX_ERR(1, 37, __pyx_L1_error)
+  __pyx_ptype_4pfun_12c_trampoline_Cons = &__pyx_type_4pfun_12c_trampoline_Cons;
+  __pyx_vtabptr_4pfun_12c_trampoline_Trampoline = &__pyx_vtable_4pfun_12c_trampoline_Trampoline;
+  __pyx_vtable_4pfun_12c_trampoline_Trampoline._run = (PyObject *(*)(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *))__pyx_f_4pfun_12c_trampoline_10Trampoline__run;
+  __pyx_vtable_4pfun_12c_trampoline_Trampoline._and_then = (struct __pyx_obj_4pfun_12c_trampoline_Trampoline *(*)(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *, PyObject *))__pyx_f_4pfun_12c_trampoline_10Trampoline__and_then;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline_Trampoline) < 0) __PYX_ERR(1, 46, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline_Trampoline.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline_Trampoline.tp_dictoffset && __pyx_type_4pfun_12c_trampoline_Trampoline.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline_Trampoline.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (__Pyx_SetVtable(__pyx_type_4pfun_12c_trampoline_Trampoline.tp_dict, __pyx_vtabptr_4pfun_12c_trampoline_Trampoline) < 0) __PYX_ERR(1, 46, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Trampoline, (PyObject *)&__pyx_type_4pfun_12c_trampoline_Trampoline) < 0) __PYX_ERR(1, 46, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4pfun_12c_trampoline_Trampoline) < 0) __PYX_ERR(1, 46, __pyx_L1_error)
+  __pyx_ptype_4pfun_12c_trampoline_Trampoline = &__pyx_type_4pfun_12c_trampoline_Trampoline;
+  __pyx_vtabptr_4pfun_12c_trampoline_Done = &__pyx_vtable_4pfun_12c_trampoline_Done;
+  __pyx_vtable_4pfun_12c_trampoline_Done.__pyx_base = *__pyx_vtabptr_4pfun_12c_trampoline_Trampoline;
+  __pyx_type_4pfun_12c_trampoline_Done.tp_base = __pyx_ptype_4pfun_12c_trampoline_Trampoline;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline_Done) < 0) __PYX_ERR(1, 77, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline_Done.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline_Done.tp_dictoffset && __pyx_type_4pfun_12c_trampoline_Done.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline_Done.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (__Pyx_SetVtable(__pyx_type_4pfun_12c_trampoline_Done.tp_dict, __pyx_vtabptr_4pfun_12c_trampoline_Done) < 0) __PYX_ERR(1, 77, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Done, (PyObject *)&__pyx_type_4pfun_12c_trampoline_Done) < 0) __PYX_ERR(1, 77, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4pfun_12c_trampoline_Done) < 0) __PYX_ERR(1, 77, __pyx_L1_error)
+  __pyx_ptype_4pfun_12c_trampoline_Done = &__pyx_type_4pfun_12c_trampoline_Done;
+  __pyx_vtabptr_4pfun_12c_trampoline_Call = &__pyx_vtable_4pfun_12c_trampoline_Call;
+  __pyx_vtable_4pfun_12c_trampoline_Call.__pyx_base = *__pyx_vtabptr_4pfun_12c_trampoline_Trampoline;
+  __pyx_type_4pfun_12c_trampoline_Call.tp_base = __pyx_ptype_4pfun_12c_trampoline_Trampoline;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline_Call) < 0) __PYX_ERR(1, 83, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline_Call.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline_Call.tp_dictoffset && __pyx_type_4pfun_12c_trampoline_Call.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline_Call.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (__Pyx_SetVtable(__pyx_type_4pfun_12c_trampoline_Call.tp_dict, __pyx_vtabptr_4pfun_12c_trampoline_Call) < 0) __PYX_ERR(1, 83, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Call, (PyObject *)&__pyx_type_4pfun_12c_trampoline_Call) < 0) __PYX_ERR(1, 83, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4pfun_12c_trampoline_Call) < 0) __PYX_ERR(1, 83, __pyx_L1_error)
+  __pyx_ptype_4pfun_12c_trampoline_Call = &__pyx_type_4pfun_12c_trampoline_Call;
+  __pyx_vtabptr_4pfun_12c_trampoline_AndThen = &__pyx_vtable_4pfun_12c_trampoline_AndThen;
+  __pyx_vtable_4pfun_12c_trampoline_AndThen.__pyx_base = *__pyx_vtabptr_4pfun_12c_trampoline_Trampoline;
+  __pyx_vtable_4pfun_12c_trampoline_AndThen.__pyx_base._and_then = (struct __pyx_obj_4pfun_12c_trampoline_Trampoline *(*)(struct __pyx_obj_4pfun_12c_trampoline_Trampoline *, PyObject *))__pyx_f_4pfun_12c_trampoline_7AndThen__and_then;
+  __pyx_type_4pfun_12c_trampoline_AndThen.tp_base = __pyx_ptype_4pfun_12c_trampoline_Trampoline;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline_AndThen) < 0) __PYX_ERR(1, 89, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline_AndThen.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline_AndThen.tp_dictoffset && __pyx_type_4pfun_12c_trampoline_AndThen.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline_AndThen.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (__Pyx_SetVtable(__pyx_type_4pfun_12c_trampoline_AndThen.tp_dict, __pyx_vtabptr_4pfun_12c_trampoline_AndThen) < 0) __PYX_ERR(1, 89, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_AndThen, (PyObject *)&__pyx_type_4pfun_12c_trampoline_AndThen) < 0) __PYX_ERR(1, 89, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4pfun_12c_trampoline_AndThen) < 0) __PYX_ERR(1, 89, __pyx_L1_error)
+  __pyx_ptype_4pfun_12c_trampoline_AndThen = &__pyx_type_4pfun_12c_trampoline_AndThen;
+  __pyx_vtabptr_4pfun_12c_trampoline_Reader = &__pyx_vtable_4pfun_12c_trampoline_Reader;
+  __pyx_vtable_4pfun_12c_trampoline_Reader._run = (PyObject *(*)(struct __pyx_obj_4pfun_12c_trampoline_Reader *, PyObject *))__pyx_f_4pfun_12c_trampoline_6Reader__run;
+  __pyx_vtable_4pfun_12c_trampoline_Reader._and_then = (struct __pyx_obj_4pfun_12c_trampoline_Reader *(*)(struct __pyx_obj_4pfun_12c_trampoline_Reader *, PyObject *))__pyx_f_4pfun_12c_trampoline_6Reader__and_then;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline_Reader) < 0) __PYX_ERR(1, 103, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline_Reader.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline_Reader.tp_dictoffset && __pyx_type_4pfun_12c_trampoline_Reader.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline_Reader.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (__Pyx_SetVtable(__pyx_type_4pfun_12c_trampoline_Reader.tp_dict, __pyx_vtabptr_4pfun_12c_trampoline_Reader) < 0) __PYX_ERR(1, 103, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Reader, (PyObject *)&__pyx_type_4pfun_12c_trampoline_Reader) < 0) __PYX_ERR(1, 103, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4pfun_12c_trampoline_Reader) < 0) __PYX_ERR(1, 103, __pyx_L1_error)
+  __pyx_ptype_4pfun_12c_trampoline_Reader = &__pyx_type_4pfun_12c_trampoline_Reader;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then) < 0) __PYX_ERR(1, 97, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then.tp_dictoffset && __pyx_type_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  }
+  __pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then = &__pyx_type_4pfun_12c_trampoline___pyx_scope_struct____pyx_base___and_then;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda) < 0) __PYX_ERR(1, 100, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda.tp_dictoffset && __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  }
+  __pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda = &__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_1___pyx_lambda_funcdef_lambda;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_2__and_then) < 0) __PYX_ERR(1, 118, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_2__and_then.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_2__and_then.tp_dictoffset && __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_2__and_then.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_2__and_then.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  }
+  __pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_2__and_then = &__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_2__and_then;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2) < 0) __PYX_ERR(1, 119, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2.tp_dictoffset && __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  }
+  __pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2 = &__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_3___pyx_lambda_funcdef_lambda2;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4) < 0) __PYX_ERR(1, 119, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4.tp_dictoffset && __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  }
+  __pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4 = &__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_4___pyx_lambda_funcdef_lambda4;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine) < 0) __PYX_ERR(1, 147, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine.tp_dictoffset && __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  }
+  __pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine = &__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_5___pyx_f_4pfun_12c_trampoline_combine;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7) < 0) __PYX_ERR(1, 150, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7.tp_dictoffset && __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  }
+  __pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7 = &__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_6___pyx_lambda_funcdef_lambda7;
+  if (PyType_Ready(&__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap) < 0) __PYX_ERR(1, 162, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap.tp_dictoffset && __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  }
+  __pyx_ptype_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap = &__pyx_type_4pfun_12c_trampoline___pyx_scope_struct_7___pyx_f_4pfun_12c_trampoline__wrap;
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2462,30 +9934,30 @@ if (!__Pyx_RefNanny) {
 }
 #endif
   __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_c_trampoline(void)", 0);
-  if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_check_binary_version() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #ifdef __Pxy_PyFrame_Initialize_Offsets
   __Pxy_PyFrame_Initialize_Offsets();
   #endif
-  __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_unicode = PyUnicode_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_unicode)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_empty_unicode = PyUnicode_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_unicode)) __PYX_ERR(1, 1, __pyx_L1_error)
   #ifdef __Pyx_CyFunction_USED
-  if (__pyx_CyFunction_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_CyFunction_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_FusedFunction_USED
-  if (__pyx_FusedFunction_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_FusedFunction_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_Coroutine_USED
-  if (__pyx_Coroutine_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_Coroutine_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_Generator_USED
-  if (__pyx_Generator_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_Generator_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_AsyncGen_USED
-  if (__pyx_AsyncGen_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_AsyncGen_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_StopAsyncIteration_USED
-  if (__pyx_StopAsyncIteration_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_StopAsyncIteration_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   /*--- Library function declarations ---*/
   /*--- Threads initialization code ---*/
@@ -2504,28 +9976,28 @@ if (!__Pyx_RefNanny) {
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
-  if (unlikely(!__pyx_m)) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (unlikely(!__pyx_m)) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
-  __pyx_d = PyModule_GetDict(__pyx_m); if (unlikely(!__pyx_d)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_d = PyModule_GetDict(__pyx_m); if (unlikely(!__pyx_d)) __PYX_ERR(1, 1, __pyx_L1_error)
   Py_INCREF(__pyx_d);
-  __pyx_b = PyImport_AddModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_b)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_b = PyImport_AddModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_b)) __PYX_ERR(1, 1, __pyx_L1_error)
   Py_INCREF(__pyx_b);
-  __pyx_cython_runtime = PyImport_AddModule((char *) "cython_runtime"); if (unlikely(!__pyx_cython_runtime)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_cython_runtime = PyImport_AddModule((char *) "cython_runtime"); if (unlikely(!__pyx_cython_runtime)) __PYX_ERR(1, 1, __pyx_L1_error)
   Py_INCREF(__pyx_cython_runtime);
-  if (PyObject_SetAttrString(__pyx_m, "__builtins__", __pyx_b) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  if (PyObject_SetAttrString(__pyx_m, "__builtins__", __pyx_b) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   /*--- Initialize various global constants etc. ---*/
-  if (__Pyx_InitGlobals() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitGlobals() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
-  if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   if (__pyx_module_is_main_pfun__c_trampoline) {
-    if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
-    PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
+    PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(1, 1, __pyx_L1_error)
     if (!PyDict_GetItemString(modules, "pfun.c_trampoline")) {
-      if (unlikely(PyDict_SetItemString(modules, "pfun.c_trampoline", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+      if (unlikely(PyDict_SetItemString(modules, "pfun.c_trampoline", __pyx_m) < 0)) __PYX_ERR(1, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -2543,27 +10015,97 @@ if (!__Pyx_RefNanny) {
   (void)__Pyx_modinit_function_import_code();
   /*--- Execution code ---*/
   #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
-  if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_patch_abc() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
 
+  /* "pfun/c_trampoline.pyx":25
+ * 
+ * 
+ * def list_(xs):             # <<<<<<<<<<<<<<
+ *     return _list(xs)
+ * 
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_1list_, NULL, __pyx_n_s_pfun_c_trampoline); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 25, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_list, __pyx_t_1) < 0) __PYX_ERR(1, 25, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pfun/c_trampoline.pyx":122
+ * 
+ * 
+ * def wrap(value):             # <<<<<<<<<<<<<<
+ *     return _wrap(value)
+ * 
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_3wrap, NULL, __pyx_n_s_pfun_c_trampoline); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 122, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_wrap, __pyx_t_1) < 0) __PYX_ERR(1, 122, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pfun/c_trampoline.pyx":125
+ *     return _wrap(value)
+ * 
+ * def ask():             # <<<<<<<<<<<<<<
+ *     return _ask()
+ * 
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_5ask, NULL, __pyx_n_s_pfun_c_trampoline); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 125, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ask, __pyx_t_1) < 0) __PYX_ERR(1, 125, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pfun/c_trampoline.pyx":131
+ *     return Reader(lambda context: Done(context))
+ * 
+ * def sequence(readers):             # <<<<<<<<<<<<<<
+ *     return _sequence(readers)
+ * 
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_7sequence, NULL, __pyx_n_s_pfun_c_trampoline); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 131, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sequence, __pyx_t_1) < 0) __PYX_ERR(1, 131, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
   /* "(tree fragment)":1
- * def __pyx_unpickle_CTrampoline(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_List(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_1__pyx_unpickle_CTrampoline, NULL, __pyx_n_s_pfun_c_trampoline); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_9__pyx_unpickle_List, NULL, __pyx_n_s_pfun_c_trampoline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_CTrampoline, __pyx_t_1) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_List, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "(tree fragment)":11
+ *         __pyx_unpickle_List__set_state(<List> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_List__set_state(List __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[0])
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_11__pyx_unpickle_Empty, NULL, __pyx_n_s_pfun_c_trampoline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Empty, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "(tree fragment)":1
+ * def __pyx_unpickle_Trampoline(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4pfun_12c_trampoline_13__pyx_unpickle_Trampoline, NULL, __pyx_n_s_pfun_c_trampoline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Trampoline, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pfun/c_trampoline.pyx":1
- * cdef class CTrampoline:             # <<<<<<<<<<<<<<
- *     cpdef double run(self) except *:
- *         print('hello')
+ * cdef class List:             # <<<<<<<<<<<<<<
+ *     cpdef List append(self, object other):
+ *         return Cons(other, self)
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /*--- Wrapped vars code ---*/
@@ -2608,6 +10150,34 @@ end:
 }
 #endif
 
+/* PyObjectGetAttrStr */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
+    PyTypeObject* tp = Py_TYPE(obj);
+    if (likely(tp->tp_getattro))
+        return tp->tp_getattro(obj, attr_name);
+#if PY_MAJOR_VERSION < 3
+    if (likely(tp->tp_getattr))
+        return tp->tp_getattr(obj, PyString_AS_STRING(attr_name));
+#endif
+    return PyObject_GetAttr(obj, attr_name);
+}
+#endif
+
+/* GetBuiltinName */
+static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
+    PyObject* result = __Pyx_PyObject_GetAttrStr(__pyx_b, name);
+    if (unlikely(!result)) {
+        PyErr_Format(PyExc_NameError,
+#if PY_MAJOR_VERSION >= 3
+            "name '%U' is not defined", name);
+#else
+            "name '%.200s' is not defined", PyString_AS_STRING(name));
+#endif
+    }
+    return result;
+}
+
 /* PyDictVersioning */
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
 static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj) {
@@ -2634,17 +10204,26 @@ static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UIN
 }
 #endif
 
-/* PyObjectGetAttrStr */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
-    PyTypeObject* tp = Py_TYPE(obj);
-    if (likely(tp->tp_getattro))
-        return tp->tp_getattro(obj, attr_name);
-#if PY_MAJOR_VERSION < 3
-    if (likely(tp->tp_getattr))
-        return tp->tp_getattr(obj, PyString_AS_STRING(attr_name));
-#endif
-    return PyObject_GetAttr(obj, attr_name);
+/* PyCFunctionFastCall */
+#if CYTHON_FAST_PYCCALL
+static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
+    PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
+    PyCFunction meth = PyCFunction_GET_FUNCTION(func);
+    PyObject *self = PyCFunction_GET_SELF(func);
+    int flags = PyCFunction_GET_FLAGS(func);
+    assert(PyCFunction_Check(func));
+    assert(METH_FASTCALL == (flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_KEYWORDS | METH_STACKLESS)));
+    assert(nargs >= 0);
+    assert(nargs == 0 || args != NULL);
+    /* _PyCFunction_FastCallDict() must not be called with an exception set,
+       because it may clear it (directly or indirectly) and so the
+       caller loses its exception */
+    assert(!PyErr_Occurred());
+    if ((PY_VERSION_HEX < 0x030700A0) || unlikely(flags & METH_KEYWORDS)) {
+        return (*((__Pyx_PyCFunctionFastWithKeywords)(void*)meth)) (self, args, nargs, NULL);
+    } else {
+        return (*((__Pyx_PyCFunctionFast)(void*)meth)) (self, args, nargs);
+    }
 }
 #endif
 
@@ -2787,6 +10366,35 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 }
 #endif
 
+/* PyObjectCall2Args */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
+    PyObject *args, *result = NULL;
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(function)) {
+        PyObject *args[2] = {arg1, arg2};
+        return __Pyx_PyFunction_FastCall(function, args, 2);
+    }
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(function)) {
+        PyObject *args[2] = {arg1, arg2};
+        return __Pyx_PyCFunction_FastCall(function, args, 2);
+    }
+    #endif
+    args = PyTuple_New(2);
+    if (unlikely(!args)) goto done;
+    Py_INCREF(arg1);
+    PyTuple_SET_ITEM(args, 0, arg1);
+    Py_INCREF(arg2);
+    PyTuple_SET_ITEM(args, 1, arg2);
+    Py_INCREF(function);
+    result = __Pyx_PyObject_Call(function, args, NULL);
+    Py_DECREF(args);
+    Py_DECREF(function);
+done:
+    return result;
+}
+
 /* PyObjectCallMethO */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
@@ -2804,51 +10412,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
             "NULL result without error in PyObject_Call");
     }
     return result;
-}
-#endif
-
-/* PyObjectCallNoArg */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
-#if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(func)) {
-        return __Pyx_PyFunction_FastCall(func, NULL, 0);
-    }
-#endif
-#ifdef __Pyx_CyFunction_USED
-    if (likely(PyCFunction_Check(func) || __Pyx_CyFunction_Check(func)))
-#else
-    if (likely(PyCFunction_Check(func)))
-#endif
-    {
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
-            return __Pyx_PyObject_CallMethO(func, NULL);
-        }
-    }
-    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
-}
-#endif
-
-/* PyCFunctionFastCall */
-#if CYTHON_FAST_PYCCALL
-static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
-    PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
-    PyCFunction meth = PyCFunction_GET_FUNCTION(func);
-    PyObject *self = PyCFunction_GET_SELF(func);
-    int flags = PyCFunction_GET_FLAGS(func);
-    assert(PyCFunction_Check(func));
-    assert(METH_FASTCALL == (flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_KEYWORDS | METH_STACKLESS)));
-    assert(nargs >= 0);
-    assert(nargs == 0 || args != NULL);
-    /* _PyCFunction_FastCallDict() must not be called with an exception set,
-       because it may clear it (directly or indirectly) and so the
-       caller loses its exception */
-    assert(!PyErr_Occurred());
-    if ((PY_VERSION_HEX < 0x030700A0) || unlikely(flags & METH_KEYWORDS)) {
-        return (*((__Pyx_PyCFunctionFastWithKeywords)(void*)meth)) (self, args, nargs, NULL);
-    } else {
-        return (*((__Pyx_PyCFunctionFast)(void*)meth)) (self, args, nargs);
-    }
 }
 #endif
 
@@ -2891,6 +10454,19 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
     return result;
 }
 #endif
+
+/* ExtTypeTest */
+static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    if (likely(__Pyx_TypeCheck(obj, type)))
+        return 1;
+    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
+                 Py_TYPE(obj)->tp_name, type->tp_name);
+    return 0;
+}
 
 /* PyErrExceptionMatches */
 #if CYTHON_FAST_THREAD_STATE
@@ -2969,20 +10545,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetAttr3(PyObject *o, PyObject *n, PyObject
     return (likely(r)) ? r : __Pyx_GetAttr3Default(d);
 }
 
-/* GetBuiltinName */
-static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
-    PyObject* result = __Pyx_PyObject_GetAttrStr(__pyx_b, name);
-    if (unlikely(!result)) {
-        PyErr_Format(PyExc_NameError,
-#if PY_MAJOR_VERSION >= 3
-            "name '%U' is not defined", name);
-#else
-            "name '%.200s' is not defined", PyString_AS_STRING(name));
-#endif
-    }
-    return result;
-}
-
 /* GetModuleGlobalName */
 #if CYTHON_USE_DICT_VERSIONS
 static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_version, PyObject **dict_cached_value)
@@ -3017,6 +10579,28 @@ static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name)
 #endif
     return __Pyx_GetBuiltinName(name);
 }
+
+/* PyObjectCallNoArg */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
+#if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(func)) {
+        return __Pyx_PyFunction_FastCall(func, NULL, 0);
+    }
+#endif
+#ifdef __Pyx_CyFunction_USED
+    if (likely(PyCFunction_Check(func) || __Pyx_CyFunction_Check(func)))
+#else
+    if (likely(PyCFunction_Check(func)))
+#endif
+    {
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
+            return __Pyx_PyObject_CallMethO(func, NULL);
+        }
+    }
+    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
+}
+#endif
 
 /* RaiseArgTupleInvalid */
 static void __Pyx_RaiseArgtupleInvalid(
@@ -3158,114 +10742,6 @@ invalid_keyword:
     #endif
 bad:
     return -1;
-}
-
-/* Import */
-static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
-    PyObject *empty_list = 0;
-    PyObject *module = 0;
-    PyObject *global_dict = 0;
-    PyObject *empty_dict = 0;
-    PyObject *list;
-    #if PY_MAJOR_VERSION < 3
-    PyObject *py_import;
-    py_import = __Pyx_PyObject_GetAttrStr(__pyx_b, __pyx_n_s_import);
-    if (!py_import)
-        goto bad;
-    #endif
-    if (from_list)
-        list = from_list;
-    else {
-        empty_list = PyList_New(0);
-        if (!empty_list)
-            goto bad;
-        list = empty_list;
-    }
-    global_dict = PyModule_GetDict(__pyx_m);
-    if (!global_dict)
-        goto bad;
-    empty_dict = PyDict_New();
-    if (!empty_dict)
-        goto bad;
-    {
-        #if PY_MAJOR_VERSION >= 3
-        if (level == -1) {
-            if (strchr(__Pyx_MODULE_NAME, '.')) {
-                module = PyImport_ImportModuleLevelObject(
-                    name, global_dict, empty_dict, list, 1);
-                if (!module) {
-                    if (!PyErr_ExceptionMatches(PyExc_ImportError))
-                        goto bad;
-                    PyErr_Clear();
-                }
-            }
-            level = 0;
-        }
-        #endif
-        if (!module) {
-            #if PY_MAJOR_VERSION < 3
-            PyObject *py_level = PyInt_FromLong(level);
-            if (!py_level)
-                goto bad;
-            module = PyObject_CallFunctionObjArgs(py_import,
-                name, global_dict, empty_dict, list, py_level, (PyObject *)NULL);
-            Py_DECREF(py_level);
-            #else
-            module = PyImport_ImportModuleLevelObject(
-                name, global_dict, empty_dict, list, level);
-            #endif
-        }
-    }
-bad:
-    #if PY_MAJOR_VERSION < 3
-    Py_XDECREF(py_import);
-    #endif
-    Py_XDECREF(empty_list);
-    Py_XDECREF(empty_dict);
-    return module;
-}
-
-/* ImportFrom */
-static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
-    PyObject* value = __Pyx_PyObject_GetAttrStr(module, name);
-    if (unlikely(!value) && PyErr_ExceptionMatches(PyExc_AttributeError)) {
-        PyErr_Format(PyExc_ImportError,
-        #if PY_MAJOR_VERSION < 3
-            "cannot import name %.230s", PyString_AS_STRING(name));
-        #else
-            "cannot import name %S", name);
-        #endif
-    }
-    return value;
-}
-
-/* PyObjectCall2Args */
-static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
-    PyObject *args, *result = NULL;
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(function)) {
-        PyObject *args[2] = {arg1, arg2};
-        return __Pyx_PyFunction_FastCall(function, args, 2);
-    }
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(function)) {
-        PyObject *args[2] = {arg1, arg2};
-        return __Pyx_PyCFunction_FastCall(function, args, 2);
-    }
-    #endif
-    args = PyTuple_New(2);
-    if (unlikely(!args)) goto done;
-    Py_INCREF(arg1);
-    PyTuple_SET_ITEM(args, 0, arg1);
-    Py_INCREF(arg2);
-    PyTuple_SET_ITEM(args, 1, arg2);
-    Py_INCREF(function);
-    result = __Pyx_PyObject_Call(function, args, NULL);
-    Py_DECREF(args);
-    Py_DECREF(function);
-done:
-    return result;
 }
 
 /* RaiseException */
@@ -3427,6 +10903,728 @@ bad:
 }
 #endif
 
+/* None */
+static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname) {
+    PyErr_Format(PyExc_NameError, "free variable '%s' referenced before assignment in enclosing scope", varname);
+}
+
+/* FetchCommonType */
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
+    PyObject* fake_module;
+    PyTypeObject* cached_type = NULL;
+    fake_module = PyImport_AddModule((char*) "_cython_" CYTHON_ABI);
+    if (!fake_module) return NULL;
+    Py_INCREF(fake_module);
+    cached_type = (PyTypeObject*) PyObject_GetAttrString(fake_module, type->tp_name);
+    if (cached_type) {
+        if (!PyType_Check((PyObject*)cached_type)) {
+            PyErr_Format(PyExc_TypeError,
+                "Shared Cython type %.200s is not a type object",
+                type->tp_name);
+            goto bad;
+        }
+        if (cached_type->tp_basicsize != type->tp_basicsize) {
+            PyErr_Format(PyExc_TypeError,
+                "Shared Cython type %.200s has the wrong size, try recompiling",
+                type->tp_name);
+            goto bad;
+        }
+    } else {
+        if (!PyErr_ExceptionMatches(PyExc_AttributeError)) goto bad;
+        PyErr_Clear();
+        if (PyType_Ready(type) < 0) goto bad;
+        if (PyObject_SetAttrString(fake_module, type->tp_name, (PyObject*) type) < 0)
+            goto bad;
+        Py_INCREF(type);
+        cached_type = type;
+    }
+done:
+    Py_DECREF(fake_module);
+    return cached_type;
+bad:
+    Py_XDECREF(cached_type);
+    cached_type = NULL;
+    goto done;
+}
+
+/* CythonFunction */
+#include <structmember.h>
+static PyObject *
+__Pyx_CyFunction_get_doc(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *closure)
+{
+    if (unlikely(op->func_doc == NULL)) {
+        if (op->func.m_ml->ml_doc) {
+#if PY_MAJOR_VERSION >= 3
+            op->func_doc = PyUnicode_FromString(op->func.m_ml->ml_doc);
+#else
+            op->func_doc = PyString_FromString(op->func.m_ml->ml_doc);
+#endif
+            if (unlikely(op->func_doc == NULL))
+                return NULL;
+        } else {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
+    }
+    Py_INCREF(op->func_doc);
+    return op->func_doc;
+}
+static int
+__Pyx_CyFunction_set_doc(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp = op->func_doc;
+    if (value == NULL) {
+        value = Py_None;
+    }
+    Py_INCREF(value);
+    op->func_doc = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_name(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    if (unlikely(op->func_name == NULL)) {
+#if PY_MAJOR_VERSION >= 3
+        op->func_name = PyUnicode_InternFromString(op->func.m_ml->ml_name);
+#else
+        op->func_name = PyString_InternFromString(op->func.m_ml->ml_name);
+#endif
+        if (unlikely(op->func_name == NULL))
+            return NULL;
+    }
+    Py_INCREF(op->func_name);
+    return op->func_name;
+}
+static int
+__Pyx_CyFunction_set_name(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+#if PY_MAJOR_VERSION >= 3
+    if (unlikely(value == NULL || !PyUnicode_Check(value)))
+#else
+    if (unlikely(value == NULL || !PyString_Check(value)))
+#endif
+    {
+        PyErr_SetString(PyExc_TypeError,
+                        "__name__ must be set to a string object");
+        return -1;
+    }
+    tmp = op->func_name;
+    Py_INCREF(value);
+    op->func_name = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_qualname(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(op->func_qualname);
+    return op->func_qualname;
+}
+static int
+__Pyx_CyFunction_set_qualname(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+#if PY_MAJOR_VERSION >= 3
+    if (unlikely(value == NULL || !PyUnicode_Check(value)))
+#else
+    if (unlikely(value == NULL || !PyString_Check(value)))
+#endif
+    {
+        PyErr_SetString(PyExc_TypeError,
+                        "__qualname__ must be set to a string object");
+        return -1;
+    }
+    tmp = op->func_qualname;
+    Py_INCREF(value);
+    op->func_qualname = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_self(__pyx_CyFunctionObject *m, CYTHON_UNUSED void *closure)
+{
+    PyObject *self;
+    self = m->func_closure;
+    if (self == NULL)
+        self = Py_None;
+    Py_INCREF(self);
+    return self;
+}
+static PyObject *
+__Pyx_CyFunction_get_dict(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    if (unlikely(op->func_dict == NULL)) {
+        op->func_dict = PyDict_New();
+        if (unlikely(op->func_dict == NULL))
+            return NULL;
+    }
+    Py_INCREF(op->func_dict);
+    return op->func_dict;
+}
+static int
+__Pyx_CyFunction_set_dict(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+    if (unlikely(value == NULL)) {
+        PyErr_SetString(PyExc_TypeError,
+               "function's dictionary may not be deleted");
+        return -1;
+    }
+    if (unlikely(!PyDict_Check(value))) {
+        PyErr_SetString(PyExc_TypeError,
+               "setting function's dictionary to a non-dict");
+        return -1;
+    }
+    tmp = op->func_dict;
+    Py_INCREF(value);
+    op->func_dict = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_globals(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(op->func_globals);
+    return op->func_globals;
+}
+static PyObject *
+__Pyx_CyFunction_get_closure(CYTHON_UNUSED __pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+static PyObject *
+__Pyx_CyFunction_get_code(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    PyObject* result = (op->func_code) ? op->func_code : Py_None;
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_init_defaults(__pyx_CyFunctionObject *op) {
+    int result = 0;
+    PyObject *res = op->defaults_getter((PyObject *) op);
+    if (unlikely(!res))
+        return -1;
+    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    op->defaults_tuple = PyTuple_GET_ITEM(res, 0);
+    Py_INCREF(op->defaults_tuple);
+    op->defaults_kwdict = PyTuple_GET_ITEM(res, 1);
+    Py_INCREF(op->defaults_kwdict);
+    #else
+    op->defaults_tuple = PySequence_ITEM(res, 0);
+    if (unlikely(!op->defaults_tuple)) result = -1;
+    else {
+        op->defaults_kwdict = PySequence_ITEM(res, 1);
+        if (unlikely(!op->defaults_kwdict)) result = -1;
+    }
+    #endif
+    Py_DECREF(res);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_defaults(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value) {
+        value = Py_None;
+    } else if (value != Py_None && !PyTuple_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__defaults__ must be set to a tuple object");
+        return -1;
+    }
+    Py_INCREF(value);
+    tmp = op->defaults_tuple;
+    op->defaults_tuple = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_defaults(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->defaults_tuple;
+    if (unlikely(!result)) {
+        if (op->defaults_getter) {
+            if (__Pyx_CyFunction_init_defaults(op) < 0) return NULL;
+            result = op->defaults_tuple;
+        } else {
+            result = Py_None;
+        }
+    }
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_kwdefaults(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value) {
+        value = Py_None;
+    } else if (value != Py_None && !PyDict_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__kwdefaults__ must be set to a dict object");
+        return -1;
+    }
+    Py_INCREF(value);
+    tmp = op->defaults_kwdict;
+    op->defaults_kwdict = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_kwdefaults(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->defaults_kwdict;
+    if (unlikely(!result)) {
+        if (op->defaults_getter) {
+            if (__Pyx_CyFunction_init_defaults(op) < 0) return NULL;
+            result = op->defaults_kwdict;
+        } else {
+            result = Py_None;
+        }
+    }
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_annotations(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value || value == Py_None) {
+        value = NULL;
+    } else if (!PyDict_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__annotations__ must be set to a dict object");
+        return -1;
+    }
+    Py_XINCREF(value);
+    tmp = op->func_annotations;
+    op->func_annotations = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_annotations(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->func_annotations;
+    if (unlikely(!result)) {
+        result = PyDict_New();
+        if (unlikely(!result)) return NULL;
+        op->func_annotations = result;
+    }
+    Py_INCREF(result);
+    return result;
+}
+static PyGetSetDef __pyx_CyFunction_getsets[] = {
+    {(char *) "func_doc", (getter)__Pyx_CyFunction_get_doc, (setter)__Pyx_CyFunction_set_doc, 0, 0},
+    {(char *) "__doc__",  (getter)__Pyx_CyFunction_get_doc, (setter)__Pyx_CyFunction_set_doc, 0, 0},
+    {(char *) "func_name", (getter)__Pyx_CyFunction_get_name, (setter)__Pyx_CyFunction_set_name, 0, 0},
+    {(char *) "__name__", (getter)__Pyx_CyFunction_get_name, (setter)__Pyx_CyFunction_set_name, 0, 0},
+    {(char *) "__qualname__", (getter)__Pyx_CyFunction_get_qualname, (setter)__Pyx_CyFunction_set_qualname, 0, 0},
+    {(char *) "__self__", (getter)__Pyx_CyFunction_get_self, 0, 0, 0},
+    {(char *) "func_dict", (getter)__Pyx_CyFunction_get_dict, (setter)__Pyx_CyFunction_set_dict, 0, 0},
+    {(char *) "__dict__", (getter)__Pyx_CyFunction_get_dict, (setter)__Pyx_CyFunction_set_dict, 0, 0},
+    {(char *) "func_globals", (getter)__Pyx_CyFunction_get_globals, 0, 0, 0},
+    {(char *) "__globals__", (getter)__Pyx_CyFunction_get_globals, 0, 0, 0},
+    {(char *) "func_closure", (getter)__Pyx_CyFunction_get_closure, 0, 0, 0},
+    {(char *) "__closure__", (getter)__Pyx_CyFunction_get_closure, 0, 0, 0},
+    {(char *) "func_code", (getter)__Pyx_CyFunction_get_code, 0, 0, 0},
+    {(char *) "__code__", (getter)__Pyx_CyFunction_get_code, 0, 0, 0},
+    {(char *) "func_defaults", (getter)__Pyx_CyFunction_get_defaults, (setter)__Pyx_CyFunction_set_defaults, 0, 0},
+    {(char *) "__defaults__", (getter)__Pyx_CyFunction_get_defaults, (setter)__Pyx_CyFunction_set_defaults, 0, 0},
+    {(char *) "__kwdefaults__", (getter)__Pyx_CyFunction_get_kwdefaults, (setter)__Pyx_CyFunction_set_kwdefaults, 0, 0},
+    {(char *) "__annotations__", (getter)__Pyx_CyFunction_get_annotations, (setter)__Pyx_CyFunction_set_annotations, 0, 0},
+    {0, 0, 0, 0, 0}
+};
+static PyMemberDef __pyx_CyFunction_members[] = {
+    {(char *) "__module__", T_OBJECT, offsetof(PyCFunctionObject, m_module), PY_WRITE_RESTRICTED, 0},
+    {0, 0, 0,  0, 0}
+};
+static PyObject *
+__Pyx_CyFunction_reduce(__pyx_CyFunctionObject *m, CYTHON_UNUSED PyObject *args)
+{
+#if PY_MAJOR_VERSION >= 3
+    return PyUnicode_FromString(m->func.m_ml->ml_name);
+#else
+    return PyString_FromString(m->func.m_ml->ml_name);
+#endif
+}
+static PyMethodDef __pyx_CyFunction_methods[] = {
+    {"__reduce__", (PyCFunction)__Pyx_CyFunction_reduce, METH_VARARGS, 0},
+    {0, 0, 0, 0}
+};
+#if PY_VERSION_HEX < 0x030500A0
+#define __Pyx_CyFunction_weakreflist(cyfunc) ((cyfunc)->func_weakreflist)
+#else
+#define __Pyx_CyFunction_weakreflist(cyfunc) ((cyfunc)->func.m_weakreflist)
+#endif
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *type, PyMethodDef *ml, int flags, PyObject* qualname,
+                                      PyObject *closure, PyObject *module, PyObject* globals, PyObject* code) {
+    __pyx_CyFunctionObject *op = PyObject_GC_New(__pyx_CyFunctionObject, type);
+    if (op == NULL)
+        return NULL;
+    op->flags = flags;
+    __Pyx_CyFunction_weakreflist(op) = NULL;
+    op->func.m_ml = ml;
+    op->func.m_self = (PyObject *) op;
+    Py_XINCREF(closure);
+    op->func_closure = closure;
+    Py_XINCREF(module);
+    op->func.m_module = module;
+    op->func_dict = NULL;
+    op->func_name = NULL;
+    Py_INCREF(qualname);
+    op->func_qualname = qualname;
+    op->func_doc = NULL;
+    op->func_classobj = NULL;
+    op->func_globals = globals;
+    Py_INCREF(op->func_globals);
+    Py_XINCREF(code);
+    op->func_code = code;
+    op->defaults_pyobjects = 0;
+    op->defaults = NULL;
+    op->defaults_tuple = NULL;
+    op->defaults_kwdict = NULL;
+    op->defaults_getter = NULL;
+    op->func_annotations = NULL;
+    PyObject_GC_Track(op);
+    return (PyObject *) op;
+}
+static int
+__Pyx_CyFunction_clear(__pyx_CyFunctionObject *m)
+{
+    Py_CLEAR(m->func_closure);
+    Py_CLEAR(m->func.m_module);
+    Py_CLEAR(m->func_dict);
+    Py_CLEAR(m->func_name);
+    Py_CLEAR(m->func_qualname);
+    Py_CLEAR(m->func_doc);
+    Py_CLEAR(m->func_globals);
+    Py_CLEAR(m->func_code);
+    Py_CLEAR(m->func_classobj);
+    Py_CLEAR(m->defaults_tuple);
+    Py_CLEAR(m->defaults_kwdict);
+    Py_CLEAR(m->func_annotations);
+    if (m->defaults) {
+        PyObject **pydefaults = __Pyx_CyFunction_Defaults(PyObject *, m);
+        int i;
+        for (i = 0; i < m->defaults_pyobjects; i++)
+            Py_XDECREF(pydefaults[i]);
+        PyObject_Free(m->defaults);
+        m->defaults = NULL;
+    }
+    return 0;
+}
+static void __Pyx__CyFunction_dealloc(__pyx_CyFunctionObject *m)
+{
+    if (__Pyx_CyFunction_weakreflist(m) != NULL)
+        PyObject_ClearWeakRefs((PyObject *) m);
+    __Pyx_CyFunction_clear(m);
+    PyObject_GC_Del(m);
+}
+static void __Pyx_CyFunction_dealloc(__pyx_CyFunctionObject *m)
+{
+    PyObject_GC_UnTrack(m);
+    __Pyx__CyFunction_dealloc(m);
+}
+static int __Pyx_CyFunction_traverse(__pyx_CyFunctionObject *m, visitproc visit, void *arg)
+{
+    Py_VISIT(m->func_closure);
+    Py_VISIT(m->func.m_module);
+    Py_VISIT(m->func_dict);
+    Py_VISIT(m->func_name);
+    Py_VISIT(m->func_qualname);
+    Py_VISIT(m->func_doc);
+    Py_VISIT(m->func_globals);
+    Py_VISIT(m->func_code);
+    Py_VISIT(m->func_classobj);
+    Py_VISIT(m->defaults_tuple);
+    Py_VISIT(m->defaults_kwdict);
+    if (m->defaults) {
+        PyObject **pydefaults = __Pyx_CyFunction_Defaults(PyObject *, m);
+        int i;
+        for (i = 0; i < m->defaults_pyobjects; i++)
+            Py_VISIT(pydefaults[i]);
+    }
+    return 0;
+}
+static PyObject *__Pyx_CyFunction_descr_get(PyObject *func, PyObject *obj, PyObject *type)
+{
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    if (m->flags & __Pyx_CYFUNCTION_STATICMETHOD) {
+        Py_INCREF(func);
+        return func;
+    }
+    if (m->flags & __Pyx_CYFUNCTION_CLASSMETHOD) {
+        if (type == NULL)
+            type = (PyObject *)(Py_TYPE(obj));
+        return __Pyx_PyMethod_New(func, type, (PyObject *)(Py_TYPE(type)));
+    }
+    if (obj == Py_None)
+        obj = NULL;
+    return __Pyx_PyMethod_New(func, obj, type);
+}
+static PyObject*
+__Pyx_CyFunction_repr(__pyx_CyFunctionObject *op)
+{
+#if PY_MAJOR_VERSION >= 3
+    return PyUnicode_FromFormat("<cyfunction %U at %p>",
+                                op->func_qualname, (void *)op);
+#else
+    return PyString_FromFormat("<cyfunction %s at %p>",
+                               PyString_AsString(op->func_qualname), (void *)op);
+#endif
+}
+static PyObject * __Pyx_CyFunction_CallMethod(PyObject *func, PyObject *self, PyObject *arg, PyObject *kw) {
+    PyCFunctionObject* f = (PyCFunctionObject*)func;
+    PyCFunction meth = f->m_ml->ml_meth;
+    Py_ssize_t size;
+    switch (f->m_ml->ml_flags & (METH_VARARGS | METH_KEYWORDS | METH_NOARGS | METH_O)) {
+    case METH_VARARGS:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0))
+            return (*meth)(self, arg);
+        break;
+    case METH_VARARGS | METH_KEYWORDS:
+        return (*(PyCFunctionWithKeywords)(void*)meth)(self, arg, kw);
+    case METH_NOARGS:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+            size = PyTuple_GET_SIZE(arg);
+            if (likely(size == 0))
+                return (*meth)(self, NULL);
+            PyErr_Format(PyExc_TypeError,
+                "%.200s() takes no arguments (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                f->m_ml->ml_name, size);
+            return NULL;
+        }
+        break;
+    case METH_O:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+            size = PyTuple_GET_SIZE(arg);
+            if (likely(size == 1)) {
+                PyObject *result, *arg0;
+                #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                arg0 = PyTuple_GET_ITEM(arg, 0);
+                #else
+                arg0 = PySequence_ITEM(arg, 0); if (unlikely(!arg0)) return NULL;
+                #endif
+                result = (*meth)(self, arg0);
+                #if !(CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS)
+                Py_DECREF(arg0);
+                #endif
+                return result;
+            }
+            PyErr_Format(PyExc_TypeError,
+                "%.200s() takes exactly one argument (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                f->m_ml->ml_name, size);
+            return NULL;
+        }
+        break;
+    default:
+        PyErr_SetString(PyExc_SystemError, "Bad call flags in "
+                        "__Pyx_CyFunction_Call. METH_OLDARGS is no "
+                        "longer supported!");
+        return NULL;
+    }
+    PyErr_Format(PyExc_TypeError, "%.200s() takes no keyword arguments",
+                 f->m_ml->ml_name);
+    return NULL;
+}
+static CYTHON_INLINE PyObject *__Pyx_CyFunction_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    return __Pyx_CyFunction_CallMethod(func, ((PyCFunctionObject*)func)->m_self, arg, kw);
+}
+static PyObject *__Pyx_CyFunction_CallAsMethod(PyObject *func, PyObject *args, PyObject *kw) {
+    PyObject *result;
+    __pyx_CyFunctionObject *cyfunc = (__pyx_CyFunctionObject *) func;
+    if ((cyfunc->flags & __Pyx_CYFUNCTION_CCLASS) && !(cyfunc->flags & __Pyx_CYFUNCTION_STATICMETHOD)) {
+        Py_ssize_t argc;
+        PyObject *new_args;
+        PyObject *self;
+        argc = PyTuple_GET_SIZE(args);
+        new_args = PyTuple_GetSlice(args, 1, argc);
+        if (unlikely(!new_args))
+            return NULL;
+        self = PyTuple_GetItem(args, 0);
+        if (unlikely(!self)) {
+            Py_DECREF(new_args);
+            return NULL;
+        }
+        result = __Pyx_CyFunction_CallMethod(func, self, new_args, kw);
+        Py_DECREF(new_args);
+    } else {
+        result = __Pyx_CyFunction_Call(func, args, kw);
+    }
+    return result;
+}
+static PyTypeObject __pyx_CyFunctionType_type = {
+    PyVarObject_HEAD_INIT(0, 0)
+    "cython_function_or_method",
+    sizeof(__pyx_CyFunctionObject),
+    0,
+    (destructor) __Pyx_CyFunction_dealloc,
+    0,
+    0,
+    0,
+#if PY_MAJOR_VERSION < 3
+    0,
+#else
+    0,
+#endif
+    (reprfunc) __Pyx_CyFunction_repr,
+    0,
+    0,
+    0,
+    0,
+    __Pyx_CyFunction_CallAsMethod,
+    0,
+    0,
+    0,
+    0,
+    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC,
+    0,
+    (traverseproc) __Pyx_CyFunction_traverse,
+    (inquiry) __Pyx_CyFunction_clear,
+    0,
+#if PY_VERSION_HEX < 0x030500A0
+    offsetof(__pyx_CyFunctionObject, func_weakreflist),
+#else
+    offsetof(PyCFunctionObject, m_weakreflist),
+#endif
+    0,
+    0,
+    __pyx_CyFunction_methods,
+    __pyx_CyFunction_members,
+    __pyx_CyFunction_getsets,
+    0,
+    0,
+    __Pyx_CyFunction_descr_get,
+    0,
+    offsetof(__pyx_CyFunctionObject, func_dict),
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+#if PY_VERSION_HEX >= 0x030400a1
+    0,
+#endif
+#if PY_VERSION_HEX >= 0x030800b1
+    0,
+#endif
+};
+static int __pyx_CyFunction_init(void) {
+    __pyx_CyFunctionType = __Pyx_FetchCommonType(&__pyx_CyFunctionType_type);
+    if (unlikely(__pyx_CyFunctionType == NULL)) {
+        return -1;
+    }
+    return 0;
+}
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *func, size_t size, int pyobjects) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults = PyObject_Malloc(size);
+    if (unlikely(!m->defaults))
+        return PyErr_NoMemory();
+    memset(m->defaults, 0, size);
+    m->defaults_pyobjects = pyobjects;
+    return m->defaults;
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *func, PyObject *tuple) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults_tuple = tuple;
+    Py_INCREF(tuple);
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *func, PyObject *dict) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults_kwdict = dict;
+    Py_INCREF(dict);
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *func, PyObject *dict) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->func_annotations = dict;
+    Py_INCREF(dict);
+}
+
+/* Import */
+static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
+    PyObject *empty_list = 0;
+    PyObject *module = 0;
+    PyObject *global_dict = 0;
+    PyObject *empty_dict = 0;
+    PyObject *list;
+    #if PY_MAJOR_VERSION < 3
+    PyObject *py_import;
+    py_import = __Pyx_PyObject_GetAttrStr(__pyx_b, __pyx_n_s_import);
+    if (!py_import)
+        goto bad;
+    #endif
+    if (from_list)
+        list = from_list;
+    else {
+        empty_list = PyList_New(0);
+        if (!empty_list)
+            goto bad;
+        list = empty_list;
+    }
+    global_dict = PyModule_GetDict(__pyx_m);
+    if (!global_dict)
+        goto bad;
+    empty_dict = PyDict_New();
+    if (!empty_dict)
+        goto bad;
+    {
+        #if PY_MAJOR_VERSION >= 3
+        if (level == -1) {
+            if (strchr(__Pyx_MODULE_NAME, '.')) {
+                module = PyImport_ImportModuleLevelObject(
+                    name, global_dict, empty_dict, list, 1);
+                if (!module) {
+                    if (!PyErr_ExceptionMatches(PyExc_ImportError))
+                        goto bad;
+                    PyErr_Clear();
+                }
+            }
+            level = 0;
+        }
+        #endif
+        if (!module) {
+            #if PY_MAJOR_VERSION < 3
+            PyObject *py_level = PyInt_FromLong(level);
+            if (!py_level)
+                goto bad;
+            module = PyObject_CallFunctionObjArgs(py_import,
+                name, global_dict, empty_dict, list, py_level, (PyObject *)NULL);
+            Py_DECREF(py_level);
+            #else
+            module = PyImport_ImportModuleLevelObject(
+                name, global_dict, empty_dict, list, level);
+            #endif
+        }
+    }
+bad:
+    #if PY_MAJOR_VERSION < 3
+    Py_XDECREF(py_import);
+    #endif
+    Py_XDECREF(empty_list);
+    Py_XDECREF(empty_dict);
+    return module;
+}
+
+/* ImportFrom */
+static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
+    PyObject* value = __Pyx_PyObject_GetAttrStr(module, name);
+    if (unlikely(!value) && PyErr_ExceptionMatches(PyExc_AttributeError)) {
+        PyErr_Format(PyExc_ImportError,
+        #if PY_MAJOR_VERSION < 3
+            "cannot import name %.230s", PyString_AS_STRING(name));
+        #else
+            "cannot import name %S", name);
+        #endif
+    }
+    return value;
+}
+
 /* HasAttr */
 static CYTHON_INLINE int __Pyx_HasAttr(PyObject *o, PyObject *n) {
     PyObject *r;
@@ -3530,6 +11728,29 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
     }
 #endif
     return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+}
+
+/* CallNextTpTraverse */
+static int __Pyx_call_next_tp_traverse(PyObject* obj, visitproc v, void *a, traverseproc current_tp_traverse) {
+    PyTypeObject* type = Py_TYPE(obj);
+    while (type && type->tp_traverse != current_tp_traverse)
+        type = type->tp_base;
+    while (type && type->tp_traverse == current_tp_traverse)
+        type = type->tp_base;
+    if (type && type->tp_traverse)
+        return type->tp_traverse(obj, v, a);
+    return 0;
+}
+
+/* CallNextTpClear */
+static void __Pyx_call_next_tp_clear(PyObject* obj, inquiry current_tp_clear) {
+    PyTypeObject* type = Py_TYPE(obj);
+    while (type && type->tp_clear != current_tp_clear)
+        type = type->tp_base;
+    while (type && type->tp_clear == current_tp_clear)
+        type = type->tp_base;
+    if (type && type->tp_clear)
+        type->tp_clear(obj);
 }
 
 /* PyObject_GenericGetAttrNoDict */
@@ -3905,112 +12126,6 @@ bad:
         return (target_type) value;\
     }
 
-/* Print */
-#if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static PyObject *__Pyx_GetStdout(void) {
-    PyObject *f = PySys_GetObject((char *)"stdout");
-    if (!f) {
-        PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
-    }
-    return f;
-}
-static int __Pyx_Print(PyObject* f, PyObject *arg_tuple, int newline) {
-    int i;
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    for (i=0; i < PyTuple_GET_SIZE(arg_tuple); i++) {
-        PyObject* v;
-        if (PyFile_SoftSpace(f, 1)) {
-            if (PyFile_WriteString(" ", f) < 0)
-                goto error;
-        }
-        v = PyTuple_GET_ITEM(arg_tuple, i);
-        if (PyFile_WriteObject(v, f, Py_PRINT_RAW) < 0)
-            goto error;
-        if (PyString_Check(v)) {
-            char *s = PyString_AsString(v);
-            Py_ssize_t len = PyString_Size(v);
-            if (len > 0) {
-                switch (s[len-1]) {
-                    case ' ': break;
-                    case '\f': case '\r': case '\n': case '\t': case '\v':
-                        PyFile_SoftSpace(f, 0);
-                        break;
-                    default:  break;
-                }
-            }
-        }
-    }
-    if (newline) {
-        if (PyFile_WriteString("\n", f) < 0)
-            goto error;
-        PyFile_SoftSpace(f, 0);
-    }
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-}
-#else
-static int __Pyx_Print(PyObject* stream, PyObject *arg_tuple, int newline) {
-    PyObject* kwargs = 0;
-    PyObject* result = 0;
-    PyObject* end_string;
-    if (unlikely(!__pyx_print)) {
-        __pyx_print = PyObject_GetAttr(__pyx_b, __pyx_n_s_print);
-        if (!__pyx_print)
-            return -1;
-    }
-    if (stream) {
-        kwargs = PyDict_New();
-        if (unlikely(!kwargs))
-            return -1;
-        if (unlikely(PyDict_SetItem(kwargs, __pyx_n_s_file, stream) < 0))
-            goto bad;
-        if (!newline) {
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                goto bad;
-            if (PyDict_SetItem(kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                goto bad;
-            }
-            Py_DECREF(end_string);
-        }
-    } else if (!newline) {
-        if (unlikely(!__pyx_print_kwargs)) {
-            __pyx_print_kwargs = PyDict_New();
-            if (unlikely(!__pyx_print_kwargs))
-                return -1;
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                return -1;
-            if (PyDict_SetItem(__pyx_print_kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                return -1;
-            }
-            Py_DECREF(end_string);
-        }
-        kwargs = __pyx_print_kwargs;
-    }
-    result = PyObject_Call(__pyx_print, arg_tuple, kwargs);
-    if (unlikely(kwargs) && (kwargs != __pyx_print_kwargs))
-        Py_DECREF(kwargs);
-    if (!result)
-        return -1;
-    Py_DECREF(result);
-    return 0;
-bad:
-    if (kwargs != __pyx_print_kwargs)
-        Py_XDECREF(kwargs);
-    return -1;
-}
-#endif
-
 /* CIntToPy */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
     const long neg_one = (long) ((long) 0 - (long) 1), const_zero = (long) 0;
@@ -4230,43 +12345,6 @@ raise_neg_overflow:
         "can't convert negative value to long");
     return (long) -1;
 }
-
-/* PrintOne */
-#if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    if (PyFile_SoftSpace(f, 0)) {
-        if (PyFile_WriteString(" ", f) < 0)
-            goto error;
-    }
-    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
-        goto error;
-    if (PyFile_WriteString("\n", f) < 0)
-        goto error;
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-    /* the line below is just to avoid C compiler
-     * warnings about unused functions */
-    return __Pyx_Print(f, NULL, 0);
-}
-#else
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
-    int res;
-    PyObject* arg_tuple = PyTuple_Pack(1, o);
-    if (unlikely(!arg_tuple))
-        return -1;
-    res = __Pyx_Print(stream, arg_tuple, 1);
-    Py_DECREF(arg_tuple);
-    return res;
-}
-#endif
 
 /* CIntFromPy */
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
