@@ -1,6 +1,8 @@
-from functools import singledispatch
+from __future__ import annotations
+from .list import List, Empty
 
-from typing import Union, List, Tuple, TypeVar
+from functools import singledispatch
+from typing import Union, Tuple, TypeVar
 from abc import ABC, abstractmethod
 
 
@@ -45,6 +47,11 @@ def append_monoid(a: Monoid, b: Monoid) -> Monoid:
 
 
 @append.register
+def append_List(a: List, b: List) -> List:
+    return a.extend(b)
+
+
+@append.register
 def append_int(a: int, b: int) -> int:
     return a + b
 
@@ -72,6 +79,11 @@ def append_tuple(a: tuple, b: tuple) -> tuple:
 @singledispatch
 def empty(t):
     raise NotImplementedError()
+
+
+@empty.register
+def empty_List(t: List) -> List:
+    return Empty()
 
 
 @empty.register
