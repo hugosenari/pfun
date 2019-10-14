@@ -1,7 +1,9 @@
-from .list cimport List, list_, Empty, Element
+from .list cimport List, Empty, Element
 from trampoline cimport Done, Call
+from monad cimport Monad, Functor, _sequence as _sequence_, wrap_t, _map_m as _map_m_
 
-cdef class Reader:
+
+cdef class Reader(Monad):
     cdef object run_r
 
     def run(self, context):
@@ -25,9 +27,17 @@ cdef class Reader:
                 )
             )
         )
+    def map(self, f):
+        return self._map(f)
+    
+    # cdef Reader _map(self, object f):
+    #     return Reader(lambda v: Call(lambda: self.run_r(v)._map(f)))
 
 def wrap(value):
     return _wrap(value)
+
+cdef Reader _wrap(object value):
+    return Reader(lambda _: Done.__new__(Done, value))
 
 def ask():
     return _ask()
@@ -38,12 +48,11 @@ cdef Reader _ask():
 def sequence(readers):
     return _sequence(readers)
 
-cdef Reader _sequence(List readers):
-    def combine(Reader r1, Reader r2):
-        return r1.and_then(lambda l: r2.and_then(lambda e: _wrap((<List>l)._prepend(e))))
+cdef Reader _sequence(object readers):
+    return _sequence_(<wrap_t>_wrap, readers)
 
-    return readers._reduce_r(combine, _wrap(Empty()))
+def map_m(f, xs):
+    return _map_m(f, xs)
 
-
-cdef Reader _wrap(object value):
-    return Reader(lambda _: Done.__new__(Done, value))
+cdef Reader _map_m(object f, object xs):
+    return _map_m_(<wrap_t>_wrap, f, xs)

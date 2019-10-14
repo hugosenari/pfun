@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Generic, TypeVar, Callable, Tuple, Iterable, cast, Generator
 
 from .immutable import Immutable

@@ -98,11 +98,11 @@ cdef class Empty(List):
         self.length = 0
 
 
-def list_of(*xs):
-    return list_(xs)
+def list_(xs):
+    return _list(xs)
 
 
-cdef List list_(tuple xs):
+cdef List _list(object xs):
     cdef List l
     l = Empty()
     for x in reversed(xs):
