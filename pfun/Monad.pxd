@@ -1,5 +1,3 @@
-from .list cimport List
-
 cdef class Functor:
     cdef Functor _map(self, object f)
 
