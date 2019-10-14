@@ -18,7 +18,7 @@ cdef class Empty(List):
     pass
 
 
-cdef List list_(tuple xs)
+cdef List _list(object xs)
 
 
 

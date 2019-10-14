@@ -1,4 +1,4 @@
-from .list cimport List, list_, Empty, Element
+from .list cimport List, _list, Empty, Element
 from trampoline cimport Done, Call
 
 cdef class Reader:
@@ -38,11 +38,17 @@ cdef Reader _ask():
 def sequence(readers):
     return _sequence(readers)
 
-cdef Reader _sequence(List readers):
+cdef Reader _sequence(object readers):
+    cdef List readers_
+
+    if isinstance(readers, List):
+        readers_ = readers
+    else:
+        readers_ = _list(readers)
     def combine(Reader r1, Reader r2):
         return r1.and_then(lambda l: r2.and_then(lambda e: _wrap((<List>l)._prepend(e))))
 
-    return readers._reduce_r(combine, _wrap(Empty()))
+    return readers_._reduce_r(combine, _wrap(Empty()))
 
 
 cdef Reader _wrap(object value):
