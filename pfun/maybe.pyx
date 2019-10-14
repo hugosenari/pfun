@@ -5,7 +5,7 @@ cdef class Maybe(Monad):
     pass
 
 cdef class Just(Maybe):
-    cdef object get
+    cdef readonly object get
 
     def __cinit__(self, get):
         self.get = get
