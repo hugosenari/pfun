@@ -105,7 +105,7 @@ def list_(xs):
 cdef List _list(object xs):
     cdef List l
     l = Empty()
-    for x in reversed(xs):
+    for x in reversed(tuple(xs)):
         l = l.prepend(x)
     return l
 
