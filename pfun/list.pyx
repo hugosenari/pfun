@@ -5,7 +5,7 @@ from trampoline cimport Done, Call, Trampoline
 cdef class List:
     def __pow__(other, self, _):
         if isinstance(self, List):
-            return (<List>self).append(other)
+            return (<List>self)._prepend(other)
         return NotImplemented
     
     def __add__(self, other):

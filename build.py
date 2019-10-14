@@ -10,7 +10,8 @@ def build(setup_kwargs):
                     'pfun/trampoline.pyx',
                     'pfun/list.pyx',
                     'pfun/reader.pyx',
-                    'pfun/monad.pyx'
+                    'pfun/monad.pyx',
+                    'pfun/maybe.pyx'
                 ],
                 language_level='1'
             )
