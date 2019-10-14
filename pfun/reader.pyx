@@ -1,6 +1,6 @@
 from .list cimport List, _list, Empty, Element
 from trampoline cimport Done, Call
-from monad cimport _sequence as _sequence_, _map_m as _map_m_, Monad, wrap_t
+from monad cimport _sequence as _sequence_, _map_m as _map_m_, Monad, wrap_t, _filter_m as _filter_m_
 
 cdef class Reader(Monad):
     cdef object run_r
@@ -39,16 +39,20 @@ cdef Reader _ask():
 def sequence(readers):
     return _sequence(readers)
 
+cdef Reader _sequence(object readers):
+    return _sequence_(<wrap_t>_wrap, readers)
+
 def map_m(f, xs):
     return _map_m(f, xs)
 
 cdef Reader _map_m(object f, object xs):
     return _map_m_(<wrap_t>_wrap, f, xs)
 
+def filter_m(f, xs):
+    return _filter_m(f, xs)
 
-cdef Reader _sequence(object readers):
-    return _sequence_(<wrap_t>_wrap, readers)
-
+cdef Reader _filter_m(object f, object xs):
+    return _filter_m_(<wrap_t>_wrap, f, xs)
 
 cdef Reader _wrap(object value):
     return Reader(lambda _: Done.__new__(Done, value))

@@ -49,6 +49,9 @@ cdef class List:
             result = f(result, e)
         return result
     
+    def reduce_r(self, f, init):
+        return self._reduce_r(f, init)
+    
     cdef object _reduce_r(self, object f, object init):
         def go(List l):
             if isinstance(l, Empty):

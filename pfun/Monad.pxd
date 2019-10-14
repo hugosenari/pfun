@@ -7,4 +7,5 @@ cdef class Monad(Functor):
 ctypedef Monad (*wrap_t)(object)
 
 cdef Monad _sequence(wrap_t wrap, object monads)
-cdef Monad _map_m(wrap_t wrap, object mapper, object monads)
+cdef Monad _map_m(wrap_t wrap, object mapper, object xs)
+cdef Monad _filter_m(wrap_t wrap, object p, object xs)
