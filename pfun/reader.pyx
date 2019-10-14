@@ -1,6 +1,16 @@
+from functools import wraps
+
 from .list cimport List, _list, Empty, Element
 from trampoline cimport Done, Call
-from monad cimport _sequence as _sequence_, _map_m as _map_m_, Monad, wrap_t, _filter_m as _filter_m_
+from monad cimport (
+    _sequence as _sequence_, 
+    _map_m as _map_m_, 
+    Monad, wrap_t, 
+    _filter_m as 
+    _filter_m_, 
+    _with_effect as 
+    _with_effect_
+)
 
 cdef class Reader(Monad):
     cdef object run_r
@@ -53,6 +63,13 @@ def filter_m(f, xs):
 
 cdef Reader _filter_m(object f, object xs):
     return _filter_m_(<wrap_t>_wrap, f, xs)
+
+def with_effect(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        g = f(*args, **kwargs)
+        return _with_effect_(<wrap_t>_wrap, g)
+    return decorator
 
 cdef Reader _wrap(object value):
     return Reader(lambda _: Done.__new__(Done, value))

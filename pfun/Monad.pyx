@@ -36,3 +36,17 @@ cdef Monad _filter_m(wrap_t wrap, object p, object xs):
         return m1._and_then(lambda l: (<Monad>p(x))._and_then(lambda b: wrap((<List> l)._prepend(x) if b else l)))
     
     return xs_._reduce_r(combine, wrap(Empty()))
+
+
+cdef Monad _with_effect(wrap_t wrap, object g):
+    def cont(object v):
+        try:
+            return (<Monad>g.send(v))._and_then(cont)
+        except StopIteration as e:
+            return wrap(e.value)
+
+    try:
+        m = <Monad>next(g)
+        return m._and_then(cont)
+    except StopIteration as e:
+        return wrap(e.value)
