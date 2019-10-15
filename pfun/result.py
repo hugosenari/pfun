@@ -1,17 +1,17 @@
-from typing import TypeVar, Callable, Union
+from typing import TypeVar, Callable, Union, Generic
 from functools import wraps
 
-from .either import Left, Right, with_effect, Eithers
+from .either import Left, Right, with_effect as _with_effect, Eithers
 
 A = TypeVar('A')
 B = TypeVar('B')
 
 
-class Ok(Right[A]):
-    pass
+class Ok(Right, Generic[A]):
+    get: A
 
 
-class Error(Left[Exception]):
+class Error(Left):
     get: Exception
 
 
@@ -19,7 +19,7 @@ Result = Union[Error, Ok[A]]
 
 Results = Eithers[Exception, A, B]
 
-with_effect = with_effect
+with_effect: Callable[[Callable[..., Results[A, B]]], Result[B]] = _with_effect
 
 
 def result(f: Callable[..., B]) -> Callable[..., Result[B]]:

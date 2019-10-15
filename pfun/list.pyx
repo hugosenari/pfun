@@ -20,6 +20,13 @@ cdef class List:
     def map(self, f):
         return self._map(f)
     
+    def __eq__(self, other):
+        if not isinstance(other, List):
+            return False
+        if not len(self) == len(other):
+            return False
+        return all(e1 == e2 for (e1, e2) in zip(self, other))
+    
     cdef List _map(self, object f):
         return list_(tuple(f(e) for e in self))
     

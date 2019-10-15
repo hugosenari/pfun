@@ -13,7 +13,8 @@ def build(setup_kwargs):
                     'pfun/monad.pyx',
                     'pfun/maybe.pyx',
                     'pfun/either.pyx',
-                    'pfun/io.pyx'
+                    'pfun/io.pyx',
+                    'pfun/state.pyx'
                 ],
                 language_level='1'
             )

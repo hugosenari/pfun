@@ -1,6 +1,7 @@
 from pfun import (
-    maybe, List, reader, state, Dict, cont, writer, trampoline, free
+    maybe, reader, state, Dict, cont, writer, trampoline, free, io
 )
+from pfun import list as list_
 from hypothesis.strategies import (
     integers,
     booleans,
@@ -18,15 +19,7 @@ from hypothesis.strategies import (
 )
 
 from pfun.either import Left, Right
-from pfun.io import (
-    value as IO,
-    read_bytes,
-    read_str,
-    put_line,
-    get_line,
-    write_bytes,
-    write_str
-)
+
 
 
 def _everything(allow_nan=False):
@@ -93,7 +86,7 @@ def trampolines(value_strategy=anything()):
 
 def lists(element_strategies=_everything(allow_nan=False), min_size=0):
     return builds(
-        List,
+        list_.list_,
         one_of(
             *(
                 lists_(strategy, min_size=min_size)
@@ -104,11 +97,11 @@ def lists(element_strategies=_everything(allow_nan=False), min_size=0):
 
 
 def readers(value_strategy=anything()):
-    return builds(reader.value, value_strategy)
+    return builds(reader.wrap, value_strategy)
 
 
 def states(value_strategy=anything()):
-    return builds(state.value, value_strategy)
+    return builds(state.wrap, value_strategy)
 
 
 def dicts(keys=text(), values=anything(), min_size=0, max_size=None):
@@ -138,7 +131,7 @@ def monoids():
 
 
 def io_primitives(value_strategy=anything()):
-    return builds(IO, value_strategy)
+    return builds(io.wrap, value_strategy)
 
 
 def puts():

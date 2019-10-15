@@ -23,6 +23,9 @@ cdef class Just(Maybe):
     def __bool__(self):
         return True
     
+    def __eq__(self, other):
+        return isinstance(other, Just) and self.get == other.get
+    
     cdef Maybe _map(self, object f):
         return Just(f(self.get))
     
@@ -31,6 +34,12 @@ cdef class Just(Maybe):
     
     cdef Maybe _and_then(self, f):
         return f(self.get)
+
+    def or_else(self, default):
+        return self._or_else(default)
+    
+    cdef object _or_else(self, object default):
+        return self.get
 
 
 cdef class Nothing(Maybe):
@@ -46,8 +55,17 @@ cdef class Nothing(Maybe):
     cdef Maybe _and_then(self, object f):
         return self
     
+    def or_else(self, default):
+        return self._or_else(default)
+    
+    cdef object _or_else(self, object default):
+        return default
+    
     def __repr__(self):
         return 'Nothing()'
+    
+    def __eq__(self, other):
+        return isinstance(other, Nothing)
     
     def __bool__(self):
         return False
@@ -58,14 +76,17 @@ cdef Maybe _wrap(object x):
 def maybe(f):
     @wraps(f)
     def decorator(*args, **kwargs):
-        return Just(f(*args, **kwargs))
+        try:
+            return Just(f(*args, **kwargs))
+        except:
+            return Nothing()
     return decorator
 
 def flatten(maybes):
     return _flatten(maybes)
 
 cdef List _flatten(object maybes):
-    return _list(m for m in maybes if isinstance(m, Just))
+    return _list(m.get for m in maybes if isinstance(m, Just))
 
 def sequence(maybes):
     return _sequence(maybes)
@@ -99,6 +120,10 @@ cdef Maybe _tail_rec(object f, object init):
             return maybe
         either = maybe.get
     return Just(either.get)
+
+# hack to make it possible to
+# import the type alias from .pyi
+Maybes = None
 
 def with_effect(f):
     @wraps(f)
