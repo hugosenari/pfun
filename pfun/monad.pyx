@@ -1,4 +1,5 @@
 from .list cimport List, Empty, _list
+from either cimport Right, Left
 
 cdef class Functor:
     cdef Functor _map(self, object f):
@@ -37,7 +38,6 @@ cdef Monad _filter_m(wrap_t wrap, object p, object xs):
     
     return xs_._reduce_r(combine, wrap(Empty()))
 
-
 cdef Monad _with_effect(wrap_t wrap, object g):
     def cont(object v):
         try:
@@ -50,3 +50,17 @@ cdef Monad _with_effect(wrap_t wrap, object g):
         return m._and_then(cont)
     except StopIteration as e:
         return wrap(e.value)
+
+cdef Monad _with_effect_tail_rec(wrap_t wrap, object g, tail_rec_t tail_rec):
+        cdef Monad m
+        def cont(v):
+            try:
+                return (<Monad>g.send(v))._map(Left)
+            except StopIteration as e:
+                return wrap(Right(e.value))
+
+        try:
+            m = next(g)
+            return m._and_then(lambda v: tail_rec(cont, v))
+        except StopIteration as e:
+            return wrap(e.value)

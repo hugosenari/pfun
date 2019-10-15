@@ -1,4 +1,7 @@
-from monad cimport Monad, _sequence as _sequence_, _map_m as _map_m_, _filter_m as _filter_m_, wrap_t
+from functools import wraps
+
+from monad cimport Monad, _sequence as _sequence_, _map_m as _map_m_, _filter_m as _filter_m_, wrap_t, _with_effect_tail_rec, tail_rec_t
+from either cimport Left, Right, Either
 
 
 cdef class Maybe(Monad):
@@ -42,12 +45,36 @@ cdef class Nothing(Maybe):
     def __repr__(self):
         return 'Nothing()'
 
+cdef Maybe _wrap(object x):
+    return Just(x)
 
 def sequence(maybes):
     return _sequence(maybes)
 
-cdef Maybe _wrap(object x):
-    return Just(x)
-
 cdef Maybe _sequence(object maybes):
     return _sequence_(<wrap_t>_wrap, maybes)
+
+
+def tail_rec(f, init):
+    return _tail_rec(f, init)
+
+cdef Maybe _tail_rec(object f, object init):
+    cdef Maybe maybe
+    cdef Either either
+    maybe = f(init)
+    if isinstance(maybe, Nothing):
+        return maybe
+    either = maybe.get
+    while isinstance(either, Left):
+        maybe = f(either.get)
+        if isinstance(maybe, Nothing):
+            return maybe
+        either = maybe.get
+    return Just(either.get)
+
+def with_effect(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        g = f(*args, **kwargs)
+        return _with_effect_tail_rec(<wrap_t>_wrap, g, <tail_rec_t>_tail_rec)
+    return decorator

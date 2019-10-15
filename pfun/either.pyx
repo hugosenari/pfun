@@ -6,9 +6,7 @@ cdef class Either(Monad):
 
 
 cdef class Right(Either):
-    cdef readonly object get
-
-    cdef __cinit__(self, get)
+    def __cinit__(self, get):
         self.get = get
     
     def map(self, f):
@@ -25,9 +23,7 @@ cdef class Right(Either):
 
 
 cdef class Left(Either):
-    cdef readonly object get
-
-    cdef __cinit__(self, get)
+    def __cinit__(self, get):
         self.get = get
     
     def map(self, f):
