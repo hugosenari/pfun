@@ -12,7 +12,8 @@ def build(setup_kwargs):
                     'pfun/reader.pyx',
                     'pfun/monad.pyx',
                     'pfun/maybe.pyx',
-                    'pfun/either.pyx'
+                    'pfun/either.pyx',
+                    'pfun/io.pyx'
                 ],
                 language_level='1'
             )

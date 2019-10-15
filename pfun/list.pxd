@@ -1,5 +1,3 @@
-from trampoline cimport Trampoline
-
 cdef class List:
     cdef int length
 
