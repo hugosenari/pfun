@@ -13,7 +13,7 @@ Maybe
 .. autoattribute:: pfun.maybe.Maybes
     :annotation: = typing.Generator[Maybe[A], A, B]
 
-    Type alias for generator functions yielding maybes
+    Type alias for generators yielding maybes
 
 Either
 ------
@@ -40,6 +40,11 @@ Reader
 
 .. automodule:: pfun.reader
     :members:
+
+.. autoattribute:: pfun.reader.Readers
+    :annotation: = typing.Generator[Reader[C, A], A, B]
+
+    Type alias for generators yielding readers
 
 Writer
 ------

@@ -127,14 +127,14 @@ class TestMaybe(MonadTest):
             test_stack_safety()
 
     def test_sequence(self):
-        assert sequence([Just(v) for v in range(3)]) == Just(list_([0, 1, 2]))
+        assert sequence([Just(v) for v in range(3)]) == Just((0, 1, 2))
 
     def test_stack_safety(self):
         with recursion_limit(100):
             sequence([Just(v) for v in range(500)])
 
     def test_filter_m(self):
-        assert filter_m(lambda v: Just(v % 2 == 0), range(3)) == Just(list_([0, 2]))
+        assert filter_m(lambda v: Just(v % 2 == 0), range(3)) == Just((0, 2))
 
     def test_map_m(self):
-        assert map_m(Just, range(3)) == Just(list_([0, 1, 2]))
+        assert map_m(Just, range(3)) == Just((0, 1, 2))
