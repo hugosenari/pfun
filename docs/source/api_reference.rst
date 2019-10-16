@@ -17,16 +17,18 @@ Maybe
 
 Either
 ------
-.. autofunction:: pfun.either.either
-
+.. automodule:: pfun.either
+    :members:
 
 .. autoattribute:: pfun.either.Either
+    :annotation: = typing.Union[Left[B], Right[A]]
 
-.. autoclass:: pfun.result.Right
-    :members:
+    Type alias for either union type
 
-.. autoclass:: pfun.result.Left
-    :members:
+.. autoattribute:: pfun.either.Eithers
+    :annotation: = typing.Generator[Either[A, B], B, C]
+
+    Type alias for generators yielding eithers
 
 Result
 -----
