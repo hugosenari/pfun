@@ -2,15 +2,18 @@ API Reference
 ====
 Maybe
 -----
-.. autofunction:: pfun.maybe.maybe
+.. automodule:: pfun.maybe
+    :members:
 
 .. autoattribute:: pfun.maybe.Maybe
+    :annotation: = typing.Union[Nothing, Just[A]]
+    
+    Type alias for maybe union type
 
-.. autoclass:: pfun.maybe.Just
-    :members:
+.. autoattribute:: pfun.maybe.Maybes
+    :annotation: = typing.Generator[Maybe[A], A, B]
 
-.. autoclass:: pfun.maybe.Nothing
-    :members:
+    Type alias for generator functions yielding maybes
 
 Either
 ------

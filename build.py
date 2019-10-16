@@ -16,7 +16,8 @@ def build(setup_kwargs):
                     'pfun/io.pyx',
                     'pfun/state.pyx'
                 ],
-                language_level='1'
+                language_level='1',
+                compiler_directives={'embedsignature': True}
             )
         }
     )

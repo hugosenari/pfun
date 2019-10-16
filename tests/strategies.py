@@ -21,7 +21,6 @@ from hypothesis.strategies import (
 from pfun.either import Left, Right
 
 
-
 def _everything(allow_nan=False):
     return integers(), booleans(), text(), floats(allow_nan=allow_nan)
 

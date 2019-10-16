@@ -10,17 +10,19 @@ cdef class Monad(Functor):
         return NotImplemented
 
 cdef Monad _sequence(wrap_t wrap, object monads):
-    cdef List monads_
-    
-    if isinstance(monads, List):
-        monads_ = monads
-    else:
-        monads_ = _list(monads)
-    
-    def combine(Monad r1, Monad r2):
-        return r1._and_then(lambda l: r2._and_then(lambda e: wrap((<List>l)._prepend(e))))
+    cdef Monad result
+    result = wrap([])
 
-    return monads_._reduce_r(combine, wrap(Empty()))
+    def append(list l, object e):
+        l.append(e)
+        return l
+
+    def combine(Monad r1, Monad r2):
+        return r1._and_then(lambda l: r2._and_then(lambda e: append(l, e)))
+    
+    for m in monads:
+        result = combine(result, m)
+    return result._map(tuple)
 
 cdef Monad _map_m(wrap_t wrap, object mapper, object xs):
     ms = (mapper(x) for x in xs)

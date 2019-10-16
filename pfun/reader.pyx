@@ -1,7 +1,7 @@
 from functools import wraps
 
 from .list cimport List, _list, Empty, Element
-from trampoline cimport Done, Call
+from trampoline cimport Done, Call, Trampoline
 from monad cimport (
     _sequence as _sequence_, 
     _map_m as _map_m_, 
@@ -27,11 +27,17 @@ cdef class Reader(Monad):
     def and_then(self, f):
         return self._and_then(f)
     
+    def map(self, f):
+        return self._map(f)
+    
+    cdef Reader _map(self, object f):
+        return Reader(lambda context: Call(lambda: (<Trampoline>self.run_r(context))._map(f)))
+    
     cdef Reader _and_then(self, object f):
         return Reader.__new__(
             Reader,
             lambda context: Call(
-                lambda: self.run_r(context).and_then(
+                lambda: (<Trampoline>self.run_r(context))._and_then(
                     lambda v: Call(lambda: (<Reader>f(v)).run_r(context))
                 )
             )
