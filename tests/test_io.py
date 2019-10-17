@@ -7,7 +7,7 @@ from pfun.io import (
     read_bytes as read_file_bytes,
     write_str as write_file,
     write_bytes as write_file_bytes,
-    value as IO,
+    wrap as IO,
     with_effect,
     sequence,
     filter_m,

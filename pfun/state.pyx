@@ -1,5 +1,5 @@
-from monad cimport Monad
-from trampoline cimport Trampoline, Call, Done
+from .monad cimport Monad
+from .trampoline cimport Trampoline, Call, Done
 
 cdef class State(Monad):
     cdef object run_s

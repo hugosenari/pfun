@@ -1,6 +1,6 @@
 from typing import TypeVar, Generic, Union
 
-from trampoline cimport Done, Call, Trampoline
+from .trampoline cimport Done, Call, Trampoline
 
 cdef class List:
     def __pow__(other, self, _):

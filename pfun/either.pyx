@@ -1,7 +1,7 @@
 from functools import wraps
 from typing import Union, Generator
 
-from monad cimport (
+from .monad cimport (
     Monad, 
     _sequence as _sequence_, 
     _map_m as _map_m_, 

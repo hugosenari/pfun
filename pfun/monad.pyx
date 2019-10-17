@@ -1,5 +1,5 @@
 from .list cimport List, Empty, _list
-from either cimport Right, Left
+from .either cimport Right, Left
 
 cdef class Functor:
     cdef Functor _map(self, object f):

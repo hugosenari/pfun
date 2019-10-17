@@ -1,4 +1,4 @@
-from monad cimport Monad
+from .monad cimport Monad
 
 
 cdef class _Either(Monad):

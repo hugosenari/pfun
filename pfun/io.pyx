@@ -1,11 +1,9 @@
-# cython: binding=True
-
 from functools import wraps
 from typing import Generator
 import sys
 
 from .curry import curry
-from monad cimport (
+from .monad cimport (
     Monad, 
     _sequence, 
     _map_m, 
@@ -13,7 +11,7 @@ from monad cimport (
     wrap_t, 
     _with_effect
 )
-from trampoline cimport Done, Call, Trampoline
+from .trampoline cimport Done, Call, Trampoline
 
 cdef class IO(Monad):
     cdef object run_io
@@ -83,7 +81,7 @@ def get_line(prompt=''):
 @curry
 def put_line(line='', file=sys.stdout):
     def run():
-        print(line, file)
+        print(line, file=file)
         return Done(None)
     return IO(run)
 

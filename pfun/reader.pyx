@@ -2,8 +2,8 @@ from functools import wraps
 from typing import Generator
 
 from .list cimport List, _list, Empty, Element
-from trampoline cimport Done, Call, Trampoline
-from monad cimport (
+from .trampoline cimport Done, Call, Trampoline
+from .monad cimport (
     _sequence as _sequence_, 
     _map_m as _map_m_, 
     Monad, wrap_t, 

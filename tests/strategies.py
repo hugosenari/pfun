@@ -134,22 +134,22 @@ def io_primitives(value_strategy=anything()):
 
 
 def puts():
-    return builds(put_line, text())
+    return builds(io.put_line, text())
 
 
 def gets():
-    return builds(get_line, text())
+    return builds(io.get_line, text())
 
 
 def read_files():
-    read_files = builds(read_str, text())
-    read_bytess = builds(read_bytes, text())
+    read_files = builds(io.read_str, text())
+    read_bytess = builds(io.read_bytes, text())
     return one_of(read_files, read_bytess)
 
 
 def write_files():
-    write_strs = builds(write_str, text(), text())
-    write_bytess = builds(write_bytes, text(), binary())
+    write_strs = builds(io.write_str, text(), text())
+    write_bytess = builds(io.write_bytes, text(), binary())
     return one_of(write_bytess, write_strs)
 
 
