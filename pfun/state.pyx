@@ -27,7 +27,13 @@ cdef class State(Monad):
         return (<Trampoline>self.run_s(state))._run()
     
     cdef State _map(self, object f):
-        return State(lambda s: Call(lambda: (<Trampoline>self.run_s(s))._map(f)))
+        return State(
+            lambda s: Call(lambda: 
+                (<Trampoline>self.run_s(s))._map(
+                    lambda vs: (f(vs[0]), vs[1])
+                )
+            )
+        )
     
     def and_then(self, f):
         return self._and_then(f)
