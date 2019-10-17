@@ -1,7 +1,17 @@
+# cython: binding=True
+
 from functools import wraps
 from typing import Union, Generator
 
-from monad cimport Monad, _sequence as _sequence_, _map_m as _map_m_, _filter_m as _filter_m_, wrap_t, _with_effect_tail_rec, tail_rec_t
+from monad cimport (
+    Monad, 
+    _sequence as _sequence_, 
+    _map_m as _map_m_, 
+    _filter_m as _filter_m_, 
+    wrap_t, 
+    _with_effect_tail_rec, 
+    tail_rec_t
+)
 from either cimport Left, Right, _Either
 from .list cimport _list, List
 
