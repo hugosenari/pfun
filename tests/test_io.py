@@ -122,7 +122,7 @@ class TestIO(MonadTest):
             test_stack_safety().run()
 
     def test_sequence(self):
-        assert sequence([IO(v) for v in range(3)]).run() == (0, 1, 2)
+        assert sequence(IO(v) for v in range(3)).run() == (0, 1, 2)
 
     def test_stack_safety(self):
         with recursion_limit(100):

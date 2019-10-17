@@ -1,4 +1,14 @@
-from .monad cimport Monad
+from functools import wraps
+from typing import Generator
+
+from .monad cimport (
+    Monad, 
+    _sequence, 
+    _map_m, 
+    _filter_m, 
+    wrap_t, 
+    _with_effect
+)
 from .trampoline cimport Trampoline, Call, Done
 
 cdef class State(Monad):
@@ -14,7 +24,7 @@ cdef class State(Monad):
         return self._run(state)
     
     cdef object _run(self, object state):
-        return (<Trampoline>self.run_io(state))._run()
+        return (<Trampoline>self.run_s(state))._run()
     
     cdef State _map(self, object f):
         return State(lambda s: Call(lambda: (<Trampoline>self.run_s(s))._map(f)))
@@ -25,7 +35,7 @@ cdef class State(Monad):
     cdef State _and_then(self, f):
         return State(lambda s: 
             Call(lambda: 
-                (<Trampoline>self.run_io(s))._and_then(lambda vs: 
+                (<Trampoline>self.run_s(s))._and_then(lambda vs: 
                     Call(lambda: 
                         (<State>f(vs[0])).run_s(vs[1])
                     )
@@ -43,10 +53,30 @@ def get():
     return _get()
 
 cdef State _get():
-    return State(lambda s: Done(s, s))
+    return State(lambda s: Done((s, s)))
 
 def put(state):
     return _put(state)
 
 cdef State _put(state):
-    return State(lambda s: Done(None, state))
+    return State(lambda s: Done((None, state)))
+
+def sequence(states):
+    return _sequence(<wrap_t>_wrap, states)
+
+def map_m(f, iterable):
+    return _map_m(<wrap_t>_wrap, f, iterable)
+
+def filter_m(f, iterable):
+    return _filter_m(<wrap_t>_wrap, f, iterable)
+
+# hack to make it possible to
+# import the type alias from .pyi
+States = Generator
+
+def with_effect(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        g = f(*args, **kwargs)
+        return _with_effect(<wrap_t>_wrap, g)
+    return decorator

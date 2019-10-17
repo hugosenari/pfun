@@ -10,15 +10,15 @@ class TestState(MonadTest):
     @given(anything(), anything())
     def test_right_identity_law(self, value, init_state):
         assert (
-            state.value(value).and_then(
-                state.value
-            ).run(init_state) == state.value(value).run(init_state)
+            state.wrap(value).and_then(
+                state.wrap
+            ).run(init_state) == state.wrap(value).run(init_state)
         )
 
     @given(unaries(states()), anything(), anything())
     def test_left_identity_law(self, f, value, init_state):
         assert (
-            state.value(value).and_then(f).run(init_state) ==
+            state.wrap(value).and_then(f).run(init_state) ==
             f(value).run(init_state)
         )
 
@@ -31,28 +31,28 @@ class TestState(MonadTest):
 
     @given(anything(), anything())
     def test_equality(self, value, init_state):
-        assert state.value(value).run(init_state
-                                      ) == state.value(value).run(init_state)
+        assert state.wrap(value).run(init_state
+                                     ) == state.wrap(value).run(init_state)
 
     @given(anything(), anything(), anything())
     def test_inequality(self, first, second, init_state):
         assume(first != second)
-        assert state.value(first).run(init_state
-                                      ) != state.value(second).run(init_state)
+        assert state.wrap(first).run(init_state
+                                     ) != state.wrap(second).run(init_state)
 
     @given(anything(), anything())
     def test_identity_law(self, value, init_state):
         assert (
-            state.value(value).map(identity).run(init_state) ==
-            state.value(value).run(init_state)
+            state.wrap(value).map(identity).run(init_state) ==
+            state.wrap(value).run(init_state)
         )
 
     @given(unaries(), unaries(), anything(), anything())
     def test_composition_law(self, f, g, value, init_state):
         h = compose(f, g)
         assert (
-            state.value(value).map(h).run(init_state) ==
-            state.value(value).map(g).map(f).run(init_state)
+            state.wrap(value).map(h).run(init_state) ==
+            state.wrap(value).map(g).map(f).run(init_state)
         )
 
     def test_get(self):
@@ -64,8 +64,8 @@ class TestState(MonadTest):
     def test_with_effect(self):
         @state.with_effect
         def f():
-            a = yield state.value(2)
-            b = yield state.value(2)
+            a = yield state.wrap(2)
+            b = yield state.wrap(2)
             return a + b
 
         assert f().run(None) == (4, None)
@@ -73,24 +73,23 @@ class TestState(MonadTest):
         @state.with_effect
         def test_stack_safety():
             for _ in range(500):
-                yield state.value(1)
+                yield state.wrap(1)
             return None
 
         with recursion_limit(100):
             test_stack_safety().run(None)
 
     def test_sequence(self):
-        assert state.sequence([state.value(v) for v in range(3)]
+        assert state.sequence(state.wrap(v) for v in range(3)
                               ).run(None) == ((0, 1, 2), None)
 
     def test_stack_safety(self):
         with recursion_limit(100):
-            state.sequence([state.value(v) for v in range(500)]).run(None)
+            state.sequence([state.wrap(v) for v in range(500)]).run(None)
 
     def test_filter_m(self):
-        assert state.filter_m(lambda v: state.value(v % 2 == 0),
+        assert state.filter_m(lambda v: state.wrap(v % 2 == 0),
                               range(3)).run(None) == ((0, 2), None)
 
     def test_map_m(self):
-        assert state.map_m(state.value,
-                           range(3)).run(None) == ((0, 1, 2), None)
+        assert state.map_m(state.wrap, range(3)).run(None) == ((0, 1, 2), None)

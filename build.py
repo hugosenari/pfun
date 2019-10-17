@@ -19,7 +19,8 @@ def build(setup_kwargs):
                     'pfun/maybe.pyx',
                     'pfun/either.pyx',
                     'pfun/io.pyx',
-                    'pfun/state.pyx'
+                    'pfun/state.pyx',
+                    'pfun/writer.pyx'
                 ],
                 compiler_directives={
                     # required to generate docs
