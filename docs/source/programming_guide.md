@@ -7,7 +7,7 @@ For a detailed documentation of all classes and functions, see [API Reference](a
 
 `pip install pfun`
 
-### MyPy Plugin
+## MyPy Plugin
 
 The types provided by the Python `typing` module are often not flexible enough to provide
 precise typing of common functional design patterns. If you use [mypy](http://mypy-lang.org/), `pfun`
@@ -18,6 +18,25 @@ add the following to you mypy configuration:
 [mypy]
 plugins = pfun.mypy_plugin
 ```
+
+## Type Checking
+Many types in `pfun` are [cythonized](https://cython.org/), and types are provided through stubs.
+This means that generic types, when evaluated, will in some cases produce `TypeError: 'type' object is not subscriptable`,
+since the type is not actually a subtype of `typing.Generic` but merely described as such in its stub.
+
+To avoid evaluating generic types in annotations you can either annotate your variables as a string, i.e
+
+```python
+reader: 'Reader[int, int]'
+```
+
+Or import `annotations` from `__future__` which will defer evaluation of annotations
+
+```python
+from __future__ import annotations
+reader: Reader[int, int]
+```
+This will become the default in Python 4.
 
 ## Immutable Objects and Data Structures
 ### Immutable
