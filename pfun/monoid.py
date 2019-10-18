@@ -1,5 +1,5 @@
 from __future__ import annotations
-from .list import List, Empty
+from .list import _List, Empty
 
 from functools import singledispatch
 from typing import Union, Tuple, TypeVar
@@ -32,7 +32,7 @@ class Monoid(ABC):
         raise NotImplementedError()
 
 
-M_ = Union[int, List, Tuple, str, Monoid]
+M_ = Union[int, _List, Tuple, str, Monoid]
 M = TypeVar('M', bound=M_)
 
 
@@ -47,7 +47,7 @@ def append_monoid(a: Monoid, b: Monoid) -> Monoid:
 
 
 @append.register
-def append_List(a: List, b: List) -> List:
+def append_List(a: _List, b: _List) -> _List:
     return a.extend(b)
 
 
@@ -77,7 +77,7 @@ def empty(t):
 
 
 @empty.register
-def empty_List(t: List) -> List:
+def empty_List(t: _List) -> _List:
     return Empty()
 
 
