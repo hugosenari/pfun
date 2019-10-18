@@ -20,7 +20,8 @@ def build(setup_kwargs):
                     'pfun/either.pyx',
                     'pfun/io.pyx',
                     'pfun/state.pyx',
-                    'pfun/writer.pyx'
+                    'pfun/writer.pyx',
+                    'pfun/cont.pyx'
                 ],
                 compiler_directives={
                     # required to generate docs

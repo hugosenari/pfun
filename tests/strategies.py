@@ -110,7 +110,7 @@ def dicts(keys=text(), values=anything(), min_size=0, max_size=None):
 
 
 def conts(value_strategy=anything()):
-    return builds(cont.value, value_strategy)
+    return builds(cont.wrap, value_strategy)
 
 
 def monoids():
