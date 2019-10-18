@@ -32,7 +32,7 @@ class Monoid(ABC):
         raise NotImplementedError()
 
 
-M_ = Union[int, List, Tuple, str, None, Monoid]
+M_ = Union[int, List, Tuple, str, Monoid]
 M = TypeVar('M', bound=M_)
 
 
@@ -64,11 +64,6 @@ def append_list(a: list, b: list) -> list:
 @append.register
 def append_str(a: str, b: str) -> str:
     return a + b
-
-
-@append.register
-def append_none(a: None, b: None) -> None:
-    return None
 
 
 @append.register

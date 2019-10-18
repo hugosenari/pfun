@@ -114,7 +114,7 @@ def conts(value_strategy=anything()):
 
 
 def writers(value_strategy=anything(), monoid=lists()):
-    return builds(writer.value, value_strategy, monoid)
+    return builds(writer.wrap, value_strategy, monoid)
 
 
 def monoids():
@@ -123,7 +123,6 @@ def monoids():
         lists(),
         tuples(),
         integers(),
-        none(),
         text(),
         just(...)
     )
