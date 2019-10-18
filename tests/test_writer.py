@@ -8,13 +8,9 @@ from .utils import recursion_limit
 
 
 class TestWriter(MonadTest):
-    @given(anything(), monoids())
-    def test_right_identity_law(self, value, monoid):
-        assert (
-            writer.wrap(value,
-                         monoid).and_then(writer.wrap
-                                          ) == writer.wrap(value, monoid)
-        )
+    @given(anything())
+    def test_right_identity_law(self, value):
+        assert (writer.wrap(value).and_then(writer.wrap) == writer.wrap(value))
 
     @given(unaries(writers()), anything())
     def test_left_identity_law(self, f, value):
@@ -26,15 +22,15 @@ class TestWriter(MonadTest):
             lambda x: f(x).and_then(g)
         )
 
-    @given(anything(), monoids())
-    def test_equality(self, value, monoid):
-        assert writer.wrap(value, monoid) == writer.wrap(value, monoid)
+    @given(anything())
+    def test_equality(self, value):
+        assert writer.wrap(value) == writer.wrap(value)
         assert writer.wrap(value) != value
 
-    @given(anything(), anything(), monoids())
-    def test_inequality(self, first, second, monoid):
+    @given(anything(), anything())
+    def test_inequality(self, first, second):
         assume(first != second)
-        assert writer.wrap(first, monoid) != writer.wrap(second, monoid)
+        assert writer.wrap(first) != writer.wrap(second)
 
     @given(anything())
     def test_identity_law(self, value):
@@ -47,7 +43,7 @@ class TestWriter(MonadTest):
 
     @given(monoids())
     def test_tell(self, monoid):
-        assert writer.tell(monoid) == writer.wrap(None, monoid)
+        assert writer.tell(monoid) == writer.Writer(None, monoid)
 
     def test_with_effect(self):
         @writer.with_effect

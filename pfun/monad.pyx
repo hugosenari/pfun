@@ -20,7 +20,8 @@ cdef Monad _sequence(wrap_t wrap, object monads):
     def combine(Monad r1, Monad r2):
         return r1._and_then(lambda l: r2._and_then(lambda e: wrap((<List>l)._prepend(e))))
 
-    return monads_._reduce_r(combine, wrap(Empty())).map(tuple)
+    init = wrap(Empty())
+    return monads_._reduce_r(combine, init).map(tuple)
 
 cdef Monad _map_m(wrap_t wrap, object mapper, object xs):
     ms = (mapper(x) for x in xs)

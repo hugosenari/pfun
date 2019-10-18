@@ -76,7 +76,7 @@ cdef class List:
     def extend(self, other):
         return self._extend(other)
     
-    cdef List _extend(self, List other):
+    cdef List _extend(self, object other):
         return list_(tuple(self) + tuple(other))
 
     def __len__(self):
@@ -100,7 +100,7 @@ cdef class List:
     cdef str _repr(self):
         cdef str elems_repr
         elems_repr = ', '.join(self._map(repr))
-        return 'List(' + elems_repr + ')'
+        return 'list_((' + elems_repr + '))'
 
 
 cdef class Empty(List):

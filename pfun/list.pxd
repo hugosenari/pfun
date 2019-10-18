@@ -4,7 +4,7 @@ cdef class List:
     cdef List _prepend(self, object other)
     cdef object _reduce(self, object f, object init)
     cdef object _reduce_r(self, object f, object init)
-    cdef List _extend(self, List other)
+    cdef List _extend(self, object other)
     cdef List _map(self, object f)
     cdef List _and_then(self, object f)
     cdef List _filter(self, object f)

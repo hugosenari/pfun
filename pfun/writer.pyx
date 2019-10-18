@@ -7,8 +7,10 @@ from .monad cimport (
     _map_m, 
     _filter_m, 
     wrap_t, 
-    _with_effect
+    _with_effect_tail_rec,
+    tail_rec_t
 )
+from .either cimport _Either, Left, Right
 from .monoid import empty, append
 
 cdef class Writer(Monad):
@@ -44,6 +46,7 @@ cdef class Writer(Monad):
         return self._and_then(f)
     
     cdef Writer _and_then(self, object f):
+        cdef Writer w
         w = f(self.get)
         if w.monoid is None and self.monoid is None:
             monoid = None
@@ -86,24 +89,24 @@ cdef class Writer(Monad):
         return iter((self.get, self.monoid))
 
 
-def wrap(a, m=None):
+def wrap(a):
     """
     Put a value in a :class:`Writer` context
 
     :example:
-    >>> value(1)
-    Writer(1, ...)
-    >>> value(1, ['some monoid'])
+    >>> wrap(1)
+    Writer(1, None)
+    >>> wrap(1, ['some monoid'])
     Writer(1, ['some monoid'])
 
     :param a: The value to put in the :class:`Writer` context
     :param m: Optional monoid to associate with ``a``
     :return: :class:`Writer` with ``a`` and optionally ``m``
     """
-    return _wrap(a, m)
+    return _wrap(a)
 
-cdef Writer _wrap(object a, object m=None):
-    return Writer(a, m)
+cdef Writer _wrap(object a):
+    return Writer(a, None)
 
 
 def tell(m):
@@ -139,9 +142,37 @@ def filter_m(f, iterable):
 # import the type alias from .pyi
 Writers = Generator
 
+def tail_rec(f, init):
+    """
+    Run a stack safe recursive monadic function `f`
+    by calling `f` with :class:`Left` values
+    until a :class:`Right` value is produced
+    :example:
+    >>> from pfun.either import Left, Right, Either
+    >>> def f(i: str) -> Writer[Either[int, str]]:
+    ...     if i == 0:
+    ...         return value(Right('Done'))
+    ...     return value(Left(i - 1))
+    >>> tail_rec(f, 5000)
+    Writer('Done', ...)
+    :param f: function to run "recursively"
+    :param a: initial argument to `f`
+    :return: result of `f`
+    """
+
+cdef Writer _tail_rec(object f, object init):
+    cdef _Either either
+    cdef Writer writer
+    writer = f(init)
+    either = writer.get
+    while isinstance(either, Left):
+        writer = writer._and_then(lambda _: f(either.get))  # type: ignore
+        either = writer.get
+    return writer._and_then(lambda _: _wrap(either.get))  # type: ignore
+
 def with_effect(f):
     @wraps(f)
     def decorator(*args, **kwargs):
         g = f(*args, **kwargs)
-        return _with_effect(<wrap_t>_wrap, g)
+        return _with_effect_tail_rec(<wrap_t>_wrap, g, <tail_rec_t>_tail_rec)
     return decorator

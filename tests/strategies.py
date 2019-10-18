@@ -113,19 +113,12 @@ def conts(value_strategy=anything()):
     return builds(cont.value, value_strategy)
 
 
-def writers(value_strategy=anything(), monoid=lists()):
-    return builds(writer.wrap, value_strategy, monoid)
-
-
 def monoids():
-    return one_of(
-        lists_(anything()),
-        lists(),
-        tuples(),
-        integers(),
-        text(),
-        just(...)
-    )
+    return one_of(lists_(anything()), lists(), tuples(), integers(), text())
+
+
+def writers(value_strategy=anything(), monoid=lists()):
+    return builds(writer.Writer, value_strategy, monoid)
 
 
 def io_primitives(value_strategy=anything()):
