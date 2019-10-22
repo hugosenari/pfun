@@ -1,26 +1,34 @@
 from hypothesis import given, assume
-from pfun.free import Done, with_effect, sequence, map_m, filter_m, with_effect
+from pfun.free import Done, with_effect, sequence, map_m, filter_m, with_effect, FreeInterpreter
 from pfun import identity, compose
 
 from .strategies import frees, unaries, anything
 from .monad_test import MonadTest
 from .utils import recursion_limit
 
+interpreter = FreeInterpreter()
+
 
 class TestFree(MonadTest):
     @given(frees())
     def test_right_identity_law(self, free):
-        assert free.and_then(Done) == free
+        assert interpreter.interpret(
+            free.and_then(Done)
+        ).run(None) == interpreter.interpret(free).run(None)
 
     @given(anything(), unaries(frees()))
     def test_left_identity_law(self, value, f):
-        assert Done(value).and_then(f) == f(value)
+        assert interpreter.interpret(
+            Done(value).and_then(f)
+        ).run(None) == interpreter.interpret(f(value)).run(None)
 
     @given(frees(), unaries(frees()), unaries(frees()))
     def test_associativity_law(self, free, f, g):
-        assert free.and_then(f).and_then(g) == free.and_then(
-            lambda x: f(x).and_then(g)
-        )
+        assert interpreter.interpret(
+            free.and_then(f).and_then(g)
+        ).run(None) == interpreter.interpret(
+            free.and_then(lambda x: f(x).and_then(g))
+        ).run(None)
 
     @given(anything())
     def test_equality(self, value):

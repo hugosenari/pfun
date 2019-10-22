@@ -21,7 +21,8 @@ def build(setup_kwargs):
                     'pfun/io.pyx',
                     'pfun/state.pyx',
                     'pfun/writer.pyx',
-                    'pfun/cont.pyx'
+                    'pfun/cont.pyx',
+                    'pfun/free.pyx'
                 ],
                 compiler_directives={
                     # required to generate docs
