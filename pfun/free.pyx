@@ -18,6 +18,7 @@ ctypedef fused FreeOrElement:
     Free
     FreeInterpreterElement
 
+
 cdef class FreeInterpreter:
     """
     An interpreter to map a ``Free`` structure into a `D` from a `C`.
@@ -56,10 +57,6 @@ cdef class Free(Monad):
     """
     The "Free" monad
     """
-    cpdef Free and_then(
-        self, object f
-    ):
-        pass
 
     def map(self, f):
         return self._map(f)
@@ -79,14 +76,20 @@ cdef class Done(Free):
     
     def __eq__(self, other):
         return isinstance(other, Done) and other.get == self.get
+    
+    def __repr__(self):
+        return f'Done({repr(self.get)})'
 
-    cpdef Free and_then(self, object f):
+    def and_then(self, f):
         """
         Apply ``f`` to the value wrapped in this ``Done``
 
         :param f: The function to apply to the value wrapped in this ``Done``
         :return: The result of applying ``f`` to the value in this ``Done``
         """
+        return self._and_then(f)
+    
+    cdef Free _and_then(self, object f):
         return f(self.get)
 
     cpdef State accept(self, FreeInterpreter interpreter):
@@ -170,7 +173,7 @@ def filter_m(f, iterable):
     :param iterable: Iterable to map by ``f``
     :return: `iterable` mapped and filtered by `f`
     """
-    _filter_m(<wrap_t>wrap, f, iterable)
+    return _filter_m(<wrap_t>wrap, f, iterable)
 
 Frees = Generator
 
