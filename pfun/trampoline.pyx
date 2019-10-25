@@ -1,3 +1,15 @@
+from typing import Generator
+from functools import wraps
+
+from .monad cimport (
+    Monad, 
+    _sequence, 
+    _map_m, 
+    _filter_m, 
+    wrap_t, 
+    _with_effect
+)
+
 cdef class Trampoline:
     def and_then(self, f):
         return self._and_then(f)
@@ -54,3 +66,26 @@ cdef class AndThen(Trampoline):
             self.sub,
             lambda x: Call(lambda: self.cont(x).and_then(f))  # type: ignore
         )
+    
+cdef Trampoline _wrap(object value):
+    return Done(value)
+
+def sequence(trampolines):
+    return _sequence(<wrap_t>_wrap, trampolines)
+
+def map_m(f, iterable):
+    return _map_m(<wrap_t>_wrap, f, iterable)
+
+def filter_m(f, iterable):
+    return _filter_m(<wrap_t>_wrap, f, iterable)
+
+# hack to make it possible to
+# import the type alias from .pyi
+Trampolines = Generator
+
+def with_effect(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        g = f(*args, **kwargs)
+        return _with_effect(<wrap_t>_wrap, g)
+    return decorator
