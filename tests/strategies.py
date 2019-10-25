@@ -54,7 +54,7 @@ def frees(value_strategy=anything()):
     @composite
     def mores(draw):
         f = draw(frees(value_strategy))
-        return free.More(maybe.Just(f))
+        return free.More(free.Done(f))
 
     return one_of(dones, mores())
 

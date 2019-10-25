@@ -2,8 +2,8 @@ import random
 
 import pytest
 
-from pfun import List, identity, compose
-from pfun.list import with_effect, sequence, filter_m, map_m, value
+from pfun import identity, compose
+from pfun.list import with_effect, sequence, filter_m, map_m, value, List, list_, wrap
 from hypothesis.strategies import integers, lists as lists_
 from hypothesis import given, assume
 from .strategies import anything, unaries, lists
@@ -18,11 +18,11 @@ class TestList(MonadTest, MonoidTest):
         assert l1.append(l2) == l1 + l2
 
     def test_empty(self):
-        assert List().empty() == List()
+        assert list_().empty() == list_()
 
     @given(lists())
     def test_left_append_identity_law(self, l):
-        assert List() + l == l
+        assert list_() + l == l
 
     @given(lists_(anything()))
     def test_getitem(self, l):
@@ -31,7 +31,7 @@ class TestList(MonadTest, MonoidTest):
 
     @given(lists())
     def test_right_append_identity_law(self, l):
-        assert l + List() == l
+        assert l + list_() == l
 
     @given(lists(), lists(), lists())
     def test_append_associativity_law(self, x, y, z):
@@ -45,7 +45,7 @@ class TestList(MonadTest, MonoidTest):
 
     @given(lists_(anything()))
     def test_equality(self, t):
-        assert List(t) == List(t)
+        assert list_((t)) == list_((t))
 
     @given(unaries(), unaries(), lists())
     def test_composition_law(self, f, g, l):
@@ -59,31 +59,27 @@ class TestList(MonadTest, MonoidTest):
     @given(lists_(anything()), lists_(anything()))
     def test_inequality(self, first, second):
         assume(first != second)
-        assert List(first) != List(second)
+        assert list_((first)) != list_((second))
 
     @given(anything(), unaries(lists()))
     def test_left_identity_law(self, v, f):
-        assert List([v]).and_then(f) == f(v)
+        assert list_([v]).and_then(f) == f(v)
 
     @given(lists())
     def test_right_identity_law(self, l):
-        assert l.and_then(lambda v: List([v])) == l
-
-    @given(lists_(anything()))
-    def test_reverse(self, l):
-        assert List(l).reverse() == List(reversed(l))
+        assert l.and_then(lambda v: list_([v])) == l
 
     @given(lists_(anything()))
     def test_filter(self, l):
         def p(v):
             return id(v) % 2 == 0
 
-        assert List(l).filter(p) == List(filter(p, l))
+        assert list_(l).filter(p) == list_(filter(p, l))
 
     @given(lists_(integers()))
     def test_reduce(self, l):
         i = sum(l)
-        assert List(l).reduce(lambda a, b: a + b, 0) == i
+        assert list_(l).reduce(lambda a, b: a + b, 0) == i
 
     @given(lists(min_size=1), anything())
     def test_setitem(self, l, value):
@@ -103,35 +99,35 @@ class TestList(MonadTest, MonoidTest):
 
     @given(lists(), lists())
     def test_zip(self, l1, l2):
-        assert List(l1.zip(l2)) == List(zip(l1, l2))
+        assert list_(l1.zip(l2)) == list_(zip(l1, l2))
 
     def test_with_effect(self):
         @with_effect
         def f():
-            a = yield value(2)
-            b = yield value(2)
+            a = yield wrap(2)
+            b = yield wrap(2)
             return a + b
 
-        assert f() == value(4)
+        assert f() == wrap(4)
 
         @with_effect
         def test_stack_safety():
             for _ in range(500):
-                yield value(1)
+                yield wrap(1)
             return None
 
         with recursion_limit(100):
             test_stack_safety()
 
     def test_sequence(self):
-        assert sequence([value(v) for v in range(3)]) == value((0, 1, 2))
+        assert sequence([wrap(v) for v in range(3)]) == wrap((0, 1, 2))
 
     def test_stack_safety(self):
         with recursion_limit(100):
-            sequence([value(v) for v in range(500)])
+            sequence([wrap(v) for v in range(500)])
 
     def test_filter_m(self):
-        assert filter_m(lambda v: value(v % 2 == 0), range(3)) == value((0, 2))
+        assert filter_m(lambda v: wrap(v % 2 == 0), range(3)) == wrap((0, 2))
 
     def test_map_m(self):
-        assert map_m(value, range(3)) == value((0, 1, 2))
+        assert map_m(wrap, range(3)) == wrap((0, 1, 2))

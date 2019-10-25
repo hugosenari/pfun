@@ -12,8 +12,6 @@ from .monad cimport (
 from .trampoline cimport Trampoline, Call, Done
 
 cdef class State(Monad):
-    cdef object run_s
-
     def __cinit__(self, run_s):
         self.run_s = run_s
     
