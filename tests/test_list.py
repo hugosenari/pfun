@@ -3,7 +3,7 @@ import random
 import pytest
 
 from pfun import identity, compose
-from pfun.list import with_effect, sequence, filter_m, map_m, value, List, list_, wrap
+from pfun.list import with_effect, sequence, filter_m, map_m, List, list_, wrap
 from hypothesis.strategies import integers, lists as lists_
 from hypothesis import given, assume
 from .strategies import anything, unaries, lists
@@ -12,14 +12,7 @@ from .monoid_test import MonoidTest
 from .utils import recursion_limit
 
 
-class TestList(MonadTest, MonoidTest):
-    @given(lists(), lists())
-    def test_append(self, l1, l2):
-        assert l1.append(l2) == l1 + l2
-
-    def test_empty(self):
-        assert list_().empty() == list_()
-
+class TestList(MonadTest):
     @given(lists())
     def test_left_append_identity_law(self, l):
         assert list_() + l == l
@@ -39,6 +32,7 @@ class TestList(MonadTest, MonoidTest):
 
     @given(lists(), unaries(lists()), unaries(lists()))
     def test_associativity_law(self, l: List, f, g):
+        #import ipdb; ipdb.set_trace()
         assert l.and_then(f).and_then(g) == l.and_then(
             lambda x: f(x).and_then(g)
         )

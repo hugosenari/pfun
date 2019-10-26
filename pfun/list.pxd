@@ -1,4 +1,7 @@
-cdef class List:
+from .monad cimport Monad
+
+
+cdef class List(Monad):
     cdef int length
 
     cdef List _prepend(self, object other)

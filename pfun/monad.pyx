@@ -65,3 +65,18 @@ cdef Monad _with_effect_tail_rec(wrap_t wrap, object g, tail_rec_t tail_rec):
             return m._and_then(lambda v: tail_rec(cont, v))
         except StopIteration as e:
             return wrap(e.value)
+
+
+cdef Monad _with_effect_eager(
+    wrap_t wrap, object g
+):
+    """
+    DANGER! This approach only works for monads that bind functions
+    eagerly such as Maybe, Either, Writer and List
+    """
+    m = next(g)
+    try:
+        while True:
+            m = m.and_then(lambda v: g.send(v))
+    except StopIteration as e:
+        return wrap(e.value)

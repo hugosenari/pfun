@@ -10,7 +10,7 @@ from .monad cimport (
     _with_effect
 )
 
-cdef class Trampoline:
+cdef class Trampoline(Monad):
     def and_then(self, f):
         return self._and_then(f)
     
@@ -48,6 +48,8 @@ cdef class Trampoline:
 
 
 cdef class Done(Trampoline):
+    def __eq__(self, other):
+        return isinstance(other, Done) and other.result == self.result
     def __cinit__(self, result):
         self.result = result
 

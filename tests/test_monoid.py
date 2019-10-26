@@ -56,15 +56,6 @@ def test_str(s1, s2):
     assert append(s2, s1) == s2 + s1
 
 
-@given(none(), none())
-def test_none(n1, n2):
-    assert empty(n1) is None
-    assert append(n1, None) is None
-    assert append(None, n1) is None
-    assert append(n1, n2) is None
-    assert append(n2, n1) is None
-
-
 @given(tuples(), tuples())
 def test_tuple(t1, t2):
     assert empty(t1) == ()

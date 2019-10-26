@@ -1,8 +1,18 @@
-from typing import TypeVar, Generic, Union
-
+from typing import TypeVar, Generic, Union, Generator
+from functools import wraps
 from .trampoline cimport Done, Call, Trampoline
 
-cdef class List:
+from .monad cimport (
+    Monad, 
+    _sequence, 
+    _map_m, 
+    _filter_m, 
+    wrap_t, 
+    _with_effect_eager
+)
+
+
+cdef class List(Monad):
     def __pow__(other, self, _):
         if isinstance(self, List):
             return (<List>self)._prepend(other)
@@ -108,7 +118,7 @@ cdef class Empty(List):
         self.length = 0
 
 
-def list_(xs):
+def list_(xs=()):
     return _list(xs)
 
 
@@ -125,3 +135,29 @@ cdef class Element(List):
         self.head = head
         self.tail = tail
         self.length = tail.length + 1
+
+def wrap(value):
+    return _wrap(value)
+
+cdef List _wrap(object value):
+    return list_((value,))
+
+def sequence(states):
+    return _sequence(<wrap_t>_wrap, states)
+
+def map_m(f, iterable):
+    return _map_m(<wrap_t>_wrap, f, iterable)
+
+def filter_m(f, iterable):
+    return _filter_m(<wrap_t>_wrap, f, iterable)
+
+# hack to make it possible to
+# import the type alias from .pyi
+Lists = Generator
+
+def with_effect(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        g = f(*args, **kwargs)
+        return _with_effect_eager(<wrap_t>_wrap, g)
+    return decorator

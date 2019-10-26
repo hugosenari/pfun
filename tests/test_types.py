@@ -4,6 +4,7 @@ import pytest
 from mypy import api as mypy_api
 
 parametrize = pytest.mark.parametrize
+pytestmark = pytest.mark.skip('Temporarily disabled until .pyi files are implemented')
 
 
 def python_files(path):
